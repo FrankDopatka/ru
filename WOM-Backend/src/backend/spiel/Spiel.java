@@ -135,11 +135,9 @@ public class Spiel {
 			throw new RuntimeException("Spiel spielerEinbinden: Auf keiner Karte dieses Spiels ist eine Startposition fuer diesen Spieler mit ID "+spielerNeu.getDaten().getInt("id")+" vorgesehen!");			
 		}
 		Siedler siedler=(Siedler)spielerNeu.addEinheit("Siedler",karte.getFeld(pos));
-		siedler.setFeld(karte.getFeld(pos));
+		karte.getFeld(pos).setEinheit(siedler);
 	}
 
-	
-	
 	public D_Position bewegeEinheit(int idSpieler,int idKarte,int feldX,int feldY,int richtung) {
 		// idSpieler: Spieler der gerade ziehen will
 		Karte karte=getKarte(idKarte);
@@ -183,7 +181,7 @@ public class Spiel {
 		if (feldXneu>karte.getGroesseX()) feldXneu=1;
 		Feld feldNeu=karte.getFeld(feldXneu,feldYneu);
 		feldAlt.setEinheit(null);
-		einheit.setFeld(feldNeu);
+		feldNeu.setEinheit(einheit);
 		D_Position posNeu=new D_Position();
 		posNeu.setInt("x",feldXneu);
 		posNeu.setInt("y",feldYneu);

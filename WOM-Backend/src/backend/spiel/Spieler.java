@@ -5,7 +5,6 @@ import java.util.ArrayList;
 
 import backend.Parameter;
 import backend.karte.Feld;
-import backend.karte.Karte;
 import daten.D_Spieler;
 import daten.Xml;
 
@@ -43,8 +42,8 @@ public class Spieler {
 			Class<Einheit> c=(Class<Einheit>)Class.forName(Parameter.pfadKlassenEinheiten+typ); // Reflection
 
 			Einheit einheit=(Einheit)c.newInstance();
-			einheit.setSpieler(this);
-			einheit.setFeld(feld);
+			einheit.setSpieler(getId());
+			feld.setEinheit(einheit);
 			einheiten.add(einheit);
 			return einheit;
 		}

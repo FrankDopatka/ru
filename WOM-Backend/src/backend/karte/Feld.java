@@ -92,10 +92,12 @@ public abstract class Feld {
 	}
 	
 	public void setEinheit(Einheit einheit){
-		this.einheit=einheit;
-		if ((einheit!=null)&&(einheit.getFeld()!=null)&&(!einheit.getFeld().equals(this))){
-			einheit.setFeld(this);
+		if (einheit!=null){
+			einheit.getDaten().setInt("idKarte",d_Feld.getInt("idKarte"));
+			einheit.getDaten().setInt("x",d_Feld.getInt("x"));
+			einheit.getDaten().setInt("y",d_Feld.getInt("y"));			
 		}
+		this.einheit=einheit;
 	}
 	public Einheit getEinheit(){
 		return einheit;
