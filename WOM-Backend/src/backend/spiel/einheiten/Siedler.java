@@ -1,0 +1,19 @@
+package backend.spiel.einheiten;
+
+import backend.spiel.Einheit;
+
+public class Siedler extends Einheit {
+	public Siedler(){
+		getDaten().setString("einheitArt","Siedler");
+		getDaten().setString("einheitName","Siedler");
+
+		getDaten().setInt("bewegungMaximal",1);
+		getDaten().setInt("bewegungAktuell",1);
+		getDaten().setInt("lebenMaximal",1);
+		getDaten().setInt("lebenAktuell",1);
+		getDaten().setInt("angriffMaximal",0);
+		getDaten().setInt("angriffAktuell",0);
+		getDaten().setInt("verteidigungMaximal",0);
+		getDaten().setInt("verteidigungAktuell",0);
+	}
+}
