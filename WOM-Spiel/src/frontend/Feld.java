@@ -71,6 +71,16 @@ public class Feld extends JLabel{
 	}
 	
 	public void zeichnen(){
+		Image im=getBild();
+		if (im!=null){
+				Icon ic=new ImageIcon(im);
+				setIcon(ic);			
+			}
+			else
+				setIcon(null);
+	}
+	
+	public Image getBild(){
 		Image im;
 		Karte karte=frontend.getKarte();
 		BufferedImage bildIcon=karte.getBildFeld(d_Feld.getString("feldArt").toLowerCase());
@@ -99,13 +109,7 @@ public class Feld extends JLabel{
 			im=bild;
 		else
 			im=bild.getScaledInstance(bild.getWidth()*frontend.getZoomfaktor()/100,bild.getHeight()*frontend.getZoomfaktor()/100,Image.SCALE_FAST);
-		if (im!=null){
-			Icon ic=new ImageIcon(im);
-			setIcon(ic);			
-		}
-		else{
-			setIcon(null);
-		}
+		return im;
 	}
 	
 	public void terminate(){

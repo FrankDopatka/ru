@@ -93,6 +93,21 @@ public class BackendSpielStub implements iBackendSpiel{
 	}
 	
 	@Override
+	public String getEinheitDaten(int idKarte, int x, int y) {
+		return getXmlvonRest("getEinheitDaten"+"/"+idKarte+"/"+x+"/"+y);
+	}
+
+	@Override
+	public String getStadtDaten(int idKarte, int x, int y) {
+		return getXmlvonRest("getStadtDaten"+"/"+idKarte+"/"+x+"/"+y);
+	}
+
+	@Override
+	public String getSpielerDaten(int idSpieler) {
+		return getXmlvonRest("getSpielerDaten"+"/"+idSpieler);
+	}
+	
+	@Override
 	public String bewegeEinheit(int idSpieler, int idKarte, int feldX, int feldY, int richtung) {
 		return getXmlvonRest("bewegeEinheit"+"/"+idSpieler+"/"+idKarte+"/"+feldX+"/"+feldY+"/"+richtung);
 	}

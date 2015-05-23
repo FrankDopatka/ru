@@ -202,7 +202,14 @@ public class Spiel {
 	public ArrayList<Spieler> getAlleSpieler(){
 		return spieler;
 	}
-
+	
+	public Spieler getSpieler(int idSpieler) {
+		for (Spieler s:spieler){
+			if (s.getId()==idSpieler) return s;
+		}
+		return null;
+	}
+	
 	public boolean istGestartet() {
 		return d_Spiel.getBool("istGestartet");
 	}

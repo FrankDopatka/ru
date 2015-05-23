@@ -12,10 +12,7 @@ import javax.swing.JTextField;
 
 import backend.iBackendSpiel;
 import daten.*;
-import frontend.Feld;
-import frontend.Frontend;
-import frontend.Karte;
-import frontend.eSpiel;
+import frontend.*;
 
 public class MenuSpiel extends MenuTop{
 	private static final long serialVersionUID=1L;
@@ -49,6 +46,7 @@ public class MenuSpiel extends MenuTop{
 		buttons[21].setText("Sued-West");
 		buttons[22].setText("Sued");
 		buttons[23].setText("Sued-Ost");
+		buttons[16].setText("Aktion Einheit/Stadt");
 	}
 	
 	@Override
@@ -95,6 +93,9 @@ public class MenuSpiel extends MenuTop{
 		case 12:
 			ladenSpiel();
 			break;
+		case 16:
+			aktionEinheitStadt();
+			break;
 		case 9:
 			bewege(Frontend.Bewegungsrichtung.NORDWEST);
 			break;
@@ -124,6 +125,27 @@ public class MenuSpiel extends MenuTop{
 		}
 	}
 
+	private void aktionEinheitStadt() {
+		Feld feld=frontend.getFeldGewaehlt();
+		if (feld==null) return;
+		D_Einheit einheit=feld.getEinheit();
+		D_Stadt stadt=feld.getStadt();
+		if ((einheit==null)&&(stadt==null)) return;
+		if (stadt!=null){
+			
+			
+			// TODO STADTBILDSCHIRM ANZEIGEN
+			
+			
+		} else if (einheit!=null){
+			D_Spieler spieler=(D_Spieler)Xml.toD(frontend.getBackend().getSpielerDaten(einheit.getInt("idSpieler")));
+			new StatusEinheit(frontend,einheit,spieler);
+		}
+	}
+
+	
+	
+	
 	private void ladenSpiel() {
 		ArrayList<String> eingabeBeschriftungen=new ArrayList<String>();
 		ArrayList<Object> eingabeFelder=new ArrayList<Object>();

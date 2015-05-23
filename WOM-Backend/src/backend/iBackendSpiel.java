@@ -15,6 +15,9 @@ public interface iBackendSpiel {
 	String getErlaubteRessourcenArten(String feldArt);
 	String getKartenDaten(int id);
 	String getFeldDaten(int idKarte,int x,int y);
+	String getEinheitDaten(int idKarte,int x,int y);
+	String getStadtDaten(int idKarte,int x,int y);
+	String getSpielerDaten(int idSpieler);
 	
 	String bewegeEinheit(int idSpieler,int idKarte,int feldX,int feldY,int richtung);
 	

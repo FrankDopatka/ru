@@ -12,8 +12,10 @@ import javax.ws.rs.Produces;
 import daten.*;
 import backend.karte.Feld;
 import backend.karte.Karte;
+import backend.spiel.Einheit;
 import backend.spiel.Spiel;
 import backend.spiel.Spieler;
+import backend.spiel.Stadt;
 
 @Path("wom/spiel")
 public class BackendSpiel implements iBackendSpiel{
@@ -33,7 +35,6 @@ public class BackendSpiel implements iBackendSpiel{
 			@PathParam("anzahlKarten")int anzahlKarten){
 		try {
 			spiel=new Spiel(id,anzahlSpieler,anzahlKarten);
-			
 			return Xml.verpacken(Xml.fromD(new D_OK()));
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -232,7 +233,62 @@ public class BackendSpiel implements iBackendSpiel{
 			@PathParam("x")int x,
 			@PathParam("y")int y){
 		try{
-			return Xml.verpacken(spiel.getKarte(idKarte).getFeld(new int[]{x,y}).toXml());
+			return Xml.verpacken(spiel.getKarte(idKarte).getFeld(x,y).toXml());
+		} catch (Exception e) {
+			e.printStackTrace();
+			return Xml.verpacken(Xml.fromD(new D_Fehler(e.getMessage())));
+		}
+	}
+	
+	@GET
+	@Path("getEinheitDaten/{idKarte}/{x}/{y}")
+	@Consumes("text/plain")
+	@Produces("application/xml")
+	@Override
+	public String getEinheitDaten(
+			@PathParam("idKarte")int idKarte,
+			@PathParam("x")int x,
+			@PathParam("y")int y){
+		try{
+			Einheit einheit=spiel.getKarte(idKarte).getFeld(x,y).getEinheit();
+			if (einheit==null) throw new RuntimeException("Backend getEinheitDaten: Auf diesem Feld ist keine Einheit vorhanden!");
+			return Xml.verpacken(Xml.fromD(einheit.getDaten()));
+		} catch (Exception e) {
+			e.printStackTrace();
+			return Xml.verpacken(Xml.fromD(new D_Fehler(e.getMessage())));
+		}
+	}
+
+	@GET
+	@Path("getStadtDaten/{idKarte}/{x}/{y}")
+	@Consumes("text/plain")
+	@Produces("application/xml")
+	@Override
+	public String getStadtDaten(
+			@PathParam("idKarte")int idKarte,
+			@PathParam("x")int x,
+			@PathParam("y")int y){
+		try{
+			Stadt stadt=spiel.getKarte(idKarte).getFeld(x,y).getStadt();
+			if (stadt==null) throw new RuntimeException("Backend getStadtDaten: Auf diesem Feld ist keine Stadt vorhanden!");
+			return Xml.verpacken(Xml.fromD(stadt.getDaten()));
+		} catch (Exception e) {
+			e.printStackTrace();
+			return Xml.verpacken(Xml.fromD(new D_Fehler(e.getMessage())));
+		}
+	}
+
+	@GET
+	@Path("getSpielerDaten/{idSpieler}")
+	@Consumes("text/plain")
+	@Produces("application/xml")
+	@Override
+	public String getSpielerDaten(
+			@PathParam("idSpieler")int idSpieler){
+		try{
+			Spieler spieler=spiel.getSpieler(idSpieler);
+			if (spieler==null) throw new RuntimeException("Backend getSpielerDaten: Einen Spieler mit dieser ID gibt es nicht!");
+			return Xml.verpacken(Xml.fromD(spieler.getDaten()));
 		} catch (Exception e) {
 			e.printStackTrace();
 			return Xml.verpacken(Xml.fromD(new D_Fehler(e.getMessage())));
