@@ -110,10 +110,6 @@ public class Karte extends JPanel implements Scrollable{
 				int x=datenEinheit.getInt("x");
 				int y=datenEinheit.getInt("y");
 				Feld f=felder[x][y];
-				
-				System.out.println("x:"+x);
-				System.out.println("y:"+y);
-				
 				f.setEinheit(datenEinheit);
 			}
 			else if (datenwert instanceof D_Stadt){

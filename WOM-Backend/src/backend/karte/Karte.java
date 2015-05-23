@@ -45,7 +45,11 @@ public abstract class Karte {
 	}
 	
 	public static Karte karteVonXml(String xml){
-		ArrayList<D> xmlDaten=Xml.toArray(xml);
+		Karte karte=karteVonArray(Xml.toArray(xml));
+		return karte;
+	}
+
+	public static Karte karteVonArray(ArrayList<D> xmlDaten){
 		Karte karte=null;
 		D_Karte datenKarte=null;
 		D datenRoh=xmlDaten.get(0);

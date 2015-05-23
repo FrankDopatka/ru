@@ -107,4 +107,15 @@ public class BackendSpielStub implements iBackendSpiel{
 			return null;
 		}
 	}
+
+	@Override
+	public String ladenSpiel(String pfad) {
+		try {
+			URLEncoder.encode(""+pfad,"ISO-8859-1");
+			return getXmlvonRest("ladenSpiel"+"/"+URLEncoder.encode(""+pfad,"ISO-8859-1"));
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 }

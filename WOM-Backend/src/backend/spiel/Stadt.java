@@ -6,6 +6,13 @@ import daten.Xml;
 public class Stadt {
 	private D_Stadt d_stadt=new D_Stadt();
 	
+	public Stadt(){
+	}
+
+	public Stadt(D_Stadt daten){
+		d_stadt=daten;
+	}
+
 	public D_Stadt getDaten(){
 		return d_stadt;
 	}

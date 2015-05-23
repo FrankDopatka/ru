@@ -1,8 +1,12 @@
 package backend.spiel;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 
 import daten.*;
+import backend.Parameter;
 import backend.karte.Feld;
 import backend.karte.Karte;
 import backend.karte.karten.Planet;
@@ -18,6 +22,107 @@ public class Spiel {
 		public static Bewegungsrichtung fromOrdinal(int n){
 			return values()[n];
 		}
+	}
+	
+	public static Spiel spielLaden(String pfad) {
+		BufferedReader br=null;
+		try {
+			pfad=URLDecoder.decode(""+pfad,"ISO-8859-1");
+			StringBuffer spielXML=new StringBuffer();
+			br=new BufferedReader(new FileReader(pfad));
+			String zeile=br.readLine(); 
+	    while (zeile!=null){
+	    	spielXML.append(zeile+"/n");
+	      zeile=br.readLine(); 
+	    } 
+	    ArrayList<D> spielDaten=Xml.toArray(spielXML.toString());
+	    Spiel spiel=new Spiel();
+	    int iDatensatz=0;
+	    if ((spielDaten==null)||(spielDaten.size()==0)||(!(spielDaten.get(iDatensatz) instanceof D_Spiel)))
+	    	throw new RuntimeException("Spiel spielLaden: Spieldaten D_Spiel im gespeicherten Spiel sind ungueltig!");
+	    spiel.d_Spiel=(D_Spiel)spielDaten.get(iDatensatz);
+    	iDatensatz++;
+    	if (spielDaten.size()>iDatensatz){
+  			try{
+					while (spielDaten.get(iDatensatz) instanceof D_Karte){
+						// Kartendaten sind vorhanden -> auslesen
+						D_Karte dKarte=(D_Karte)spielDaten.get(iDatensatz);
+						int x=dKarte.getInt("x");
+						int y=dKarte.getInt("y");
+						ArrayList<D> kartenDaten=new ArrayList<D>();
+						kartenDaten.add(dKarte);
+						iDatensatz++;
+						int start=iDatensatz;
+						for(int i=start;i<=start+(x*y)+1;i++){
+							kartenDaten.add(spielDaten.get(i));
+							iDatensatz++;
+						}
+						Karte karte=Karte.karteVonArray(kartenDaten);
+						spiel.karten.add(karte);    				
+					}
+  			}
+  			catch (Exception e){
+  				throw new RuntimeException("Spiel spielLaden: Kartendaten D_Karte im gespeicherten Spiel sind ungueltig!");
+  			}
+				iDatensatz--;
+				iDatensatz--;
+				ArrayList<Spieler> spielerListe=new ArrayList<Spieler>(); 
+  			while ((spielDaten.size()>iDatensatz)&&(spielDaten.get(iDatensatz)) instanceof D_Spieler){
+  				// SPIELER
+  				D_Spieler dSpieler=(D_Spieler)spielDaten.get(iDatensatz);
+  				Spieler spieler=new Spieler(dSpieler);
+  				iDatensatz++;
+  				// EINHEITEN DES SPIELERS
+					ArrayList<Einheit> einheiten=new ArrayList<Einheit>(); 
+					while ((spielDaten.size()>iDatensatz)&&(spielDaten.get(iDatensatz)) instanceof D_Einheit){
+						D_Einheit datenEinheit=(D_Einheit)spielDaten.get(iDatensatz);
+						// Einheit generieren
+						@SuppressWarnings("unchecked")
+						Class<Einheit> c=(Class<Einheit>)Class.forName(Parameter.pfadKlassenEinheiten+datenEinheit.getString("einheitArt"));
+						Einheit einheit=(Einheit)c.newInstance();
+						einheit.setDaten(datenEinheit);
+						einheiten.add(einheit);
+						// Einheit auf dem Feld plazieren
+						Karte karte=spiel.getKarte(datenEinheit.getInt("idKarte"));
+						Feld feld=karte.getFeld(datenEinheit.getInt("x"),datenEinheit.getInt("y"));
+						feld.setEinheit(einheit);
+						iDatensatz++;
+					}
+					// Einheiten dem Spieler mitgeben
+					spieler.setEinheiten(einheiten);
+					// STAEDTE DES SPIELERS
+					ArrayList<Stadt> stadte=new ArrayList<Stadt>(); 
+					while ((spielDaten.size()>iDatensatz)&&(spielDaten.get(iDatensatz)) instanceof D_Stadt){
+						// Stadt generieren
+						D_Stadt datenStadt=(D_Stadt)spielDaten.get(iDatensatz);
+						Stadt stadt=new Stadt(datenStadt);
+						stadte.add(stadt);
+						// Stadt auf dem Feld plazieren
+						Karte karte=spiel.getKarte(datenStadt.getInt("idKarte"));
+						Feld feld=karte.getFeld(datenStadt.getInt("x"),datenStadt.getInt("y"));
+						feld.setStadt(stadt);
+						iDatensatz++;
+					}
+					spieler.setStadte(stadte);
+					// SPIELER DEM SPIEL HINZUFUEGEN
+  				spielerListe.add(spieler);
+				}
+  			// SPIELERLISTE AN DAS SPIEL UEBERGEBEN
+  			spiel.setSpieler(spielerListe);
+    	}
+	    return spiel;
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new RuntimeException("Spiel spielLaden:"+e.getMessage());
+		}
+		finally{
+			try {
+				br.close();
+			} catch (Exception e) {}			
+		}
+	}
+	
+	public Spiel(){
 	}
 	
 	public Spiel(int id,int spielerMax,int kartenMax){
@@ -57,6 +162,9 @@ public class Spiel {
 		spieler.add(spielerNeu);
 		d_Spiel.incInt("spielerAnzahl");
 	}
+	public void setSpieler(ArrayList<Spieler> spieler){
+		this.spieler=spieler;
+	}
 
 	public int getId(){
 		return d_Spiel.getInt("id");
@@ -67,8 +175,8 @@ public class Spiel {
 	}
 
 	public Karte getKarte(int id) {
-		for(Karte k:karten){
-			if (k.getDaten().getInt("id")==id) return k;
+		for(Karte karte:karten){
+			if (karte.getDaten().getInt("id")==id) return karte;
 		}
 		return null;
 	}

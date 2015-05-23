@@ -5,8 +5,7 @@ import java.util.ArrayList;
 
 import backend.Parameter;
 import backend.karte.Feld;
-import daten.D_Spieler;
-import daten.Xml;
+import daten.*;
 
 public class Spieler {
 	private D_Spieler d_Spieler=new D_Spieler();
@@ -18,6 +17,18 @@ public class Spieler {
 		d_Spieler.setString("name",name);
 		d_Spieler.setString("rasse",rasse);
 		d_Spieler.setString("nation",nation);
+	}
+	public Spieler(D_Spieler daten){
+		d_Spieler=daten;
+	}
+	
+	// verwendet beim Laden eines Spiels
+	public void setEinheiten(ArrayList<Einheit> einheiten) {
+		this.einheiten=einheiten;
+	}
+	// verwendet beim Laden eines Spiels
+	public void setStadte(ArrayList<Stadt> staedte) {
+		this.staedte=staedte;
 	}
 	
 	public void setId(int id){
@@ -70,4 +81,5 @@ public class Spieler {
 		Spieler s=(Spieler)o;
 		return this.getDaten().getInt("id")==s.getDaten().getInt("id");
 	}
+
 }

@@ -279,4 +279,20 @@ public class BackendSpiel implements iBackendSpiel{
 			pw.close();			
 		}
 	}
+
+	@GET
+	@Path("ladenSpiel/{pfad}")
+	@Consumes("text/plain")
+	@Produces("application/xml")
+	@Override
+	public String ladenSpiel(
+			@PathParam("pfad")String pfad) {
+		try{
+			spiel=Spiel.spielLaden(pfad);
+			return Xml.verpacken(Xml.fromD(new D_OK()));
+		} catch (Exception e) {
+			e.printStackTrace();
+			return Xml.verpacken(Xml.fromD(new D_Fehler(e.getMessage())));
+		}		
+	}
 }

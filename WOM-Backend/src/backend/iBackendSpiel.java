@@ -19,4 +19,5 @@ public interface iBackendSpiel {
 	String bewegeEinheit(int idSpieler,int idKarte,int feldX,int feldY,int richtung);
 	
 	String speichernSpiel(String pfad);
+	String ladenSpiel(String pfad);
 }

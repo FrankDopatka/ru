@@ -9,6 +9,10 @@ public abstract class Einheit {
 	public Einheit(){
 	}
 	
+	public void setDaten(D_Einheit daten){
+		this.d_Einheit=daten;
+	}
+	
 	public int getId(){
 		return d_Einheit.getInt("id");
 	}

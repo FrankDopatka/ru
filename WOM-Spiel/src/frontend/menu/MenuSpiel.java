@@ -39,6 +39,7 @@ public class MenuSpiel extends MenuTop{
 		buttons[5].setText("Karte holen");
 		
 		buttons[6].setText("Spiel speichern");
+		buttons[12].setText("Spiel laden");
 		// Navigation
 		buttons[9].setText("Nord-West");
 		buttons[10].setText("Nord");
@@ -91,6 +92,9 @@ public class MenuSpiel extends MenuTop{
 		case 6:
 			speichernSpiel();
 			break;
+		case 12:
+			ladenSpiel();
+			break;
 		case 9:
 			bewege(Frontend.Bewegungsrichtung.NORDWEST);
 			break;
@@ -117,6 +121,39 @@ public class MenuSpiel extends MenuTop{
 			break;
 		default:
 				frontend.log("Button "+i+" wurde geklickt.");
+		}
+	}
+
+	private void ladenSpiel() {
+		ArrayList<String> eingabeBeschriftungen=new ArrayList<String>();
+		ArrayList<Object> eingabeFelder=new ArrayList<Object>();
+		eingabeBeschriftungen.add("Server-Pfad zum Laden:");
+		JTextField jPfad=new JTextField();
+		jPfad.setText("/home/informatik/spiel01.wom");
+		eingabeFelder.add(jPfad);
+		MenuEingabe eingabe=new MenuEingabe(this,"Spiel laden",eingabeBeschriftungen,eingabeFelder);
+		if (eingabe.start()){
+			String pfad=jPfad.getText();
+			frontend.log("Lade das Spiel vom Server unter "+pfad+"...");
+			String antwort=frontend.getBackend().ladenSpiel(pfad);
+			if (Xml.toD(antwort) instanceof D_OK){
+				frontend.log("OK");
+				// Karte holen
+				frontend.log("Hole Karte mit ID=1 vom Server...");
+				String antwort2=frontend.getBackend().getKarte(1);
+				try{
+					Karte karte=frontend.neueKarte(antwort2);
+					karte.setEventhandler(new eSpiel(frontend));
+					frontend.log("OK");								
+				}
+				catch (Exception e){
+					e.printStackTrace();
+					frontend.log("FEHLGESCHLAGEN:"+e.getMessage());
+				}
+			}
+			else{
+				frontend.log("FEHLGESCHLAGEN:"+Xml.toD(antwort).getString("meldung"));
+			}
 		}
 	}
 

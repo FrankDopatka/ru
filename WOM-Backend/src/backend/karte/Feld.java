@@ -103,6 +103,18 @@ public abstract class Feld {
 		return einheit;
 	}
 	
+	public void setStadt(Stadt stadt) {
+		if (stadt!=null){
+			stadt.getDaten().setInt("idKarte",d_Feld.getInt("idKarte"));
+			stadt.getDaten().setInt("x",d_Feld.getInt("x"));
+			stadt.getDaten().setInt("y",d_Feld.getInt("y"));			
+		}
+		this.stadt=stadt;
+	}
+	public Stadt getStadt(){
+		return stadt;
+	}
+	
 	public String toXml(){
 		ArrayList<D> daten=new ArrayList<D>();
 		daten.add(d_Feld);
@@ -115,5 +127,6 @@ public abstract class Feld {
 	public String toString(){
 		return "Feld "+d_Feld.getInt("x")+"/"+d_Feld.getInt("y")+" vom Typ "+d_Feld.getString("feldArt");
 	}
+
 
 }
