@@ -253,54 +253,66 @@ public class Spiel {
 		karte.getFeld(pos).setEinheit(siedler);
 	}
 
-	public D_Position bewegeEinheit(int idSpieler,int idKarte,int feldX,int feldY,int richtung) {
+	public D_Position bewegeEinheit(int idSpieler,int idKarte,int x,int y,int richtung) {
 		// idSpieler: Spieler der gerade ziehen will
 		Karte karte=getKarte(idKarte);
-		Feld feldAlt=karte.getFeld(feldX,feldY);
+		Feld feldAlt=karte.getFeld(x,y);
 		Einheit einheit=feldAlt.getEinheit();
-		int feldXneu=feldX;
-		int feldYneu=feldY;
+		int neuX=x;
+		int neuY=y;
 		switch (Bewegungsrichtung.fromOrdinal(richtung)){
 		case NORD:
-			feldYneu--;
+			neuY--;
 			break;
 		case NORDOST:
-			feldXneu++;
-			feldYneu--;
+			neuX++;
+			neuY--;
 			break;
 		case OST:
-			feldXneu++;
+			neuX++;
 			break;
 		case SUEDOST:
-			feldXneu++;
-			feldYneu++;
+			neuX++;
+			neuY++;
 			break;
 		case SUED:
-			feldYneu++;
+			neuY++;
 			break;
 		case SUEDWEST:
-			feldXneu--;
-			feldYneu++;
+			neuX--;
+			neuY++;
 			break;
 		case WEST:
-			feldXneu--;
+			neuX--;
 			break;
 		case NORDWEST:
-			feldXneu--;
-			feldYneu--;
+			neuX--;
+			neuY--;
 			break;
 		}
-		if((feldYneu<1)||(feldYneu>karte.getGroesseY()))
+		if((neuY<1)||(neuY>karte.getGroesseY()))
 			throw new RuntimeException("Spiel bewegeEinheit: Man kann den Kartenrand nicht verlassen!");
-		if (feldXneu<1) feldXneu=karte.getGroesseX();
-		if (feldXneu>karte.getGroesseX()) feldXneu=1;
-		Feld feldNeu=karte.getFeld(feldXneu,feldYneu);
+		if (neuX<1) neuX=karte.getGroesseX();
+		if (neuX>karte.getGroesseX()) neuX=1;
+		Feld feldNeu=karte.getFeld(neuX,neuY);
 		feldAlt.setEinheit(null);
 		feldNeu.setEinheit(einheit);
 		D_Position posNeu=new D_Position();
-		posNeu.setInt("x",feldXneu);
-		posNeu.setInt("y",feldYneu);
+		posNeu.setInt("x",neuX);
+		posNeu.setInt("y",neuY);
 		return posNeu;
+	}
+	
+	
+	
+	public void gruendeStadt(int idSpieler, int idKarte, int x, int y, String name) {
+		Spieler spieler=getSpieler(idSpieler);
+		if (spieler.getId()!=idSpieler)
+			throw new RuntimeException("Spiel gruendeStadt: Fehler in der ID des Spielers!");
+		
+		Feld feld=getKarte(idKarte).getFeld(x, y);		
+
+		spieler.addStadt(feld,name);
 	}
 
 	public String toXml() {

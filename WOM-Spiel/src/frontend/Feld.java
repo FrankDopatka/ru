@@ -100,9 +100,13 @@ public class Feld extends JLabel{
 			BufferedImage bildGewaehlt=karte.getBildFeldGewaehlt();
 			g.drawImage(bildGewaehlt,bildIcon.getWidth()/2-bildGewaehlt.getWidth()/2,bildIcon.getHeight()/2-bildGewaehlt.getWidth()/2,null);
 		}
-		if (d_Einheit!=null){
+		if ((d_Einheit!=null)&&(d_Stadt==null)){
 			BufferedImage bildEinheit=karte.getBildEinheit(d_Einheit.getString("einheitArt").toLowerCase());
 			g.drawImage(bildEinheit,bildIcon.getWidth()/2-bildEinheit.getWidth()/2,bildIcon.getHeight()/2-bildEinheit.getWidth()/2,null);
+		}
+		if (d_Stadt!=null){
+			BufferedImage bildStadt=karte.getBildStadt("1");
+			g.drawImage(bildStadt,bildIcon.getWidth()/2-bildStadt.getWidth()/2,bildIcon.getHeight()/2-bildStadt.getWidth()/2,null);
 		}
 		g.dispose();
 		if (frontend.getZoomfaktor()==100)
@@ -131,7 +135,8 @@ public class Feld extends JLabel{
 		String s="Feld "+d_Feld.getInt("x")+"/"+d_Feld.getInt("y")+" vom Typ "+d_Feld.getString("feldArt");
 		if (d_Feld.getString("ressource").length()>0) s+=" und Ressource "+d_Feld.getString("ressource");
 		if (d_Feld.getInt("spielerstart")>0) s+=" und Start von Spieler Nummer "+d_Feld.getInt("spielerstart");
-		if (d_Einheit!=null) s+=" und Einheit "+d_Einheit.getString("einheitName");
+		if (d_Einheit!=null) s+=" und Einheit "+d_Einheit.getString("einheitName")+" von Spieler "+d_Einheit.getInt("idSpieler");
+		if (d_Stadt!=null) s+=" und Stadt "+d_Stadt.getString("name")+" von Spieler "+d_Stadt.getInt("idSpieler");
 		return s;
 	}
 }

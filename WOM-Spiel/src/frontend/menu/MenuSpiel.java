@@ -147,6 +147,7 @@ public class MenuSpiel extends MenuTop{
 	
 	
 	private void ladenSpiel() {
+		frontend.setFeldGewaehlt(null);
 		ArrayList<String> eingabeBeschriftungen=new ArrayList<String>();
 		ArrayList<Object> eingabeFelder=new ArrayList<Object>();
 		eingabeBeschriftungen.add("Server-Pfad zum Laden:");
@@ -200,6 +201,7 @@ public class MenuSpiel extends MenuTop{
 	}
 
 	private void neuesSpiel(){
+		frontend.setFeldGewaehlt(null);
 		ArrayList<String> eingabeBeschriftungen=new ArrayList<String>();
 		ArrayList<Object> eingabeFelder=new ArrayList<Object>();
 		eingabeBeschriftungen.add("Spiel ID:");
@@ -340,6 +342,7 @@ public class MenuSpiel extends MenuTop{
 
 
 	private void holenKarte() {
+		frontend.setFeldGewaehlt(null);
 		ArrayList<String> eingabeBeschriftungen=new ArrayList<String>();
 		ArrayList<Object> eingabeFelder=new ArrayList<Object>();
 		eingabeBeschriftungen.add("Karte ID:");

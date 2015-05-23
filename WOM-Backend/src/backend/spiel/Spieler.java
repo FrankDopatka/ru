@@ -62,6 +62,31 @@ public class Spieler {
 			throw new RuntimeException(e.getMessage());
 		}
 	}
+	
+	public Stadt addStadt(Feld feld,String name){
+		try{
+			Einheit einheit=feld.getEinheit();
+			if ((einheit==null)||(einheit.getIdSpieler()!=getId())||(!einheit.getDaten().getString("einheitArt").equals("Siedler")))
+				throw new RuntimeException("Spiel gruendeStadt: Nur Siedler koennen Staedte gruenden!");
+			D_Feld feldDaten=feld.getDaten();
+			D_Stadt stadtDaten=new D_Stadt();
+			stadtDaten.setString("name",name);
+			stadtDaten.setInt("idSpieler",getId());
+			stadtDaten.setInt("idKarte",feldDaten.getInt("idKarte"));
+			stadtDaten.setInt("x",feldDaten.getInt("x"));
+			stadtDaten.setInt("y",feldDaten.getInt("y"));
+			Stadt stadt=new Stadt(stadtDaten);
+			einheit.setSpieler(getId());
+			feld.setEinheit(null);
+			feld.setStadt(stadt);
+			einheiten.remove(einheit);
+			staedte.add(stadt);
+			return stadt;
+		}
+		catch (Exception e){
+			throw new RuntimeException(e.getMessage());
+		}
+	}
 
 	public String toXml() {
 		StringBuffer xml=new StringBuffer();

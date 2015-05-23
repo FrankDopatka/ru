@@ -296,18 +296,38 @@ public class BackendSpiel implements iBackendSpiel{
 	}
 
 	@GET
-	@Path("bewegeEinheit/{idSpieler}/{idKarte}/{feldX}/{feldY}/{richtung}")
+	@Path("bewegeEinheit/{idSpieler}/{idKarte}/{x}/{y}/{richtung}")
 	@Consumes("text/plain")
 	@Produces("application/xml")
 	@Override
 	public String bewegeEinheit(
 			@PathParam("idSpieler")int idSpieler,
 			@PathParam("idKarte")int idKarte,
-			@PathParam("feldX")int feldX,
-			@PathParam("feldY")int feldY,
+			@PathParam("x")int x,
+			@PathParam("y")int y,
 			@PathParam("richtung")int richtung) {
 		try{
-			return Xml.verpacken(Xml.fromD(spiel.bewegeEinheit(idSpieler,idKarte,feldX,feldY,richtung)));
+			return Xml.verpacken(Xml.fromD(spiel.bewegeEinheit(idSpieler,idKarte,x,y,richtung)));
+		} catch (Exception e) {
+			e.printStackTrace();
+			return Xml.verpacken(Xml.fromD(new D_Fehler(e.getMessage())));
+		}
+	}
+	
+	@GET
+	@Path("gruendeStadt/{idSpieler}/{idKarte}/{x}/{y}/{name}")
+	@Consumes("text/plain")
+	@Produces("application/xml")
+	@Override
+	public String gruendeStadt(
+			@PathParam("idSpieler")int idSpieler, 
+			@PathParam("idKarte")int idKarte, 
+			@PathParam("x")int x, 
+			@PathParam("y")int y, 
+			@PathParam("name")String name) {
+		try {
+			spiel.gruendeStadt(idSpieler,idKarte,x,y,name);
+			return Xml.verpacken(Xml.fromD(new D_OK()));
 		} catch (Exception e) {
 			e.printStackTrace();
 			return Xml.verpacken(Xml.fromD(new D_Fehler(e.getMessage())));

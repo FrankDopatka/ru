@@ -23,6 +23,7 @@ public class Karte extends JPanel implements Scrollable{
 	private HashMap<String,BufferedImage> bildFeld=new HashMap<String,BufferedImage>();
 	private HashMap<String,BufferedImage> bildRessource=new HashMap<String,BufferedImage>();
 	private HashMap<String,BufferedImage> bildEinheit=new HashMap<String,BufferedImage>();
+	private HashMap<String,BufferedImage> bildStadt=new HashMap<String,BufferedImage>();
 	private BufferedImage bildFeldGewaehlt;
 	
 	private void dateienEinlesen(String pfad,HashMap<String,BufferedImage> container){
@@ -46,6 +47,7 @@ public class Karte extends JPanel implements Scrollable{
 		String pfadBild="daten//felder";
 		String pfadRessource="daten//ressourcen";
 		String pfadEinheit="daten//einheiten";
+		String pfadStadt="daten//stadt";
 		try {
 			bildFeldGewaehlt=ImageIO.read(new File(pfadBild,"gewaehlt.png"));
 		} catch (IOException e) {
@@ -55,6 +57,7 @@ public class Karte extends JPanel implements Scrollable{
 		dateienEinlesen(pfadBild,bildFeld);
 		dateienEinlesen(pfadRessource,bildRessource);
 		dateienEinlesen(pfadEinheit,bildEinheit);
+		dateienEinlesen(pfadStadt,bildStadt);
 		
 		int spielfeldGroesse=frontend.getSpielfeldGroesse();
 		int zoomfaktor=frontend.getZoomfaktor();
@@ -79,6 +82,9 @@ public class Karte extends JPanel implements Scrollable{
 	}
 	public BufferedImage getBildEinheit(String einheitArt){
 		return bildEinheit.get(einheitArt);
+	}
+	public BufferedImage getBildStadt(String nummer){
+		return bildStadt.get(nummer);
 	}
 
 	public void setEventhandler(iEventhandler events){
@@ -120,7 +126,6 @@ public class Karte extends JPanel implements Scrollable{
 				f.setStadt(datenStadt);
 			}
 		}
-		
 		for (int i=1;i<=groesseX;i++){
 			for (int j=1;j<=groesseY;j++){
 				felder[i][j].zeichnen();
@@ -138,6 +143,7 @@ public class Karte extends JPanel implements Scrollable{
 	public void zeichneFeld(int[] pos) {
 		zeichneFeld(pos[0],pos[1]);
 	}
+	
 	public void updateFeld(int x,int y,ArrayList<D> daten) {
 		Feld f=felder[x][y];
 		f.setEinheit(null);

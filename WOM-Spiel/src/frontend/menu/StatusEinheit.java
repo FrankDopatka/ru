@@ -8,6 +8,7 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -17,6 +18,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import backend.iBackendSpiel;
 import daten.*;
 import frontend.Frontend;
 
@@ -24,7 +26,6 @@ public class StatusEinheit extends JDialog implements ActionListener{
 	private static final long serialVersionUID = 1L;
 	private Frontend frontend;
 	private D_Einheit einheit;
-	private D_Spieler spieler;
 	private JButton abbrechen=new JButton("Abbrechen");
 	private JButton[] buttons=new JButton[10];
 	
@@ -32,7 +33,6 @@ public class StatusEinheit extends JDialog implements ActionListener{
 		super(frontend);
 		this.frontend=frontend;
 		this.einheit=einheit;
-		this.spieler=spieler;
 		JPanel jp=new JPanel();
 		JPanel jpButtons=new JPanel();
 		setLayout(new BorderLayout());
@@ -111,6 +111,7 @@ public class StatusEinheit extends JDialog implements ActionListener{
 		if (o==buttons[0]){
 			if (einheit.getString("einheitName").equals("Siedler")){
 				// Stadt gruenden
+				iBackendSpiel backend=frontend.getBackend();
 				JTextField name=new JTextField(20);
 		  	Object[] eingaben={"Name der Stadt",name};
 		  	JOptionPane eingabe=new JOptionPane(eingaben,JOptionPane.PLAIN_MESSAGE, JOptionPane.OK_CANCEL_OPTION){
@@ -124,10 +125,12 @@ public class StatusEinheit extends JDialog implements ActionListener{
 		  	};
 		  	eingabe.createDialog(null, "Neue Stadt gruenden...").setVisible(true);
 		  	if ((eingabe.getValue()!=null)&&(eingabe.getValue().equals(JOptionPane.OK_OPTION))){
-		  		
-// TODO Stadt gründen
-// frontend.getBackend().neueStadt(einheit,name.getText());
-		  		
+		  		int idKarte=einheit.getInt("idKarte");
+		  		int x=einheit.getInt("x");
+		  		int y=einheit.getInt("y");
+		  		backend.gruendeStadt(einheit.getInt("idSpieler"),idKarte,x,y,name.getText());
+		  		ArrayList<D> daten=Xml.toArray(backend.getFeldDaten(idKarte,x,y));
+		  		frontend.getKarte().updateFeld(x,y,daten);
 					this.setVisible(false);
 					this.dispose();
 		  	}
