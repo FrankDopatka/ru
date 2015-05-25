@@ -21,6 +21,7 @@ import backend.iBackendSpiel;
 
 public class Frontend extends JFrame{
 	private static final long serialVersionUID = 1L;
+	private static final byte POLLZEIT=1; // in Sekunden
 	private iBackendSpiel backend;
 	private MenuTop menuTop=null;
 	private JPanel panel=new JPanel();
@@ -32,6 +33,7 @@ public class Frontend extends JFrame{
 	private int zoomfaktor=100;
 	private int idSpieler=0;
 	private Feld feldGewaehlt=null;
+	private Updater updater;
 	
 	public enum Bewegungsrichtung{
 		NORD,NORDOST,OST,SUEDOST,SUED,SUEDWEST,WEST,NORDWEST;
@@ -60,7 +62,7 @@ public class Frontend extends JFrame{
 		// Fenster:
 		add(panel);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(1200,700);
+		setSize(600,700);
 		setVisible(true);
 	}
 	
@@ -89,10 +91,7 @@ public class Frontend extends JFrame{
 		for (i=0;i<daten.size();i++){
 			if (daten.get(i) instanceof D_Karte) break;
 		}
-		D_Karte kartenDaten=(D_Karte)daten.get(i);
-		int x=kartenDaten.getInt("x");
-		int y=kartenDaten.getInt("y");
-		this.karte=new Karte(this,x,y);
+		this.karte=new Karte(this,(D_Karte)daten.get(i));
 		zeichneFelder(daten);
 		scrollerKarte=new JScrollPane(karte,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 		panel.add(scrollerKarte,BorderLayout.CENTER);
@@ -109,12 +108,6 @@ public class Frontend extends JFrame{
 		if (karte!=null) karte.zeichneFelder(daten);
 	}
 
-	/*
-	public void zeichneFeld(int[] pos) {
-		if (karte!=null) karte.zeichneFeld(pos);
-	}
-	*/
-	
 	public void setMenuTop(MenuTop menu){
 		if (menuTop!=null) panel.remove(menuTop);
 		menuTop=menu;
@@ -168,5 +161,19 @@ public class Frontend extends JFrame{
 		}
 		this.feldGewaehlt=feldGewaehlt;
 		if (this.feldGewaehlt!=null) this.feldGewaehlt.zeichnen(); 
+	}
+
+	public Updater getUpdater() {
+		return updater;
+	}
+
+	public void setUpdater() {
+		if (this.updater!=null) killUpdater();
+		this.updater=new Updater(this,karte.getId(),POLLZEIT);
+	}
+	
+	public void killUpdater() {
+		if (this.updater!=null) this.updater.terminate();
+		this.updater=null;
 	}
 }

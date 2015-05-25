@@ -37,6 +37,7 @@ public class MenuSpiel extends MenuTop{
 		
 		buttons[6].setText("Spiel speichern");
 		buttons[12].setText("Spiel laden");
+		buttons[18].setText("Autoupdate <AUS>");
 		// Navigation
 		buttons[9].setText("Nord-West");
 		buttons[10].setText("Nord");
@@ -93,6 +94,14 @@ public class MenuSpiel extends MenuTop{
 		case 12:
 			ladenSpiel();
 			break;
+		case 18:
+			if (buttons[18].getText().equals("Autoupdate <AUS>")){
+				if (autoUpdate(true)) buttons[18].setText("Autoupdate <AN>");
+			}
+			else{
+				if (autoUpdate(false)) buttons[18].setText("Autoupdate <AUS>");				
+			}
+			break;
 		case 16:
 			aktionEinheitStadt();
 			break;
@@ -125,6 +134,30 @@ public class MenuSpiel extends MenuTop{
 		}
 	}
 
+	private boolean autoUpdate(boolean aktivieren) {
+		try{
+			if (aktivieren){
+				frontend.log("Aktiviere Autoupdate...");
+				if (frontend.getIdSpieler()<=0)
+					throw new RuntimeException("Sie muessen zuerst einen Spieler waehlen, den Sie selbst spielen!");
+				frontend.setUpdater();				
+				frontend.log("OK");
+			}
+			else{
+				frontend.log("Deaktiviere Autoupdate...");
+				if (frontend.getUpdater()!=null) frontend.killUpdater();
+				frontend.log("OK");
+			}		
+			return true;
+		}
+		catch (Exception e){
+			e.printStackTrace();
+			frontend.log("FEHLGESCHLAGEN: "+e.getMessage());
+			return false;
+		}
+	}
+
+
 	private void aktionEinheitStadt() {
 		Feld feld=frontend.getFeldGewaehlt();
 		if (feld==null) return;
@@ -143,206 +176,269 @@ public class MenuSpiel extends MenuTop{
 		}
 	}
 
-	
-	
-	
 	private void ladenSpiel() {
-		frontend.setFeldGewaehlt(null);
-		ArrayList<String> eingabeBeschriftungen=new ArrayList<String>();
-		ArrayList<Object> eingabeFelder=new ArrayList<Object>();
-		eingabeBeschriftungen.add("Server-Pfad zum Laden:");
-		JTextField jPfad=new JTextField();
-		jPfad.setText("/home/informatik/spiel01.wom");
-		eingabeFelder.add(jPfad);
-		MenuEingabe eingabe=new MenuEingabe(this,"Spiel laden",eingabeBeschriftungen,eingabeFelder);
-		if (eingabe.start()){
-			String pfad=jPfad.getText();
-			frontend.log("Lade das Spiel vom Server unter "+pfad+"...");
-			String antwort=frontend.getBackend().ladenSpiel(pfad);
-			if (Xml.toD(antwort) instanceof D_OK){
-				frontend.log("OK");
-				// Karte holen
-				frontend.log("Hole Karte mit ID=1 vom Server...");
-				String antwort2=frontend.getBackend().getKarte(1);
-				try{
-					Karte karte=frontend.neueKarte(antwort2);
-					karte.setEventhandler(new eSpiel(frontend));
-					frontend.log("OK");								
+		try{
+			frontend.log("Spiel laden...");
+			ArrayList<String> eingabeBeschriftungen=new ArrayList<String>();
+			ArrayList<Object> eingabeFelder=new ArrayList<Object>();
+			eingabeBeschriftungen.add("Server-Pfad zum Laden:");
+			JTextField jPfad=new JTextField();
+			jPfad.setText("/home/informatik/spiel01.wom");
+			eingabeFelder.add(jPfad);
+			MenuEingabe eingabe=new MenuEingabe(this,"Spiel laden",eingabeBeschriftungen,eingabeFelder);
+			if (eingabe.start()){
+				frontend.setFeldGewaehlt(null);
+				String pfad=jPfad.getText();
+				frontend.log("Lade das Spiel vom Server unter "+pfad+"...");
+				String antwort=frontend.getBackend().ladenSpiel(pfad);
+				if (Xml.toD(antwort) instanceof D_OK){
+					frontend.log("OK");
+					// Karte holen
+					frontend.log("Hole Karte mit ID=1 vom Server...");
+					String antwort2=frontend.getBackend().getKarte(1);
+					try{
+						Karte karte=frontend.neueKarte(antwort2);
+						karte.setEventhandler(new eSpiel(frontend));
+						frontend.log("OK");								
+					}
+					catch (Exception e){
+						e.printStackTrace();
+						frontend.log("FEHLGESCHLAGEN: "+e.getMessage());
+					}
 				}
-				catch (Exception e){
-					e.printStackTrace();
-					frontend.log("FEHLGESCHLAGEN:"+e.getMessage());
+				else{
+					frontend.log("FEHLGESCHLAGEN: "+Xml.toD(antwort).getString("meldung"));
 				}
 			}
 			else{
-				frontend.log("FEHLGESCHLAGEN:"+Xml.toD(antwort).getString("meldung"));
+				frontend.log("ABGEBROCHEN");
 			}
+		}
+		catch (Exception e){
+			frontend.log("FEHLGESCHLAGEN: "+e.getMessage());
+			e.printStackTrace();
 		}
 	}
 
 	private void speichernSpiel() {
-		ArrayList<String> eingabeBeschriftungen=new ArrayList<String>();
-		ArrayList<Object> eingabeFelder=new ArrayList<Object>();
-		eingabeBeschriftungen.add("Server-Pfad zum Speichern:");
-		JTextField jPfad=new JTextField();
-		jPfad.setText("/home/informatik/spiel01.wom");
-		eingabeFelder.add(jPfad);
-		MenuEingabe eingabe=new MenuEingabe(this,"Spiel speichern",eingabeBeschriftungen,eingabeFelder);
-		if (eingabe.start()){
-			String pfad=jPfad.getText();
-			frontend.log("Speichere das Spiel auf dem Server unter "+pfad+"...");
-			String antwort=frontend.getBackend().speichernSpiel(pfad);
-			if (Xml.toD(antwort) instanceof D_OK)
-				frontend.log("OK");
+		try{
+			frontend.log("Spiel speichern...");
+			ArrayList<String> eingabeBeschriftungen=new ArrayList<String>();
+			ArrayList<Object> eingabeFelder=new ArrayList<Object>();
+			eingabeBeschriftungen.add("Server-Pfad zum Speichern:");
+			JTextField jPfad=new JTextField();
+			jPfad.setText("/home/informatik/spiel01.wom");
+			eingabeFelder.add(jPfad);
+			MenuEingabe eingabe=new MenuEingabe(this,"Spiel speichern",eingabeBeschriftungen,eingabeFelder);
+			if (eingabe.start()){
+				String pfad=jPfad.getText();
+				frontend.log("Speichere das Spiel auf dem Server unter "+pfad+"...");
+				String antwort=frontend.getBackend().speichernSpiel(pfad);
+				if (Xml.toD(antwort) instanceof D_OK)
+					frontend.log("OK");
+				else{
+					frontend.log("FEHLGESCHLAGEN: "+Xml.toD(antwort).getString("meldung"));
+				}
+			}			
 			else{
-				frontend.log("FEHLGESCHLAGEN:"+Xml.toD(antwort).getString("meldung"));
+				frontend.log("ABGEBROCHEN");
 			}
+		}
+		catch (Exception e){
+			frontend.log("FEHLGESCHLAGEN: "+e.getMessage());
+			e.printStackTrace();
 		}
 	}
 
 	private void neuesSpiel(){
-		frontend.setFeldGewaehlt(null);
-		ArrayList<String> eingabeBeschriftungen=new ArrayList<String>();
-		ArrayList<Object> eingabeFelder=new ArrayList<Object>();
-		eingabeBeschriftungen.add("Spiel ID:");
-		JTextField jId=new JTextField();
-		jId.setText("1");
-		eingabeFelder.add(jId);
-		eingabeBeschriftungen.add("max. Anzahl Spieler:");
-		JTextField jAnzahlSpieler=new JTextField();
-		jAnzahlSpieler.setText("2");
-		eingabeFelder.add(jAnzahlSpieler);
-		eingabeBeschriftungen.add("max. Anzahl Karten:");
-		JTextField jAnzahlKarten=new JTextField();
-		jAnzahlKarten.setText("2");
-		eingabeFelder.add(jAnzahlKarten);
-		MenuEingabe eingabe=new MenuEingabe(this,"neues Spiel",eingabeBeschriftungen,eingabeFelder);
-		if (eingabe.start()){
-			int id=D.toInt(jId.getText());
-			int anzahlSpieler=D.toInt(jAnzahlSpieler.getText());
-			int anzahlKarten=D.toInt(jAnzahlKarten.getText());			
+		try{
 			frontend.log("Starte neues Spiel auf dem Server...");
-			String antwort=frontend.getBackend().neuesSpiel(id, anzahlSpieler, anzahlKarten);
-			if (Xml.toD(antwort) instanceof D_OK)
-				frontend.log("OK");
-			else
-				frontend.log("FEHLGESCHLAGEN:"+Xml.toD(antwort).getString("meldung"));
+			ArrayList<String> eingabeBeschriftungen=new ArrayList<String>();
+			ArrayList<Object> eingabeFelder=new ArrayList<Object>();
+			eingabeBeschriftungen.add("Spiel ID:");
+			JTextField jId=new JTextField();
+			jId.setText("1");
+			eingabeFelder.add(jId);
+			eingabeBeschriftungen.add("max. Anzahl Spieler:");
+			JTextField jAnzahlSpieler=new JTextField();
+			jAnzahlSpieler.setText("2");
+			eingabeFelder.add(jAnzahlSpieler);
+			eingabeBeschriftungen.add("max. Anzahl Karten:");
+			JTextField jAnzahlKarten=new JTextField();
+			jAnzahlKarten.setText("2");
+			eingabeFelder.add(jAnzahlKarten);
+			MenuEingabe eingabe=new MenuEingabe(this,"neues Spiel",eingabeBeschriftungen,eingabeFelder);
+			if (eingabe.start()){
+				frontend.setFeldGewaehlt(null);
+				int id=D.toInt(jId.getText());
+				int anzahlSpieler=D.toInt(jAnzahlSpieler.getText());
+				int anzahlKarten=D.toInt(jAnzahlKarten.getText());			
+				String antwort=frontend.getBackend().neuesSpiel(id, anzahlSpieler, anzahlKarten);
+				if (Xml.toD(antwort) instanceof D_OK)
+					frontend.log("OK");
+				else
+					frontend.log("FEHLGESCHLAGEN: "+Xml.toD(antwort).getString("meldung"));
+			}
+			else{
+				frontend.log("ABGEBROCHEN");
+			}
+		}
+		catch (Exception e){
+			frontend.log("FEHLGESCHLAGEN: "+e.getMessage());
+			e.printStackTrace();
 		}
 	}
 		
 	private void hinzufuegenKarte() {
-		ArrayList<String> eingabeBeschriftungen=new ArrayList<String>();
-		ArrayList<Object> eingabeFelder=new ArrayList<Object>();
-		eingabeBeschriftungen.add("Server-Pfad zur Karte:");
-		JTextField jPfad=new JTextField();
-		jPfad.setText("/home/informatik/erde.map");
-		eingabeFelder.add(jPfad);
-		MenuEingabe eingabe=new MenuEingabe(this,"neues Spiel",eingabeBeschriftungen,eingabeFelder);
-		if (eingabe.start()){
-			String pfad=jPfad.getText();
-			frontend.log("Fuege die Karte "+pfad+" dem Spiel hinzu...");
-			String antwort=frontend.getBackend().hinzufuegenKarte(pfad);
-			if (Xml.toD(antwort) instanceof D_OK)
-				frontend.log("OK");
-			else{
-				frontend.log("FEHLGESCHLAGEN:"+Xml.toD(antwort).getString("meldung"));
+		try{
+			frontend.log("Hinzufuegen einer Karte...");
+			ArrayList<String> eingabeBeschriftungen=new ArrayList<String>();
+			ArrayList<Object> eingabeFelder=new ArrayList<Object>();
+			eingabeBeschriftungen.add("Server-Pfad zur Karte:");
+			JTextField jPfad=new JTextField();
+			jPfad.setText("/home/informatik/erde.map");
+			eingabeFelder.add(jPfad);
+			MenuEingabe eingabe=new MenuEingabe(this,"neues Spiel",eingabeBeschriftungen,eingabeFelder);
+			if (eingabe.start()){
+				String pfad=jPfad.getText();
+				frontend.log("Fuege die Karte "+pfad+" dem Spiel hinzu...");
+				String antwort=frontend.getBackend().hinzufuegenKarte(pfad);
+				if (Xml.toD(antwort) instanceof D_OK)
+					frontend.log("OK");
+				else{
+					frontend.log("FEHLGESCHLAGEN: "+Xml.toD(antwort).getString("meldung"));
+				}
 			}
+			else{
+				frontend.log("ABGEBROCHEN");
+			}
+		}
+		catch (Exception e){
+			frontend.log("FEHLGESCHLAGEN: "+e.getMessage());
+			e.printStackTrace();
 		}
 	}
 
 	private void hinzufuegenSpieler() {
-		iBackendSpiel backend=frontend.getBackend();
-		ArrayList<String> eingabeBeschriftungen=new ArrayList<String>();
-		ArrayList<Object> eingabeFelder=new ArrayList<Object>();
-		eingabeBeschriftungen.add("Spieler ID:");
-		JTextField jId=new JTextField();
-		jId.setText("0");
-		eingabeFelder.add(jId);
-		eingabeBeschriftungen.add("Name:");
-		JTextField jNameSpieler=new JTextField();
-		jNameSpieler.setText("Frank");
-		eingabeFelder.add(jNameSpieler);
-		eingabeBeschriftungen.add("Rasse:");
-		D_SpielerRassenArt rassenArten=(D_SpielerRassenArt)Xml.toD(backend.getRassen());
-		final JComboBox<String> jWahlRassenArt=new JComboBox<String>();
-		final JComboBox<String> jWahlNationArt=new JComboBox<String>();
-		if (rassenArten!=null){
-	  	for(String rassenArt:rassenArten.getListe()){
-	  		jWahlRassenArt.addItem(rassenArt);
+		frontend.log("Hinzufuegen eines Spielers...");
+		try{
+			iBackendSpiel backend=frontend.getBackend();
+			ArrayList<String> eingabeBeschriftungen=new ArrayList<String>();
+			ArrayList<Object> eingabeFelder=new ArrayList<Object>();
+			eingabeBeschriftungen.add("Spieler ID:");
+			JTextField jId=new JTextField();
+			jId.setText("0");
+			eingabeFelder.add(jId);
+			eingabeBeschriftungen.add("Name:");
+			JTextField jNameSpieler=new JTextField();
+			jNameSpieler.setText("Frank");
+			eingabeFelder.add(jNameSpieler);
+			eingabeBeschriftungen.add("Rasse:");
+			D_SpielerRassenArt rassenArten=(D_SpielerRassenArt)Xml.toD(backend.getRassen());
+			final JComboBox<String> jWahlRassenArt=new JComboBox<String>();
+			final JComboBox<String> jWahlNationArt=new JComboBox<String>();
+			if (rassenArten!=null){
+		  	for(String rassenArt:rassenArten.getListe()){
+		  		jWahlRassenArt.addItem(rassenArt);
+		  	}
+		  	jWahlRassenArt.addActionListener(new ActionListener(){
+					@Override
+					public void actionPerformed(ActionEvent ev) {
+						String rassenArt=(String)jWahlRassenArt.getSelectedItem();
+						jWahlNationArt.removeAllItems();
+						Object o=Xml.toD(backend.getNationsArten(rassenArt));
+						if (o instanceof D_SpielerNationArt){
+							D_SpielerNationArt nationArten=(D_SpielerNationArt)o;
+							if (nationArten!=null){
+								for(String nationArt:nationArten.getListe()){
+									jWahlNationArt.addItem(nationArt);
+						  	}					
+							}						
+						}					
+					}
+				});
+		  	jWahlRassenArt.setSelectedItem("Mensch");
 	  	}
-	  	jWahlRassenArt.addActionListener(new ActionListener(){
-				@Override
-				public void actionPerformed(ActionEvent ev) {
-					String rassenArt=(String)jWahlRassenArt.getSelectedItem();
-					jWahlNationArt.removeAllItems();
-					Object o=Xml.toD(backend.getNationsArten(rassenArt));
-					if (o instanceof D_SpielerNationArt){
-						D_SpielerNationArt nationArten=(D_SpielerNationArt)o;
-						if (nationArten!=null){
-							for(String nationArt:nationArten.getListe()){
-								jWahlNationArt.addItem(nationArt);
-					  	}					
-						}						
-					}					
-				}
-			});
-	  	jWahlRassenArt.setSelectedItem("Mensch");
-  	}
-		eingabeFelder.add(jWahlRassenArt);
-		eingabeBeschriftungen.add("Nation:");
-		eingabeFelder.add(jWahlNationArt);
-		MenuEingabe eingabe=new MenuEingabe(this,"Spieler hinzufuegen",eingabeBeschriftungen,eingabeFelder);
-		if (eingabe.start()){
-			int id=D.toInt(jId.getText());
-			String name=jNameSpieler.getText();
-			String rasse=(String)jWahlRassenArt.getSelectedItem();
-			String nation=(String)jWahlNationArt.getSelectedItem();
-			frontend.log("Fuege den Spieler "+name+" dem Spiel hinzu...");
-			D antwort=Xml.toD(backend.hinzufuegenSpieler(id,name,rasse,nation));
-			if (antwort instanceof D_OK)
-				frontend.log("OK");
-			else
-				frontend.log("FEHLGESCHLAGEN:"+antwort.getString("meldung"));
+			eingabeFelder.add(jWahlRassenArt);
+			eingabeBeschriftungen.add("Nation:");
+			eingabeFelder.add(jWahlNationArt);
+			MenuEingabe eingabe=new MenuEingabe(this,"Spieler hinzufuegen",eingabeBeschriftungen,eingabeFelder);
+			if (eingabe.start()){
+				int id=D.toInt(jId.getText());
+				String name=jNameSpieler.getText();
+				String rasse=(String)jWahlRassenArt.getSelectedItem();
+				String nation=(String)jWahlNationArt.getSelectedItem();
+				frontend.log("Fuege den Spieler "+name+" dem Spiel hinzu...");
+				D antwort=Xml.toD(backend.hinzufuegenSpieler(id,name,rasse,nation));
+				if (antwort instanceof D_OK)
+					frontend.log("OK");
+				else
+					frontend.log("FEHLGESCHLAGEN: "+antwort.getString("meldung"));
+			}
+			else{
+				frontend.log("ABGEBROCHEN");
+			}
+		}
+		catch (Exception e){
+			frontend.log("FEHLGESCHLAGEN: "+e.getMessage());
+			e.printStackTrace();
 		}
 	}
 	
 	private void wahlSpieler() {
-		ArrayList<D> spielerDaten=Xml.toArray(frontend.getBackend().getAlleSpieler());
-		ArrayList<String> eingabeBeschriftungen=new ArrayList<String>();
-		ArrayList<Object> eingabeFelder=new ArrayList<Object>();
-		eingabeBeschriftungen.add("Spieler zum Steuern auswaehlen:");
-		final JComboBox<String> jWahlSpieler=new JComboBox<String>();
-		if ((spielerDaten!=null)&&(spielerDaten.size()>0)){
-			for(D daten:spielerDaten){
-				D_Spieler x=(D_Spieler)daten;
-				if (x.getString("rasse").equals("Mensch"))
-					jWahlSpieler.addItem(x.getInt("id")+" - "+x.getString("name")+","+x.getString("rasse")+","+x.getString("nation"));
-				else
-					jWahlSpieler.addItem(x.getInt("id")+" - "+x.getString("name")+","+x.getString("rasse"));
-	  	}
+		try{
+			frontend.log("Auswahl der clientseitigen Steuerung eines Spielers...");
+			ArrayList<D> spielerDaten=Xml.toArray(frontend.getBackend().getAlleSpieler());
+			ArrayList<String> eingabeBeschriftungen=new ArrayList<String>();
+			ArrayList<Object> eingabeFelder=new ArrayList<Object>();
+			eingabeBeschriftungen.add("Spieler zum Steuern auswaehlen:");
+			final JComboBox<String> jWahlSpieler=new JComboBox<String>();
+			if ((spielerDaten!=null)&&(spielerDaten.size()>0)){
+				for(D daten:spielerDaten){
+					D_Spieler x=(D_Spieler)daten;
+					if (x.getString("rasse").equals("Mensch"))
+						jWahlSpieler.addItem(x.getInt("id")+" - "+x.getString("name")+","+x.getString("rasse")+","+x.getString("nation"));
+					else
+						jWahlSpieler.addItem(x.getInt("id")+" - "+x.getString("name")+","+x.getString("rasse"));
+		  	}
+			}
+			eingabeFelder.add(jWahlSpieler);
+			MenuEingabe eingabe=new MenuEingabe(this,"Spieler zur Steuerung waehlen",eingabeBeschriftungen,eingabeFelder);
+			if (eingabe.start()){
+				String wahl=(String)jWahlSpieler.getSelectedItem();
+				String[] teile=wahl.split(" - ");
+				frontend.setIdSpieler(Integer.parseInt(teile[0]));
+				buttons[3].setText("ich bin Spieler <"+teile[0]+">");
+				frontend.log("OK");
+			}
+			else{
+				frontend.log("ABGEBROCHEN");
+			}
 		}
-		eingabeFelder.add(jWahlSpieler);
-		MenuEingabe eingabe=new MenuEingabe(this,"Spieler zur Steuerung waehlen",eingabeBeschriftungen,eingabeFelder);
-		if (eingabe.start()){
-			String wahl=(String)jWahlSpieler.getSelectedItem();
-			String[] teile=wahl.split(" - ");
-			frontend.setIdSpieler(Integer.parseInt(teile[0]));
-			buttons[3].setText("ich bin Spieler <"+teile[0]+">");
+		catch (Exception e){
+			frontend.log("FEHLGESCHLAGEN: "+e.getMessage());
+			e.printStackTrace();
 		}
 	}
 
 	private void startenSpiel() {
 		frontend.log("Starte das Spiel auf dem Server...");
-		D antwort=Xml.toD(frontend.getBackend().starteSpiel());
-		if (antwort instanceof D_OK)
-			frontend.log("OK");
-		else
-			frontend.log("FEHLGESCHLAGEN:"+antwort.getString("meldung"));
+		try{
+			D antwort=Xml.toD(frontend.getBackend().starteSpiel());
+			if (antwort instanceof D_OK)
+				frontend.log("OK");
+			else
+				frontend.log("FEHLGESCHLAGEN: "+antwort.getString("meldung"));			
+		}
+		catch (Exception e){
+			e.printStackTrace();
+			frontend.log("FEHLGESCHLAGEN: "+e.getMessage());
+		}
 	}
 
 
 	private void holenKarte() {
-		frontend.setFeldGewaehlt(null);
+		frontend.log("Holen einer Karte vom Server...");
 		ArrayList<String> eingabeBeschriftungen=new ArrayList<String>();
 		ArrayList<Object> eingabeFelder=new ArrayList<Object>();
 		eingabeBeschriftungen.add("Karte ID:");
@@ -351,18 +447,21 @@ public class MenuSpiel extends MenuTop{
 		eingabeFelder.add(jId);
 		MenuEingabe eingabe=new MenuEingabe(this,"Karte holen",eingabeBeschriftungen,eingabeFelder);
 		if (eingabe.start()){
+			frontend.setFeldGewaehlt(null);
 			int id=D.toInt(jId.getText());
-			frontend.log("Hole Karte mit ID="+id+" vom Server...");
-			String antwort=frontend.getBackend().getKarte(id);
 			try{
+				String antwort=frontend.getBackend().getKarte(id);
 				Karte karte=frontend.neueKarte(antwort);
 				karte.setEventhandler(new eSpiel(frontend));
 				frontend.log("OK");								
 			}
 			catch (Exception e){
 				e.printStackTrace();
-				frontend.log("FEHLGESCHLAGEN:"+e.getMessage());
+				frontend.log("FEHLGESCHLAGEN: "+e.getMessage());
 			}
+		}
+		else{
+			frontend.log("ABGEBROCHEN");
 		}
 	}
 
@@ -390,7 +489,7 @@ public class MenuSpiel extends MenuTop{
 		}
 		catch (Exception e){
 			e.printStackTrace();
-			frontend.log("FEHLGESCHLAGEN:"+e.getMessage());
+			frontend.log("FEHLGESCHLAGEN: "+e.getMessage());
 		}
 	}
 }

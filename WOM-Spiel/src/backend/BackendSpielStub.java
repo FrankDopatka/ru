@@ -116,6 +116,11 @@ public class BackendSpielStub implements iBackendSpiel{
 	public String gruendeStadt(int idSpieler, int idKarte, int x, int y, String name) {
 		return getXmlvonRest("gruendeStadt"+"/"+idSpieler+"/"+idKarte+"/"+x+"/"+y+"/"+name);
 	}
+	
+	@Override
+	public String update(int idSpieler,int idKarte) {
+		return getXmlvonRest("update"+"/"+idSpieler+"/"+idKarte);
+	}
 
 	@Override
 	public String speichernSpiel(String pfad) {
@@ -138,6 +143,4 @@ public class BackendSpielStub implements iBackendSpiel{
 			return null;
 		}
 	}
-
-
 }

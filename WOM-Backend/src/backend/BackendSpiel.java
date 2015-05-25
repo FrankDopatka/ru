@@ -333,6 +333,26 @@ public class BackendSpiel implements iBackendSpiel{
 			return Xml.verpacken(Xml.fromD(new D_Fehler(e.getMessage())));
 		}
 	}
+	
+	@GET
+	@Path("update/{idSpieler}/{idKarte}")
+	@Consumes("text/plain")
+	@Produces("application/xml")
+	@Override
+	public String update(
+			@PathParam("idSpieler")int idSpieler,
+			@PathParam("idKarte")int idKarte){
+		try {
+			ArrayList<D> daten=spiel.getKarte(idKarte).getUpdates(idSpieler);
+			if ((daten!=null)&&(daten.size()>0))
+				return Xml.verpacken(Xml.fromArray(daten));
+			else
+				return Xml.verpacken(Xml.fromD(new D_OK()));
+		} catch (Exception e) {
+			e.printStackTrace();
+			return Xml.verpacken(Xml.fromD(new D_Fehler(e.getMessage())));
+		}
+	}
 
 	@GET
 	@Path("speichernSpiel/{pfad}")

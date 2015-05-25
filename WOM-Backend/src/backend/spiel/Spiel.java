@@ -7,8 +7,7 @@ import java.util.ArrayList;
 
 import daten.*;
 import backend.Parameter;
-import backend.karte.Feld;
-import backend.karte.Karte;
+import backend.karte.*;
 import backend.karte.karten.Planet;
 import backend.spiel.einheiten.Siedler;
 
@@ -126,6 +125,7 @@ public class Spiel {
 	}
 	
 	public Spiel(int id,int spielerMax,int kartenMax){
+		this();
 		if (id<1)
 			throw new RuntimeException("Spiel Konstruktor: Wert für die ID ist ungueltig!");
 		if (spielerMax<1)
@@ -300,6 +300,8 @@ public class Spiel {
 		D_Position posNeu=new D_Position();
 		posNeu.setInt("x",neuX);
 		posNeu.setInt("y",neuY);
+		karte.setUpdate(feldAlt.toDatenArray(),idSpieler);
+		karte.setUpdate(feldNeu.toDatenArray(),idSpieler);
 		return posNeu;
 	}
 	
@@ -309,10 +311,10 @@ public class Spiel {
 		Spieler spieler=getSpieler(idSpieler);
 		if (spieler.getId()!=idSpieler)
 			throw new RuntimeException("Spiel gruendeStadt: Fehler in der ID des Spielers!");
-		
-		Feld feld=getKarte(idKarte).getFeld(x, y);		
-
+		Karte karte=getKarte(idKarte);
+		Feld feld=karte.getFeld(x, y);		
 		spieler.addStadt(feld,name);
+		karte.setUpdate(feld.toDatenArray(),idSpieler);
 	}
 
 	public String toXml() {

@@ -70,7 +70,7 @@ public class ServerFrontend extends JFrame implements ActionListener{
 			button[i].addActionListener(this);
 			jSouth.add(button[i]);
 		}
-
+		
 		add(jNorth,BorderLayout.NORTH);	
 		add(jSouth,BorderLayout.SOUTH);
 		setSize(1200,400);
@@ -142,6 +142,8 @@ public class ServerFrontend extends JFrame implements ActionListener{
 		        }
 		      }
 		    }
+		    if (jIP.getText().length()==0) jIP.setText("127.0.0.1");
+      	System.out.println("  127.0.0.1");
       	System.out.println("");
 			} catch (Exception e) {
 				System.out.println("FEHLER: "+e.getMessage());

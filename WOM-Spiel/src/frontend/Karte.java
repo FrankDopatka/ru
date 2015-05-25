@@ -18,8 +18,7 @@ public class Karte extends JPanel implements Scrollable{
 	private static final long serialVersionUID = 1L;
 	private Frontend frontend;
 	private Feld[][] felder;
-	private int groesseX;
-	private int groesseY;
+	private D_Karte daten;
 	private HashMap<String,BufferedImage> bildFeld=new HashMap<String,BufferedImage>();
 	private HashMap<String,BufferedImage> bildRessource=new HashMap<String,BufferedImage>();
 	private HashMap<String,BufferedImage> bildEinheit=new HashMap<String,BufferedImage>();
@@ -40,10 +39,9 @@ public class Karte extends JPanel implements Scrollable{
 		}
 	}
 	
-	public Karte(Frontend frontend,int groesseX,int groesseY) {
+	public Karte(Frontend frontend,D_Karte daten) {
 		this.frontend=frontend;
-		this.groesseX=groesseX;
-		this.groesseY=groesseY;
+		this.daten=daten;
 		String pfadBild="daten//felder";
 		String pfadRessource="daten//ressourcen";
 		String pfadEinheit="daten//einheiten";
@@ -63,15 +61,19 @@ public class Karte extends JPanel implements Scrollable{
 		int zoomfaktor=frontend.getZoomfaktor();
 		int offset=spielfeldGroesse*zoomfaktor/100;
 		setLayout(null);
-		setPreferredSize(new Dimension(groesseX*offset,groesseY*offset));
-		felder=new Feld[groesseX+1][groesseY+1];
-		for (int i=1;i<=groesseX;i++){
-			for (int j=1;j<=groesseY;j++){
+		setPreferredSize(new Dimension(this.daten.getInt("x")*offset,this.daten.getInt("y")*offset));
+		felder=new Feld[this.daten.getInt("x")+1][this.daten.getInt("y")+1];
+		for (int i=1;i<=this.daten.getInt("x");i++){
+			for (int j=1;j<=this.daten.getInt("y");j++){
 				Feld f=new Feld(frontend,i,j);
 				felder[i][j]=f;
 				add(f);
 			}
 		}
+	}
+	
+	public int getId(){
+		return this.daten.getInt("id");
 	}
 	
 	public BufferedImage getBildFeld(String feldArt){
@@ -88,8 +90,8 @@ public class Karte extends JPanel implements Scrollable{
 	}
 
 	public void setEventhandler(iEventhandler events){
-		for (int i=1;i<=groesseX;i++){
-			for (int j=1;j<=groesseY;j++){
+		for (int i=1;i<=this.daten.getInt("x");i++){
+			for (int j=1;j<=this.daten.getInt("y");j++){
 				felder[i][j].setEventhandler(events);
 			}
 		}
@@ -100,7 +102,7 @@ public class Karte extends JPanel implements Scrollable{
 		int spielfeldGroesse=frontend.getSpielfeldGroesse();
 		int zoomfaktor=frontend.getZoomfaktor();
 		int offset=spielfeldGroesse*zoomfaktor/100;
-		setPreferredSize(new Dimension(groesseX*offset,groesseY*offset));
+		setPreferredSize(new Dimension(this.daten.getInt("y")*offset,this.daten.getInt("y")*offset));
 		for(D datenwert:daten){
 			if (datenwert instanceof D_Feld){
 				D_Feld datenFeld=(D_Feld)datenwert;
@@ -126,8 +128,8 @@ public class Karte extends JPanel implements Scrollable{
 				f.setStadt(datenStadt);
 			}
 		}
-		for (int i=1;i<=groesseX;i++){
-			for (int j=1;j<=groesseY;j++){
+		for (int i=1;i<=this.daten.getInt("x");i++){
+			for (int j=1;j<=this.daten.getInt("y");j++){
 				felder[i][j].zeichnen();
 			}
 		}
@@ -170,8 +172,8 @@ public class Karte extends JPanel implements Scrollable{
 	}
 	
 	public void terminate() {
-		for (int i=1;i<=groesseX;i++){
-			for (int j=1;j<=groesseY;j++){
+		for (int i=1;i<=this.daten.getInt("x");i++){
+			for (int j=1;j<=this.daten.getInt("y");j++){
 				felder[i][j].terminate();
 				felder[i][j]=null;
 			}

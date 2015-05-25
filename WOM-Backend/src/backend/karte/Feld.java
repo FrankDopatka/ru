@@ -116,11 +116,15 @@ public abstract class Feld {
 	}
 	
 	public String toXml(){
+		return Xml.fromArray(toDatenArray());
+	}
+	
+	public ArrayList<D> toDatenArray(){
 		ArrayList<D> daten=new ArrayList<D>();
 		daten.add(d_Feld);
 		if(stadt!=null) daten.add(stadt.getDaten());
 		if (einheit!=null) daten.add(einheit.getDaten());
-		return Xml.fromArray(daten);
+		return daten;
 	}
 	
 	@Override

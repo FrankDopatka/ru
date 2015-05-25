@@ -6,6 +6,7 @@ import java.net.URLDecoder;
 import java.util.ArrayList;
 
 import backend.Parameter;
+import backend.Updater;
 import daten.D;
 import daten.D_Feld;
 import daten.D_FeldArt;
@@ -16,9 +17,11 @@ public abstract class Karte {
 	private Feld[][] felder;
 	private D_Karte d_Karte=new D_Karte();
 	private D_FeldArt d_ErlaubteFeldArten=new D_FeldArt();
+	private Updater updater;
 
 	public Karte(){
 		setErlaubteFeldArten();
+		updater=new Updater();
 	}
 	
 	public static String karteLaden(String pfad){
@@ -203,5 +206,15 @@ public abstract class Karte {
 	@Override
 	public String toString(){
 		return d_Karte.toString();
+	}
+	
+	// hole alle Updates dieser Karte fuer diesen Spieler aus dem serverseitigen Updater-FiFo 
+	public ArrayList<D> getUpdates(int idSpieler) {
+		if (!updater.hatSpieler(idSpieler)) updater.addSpieler(idSpieler);
+		return updater.get(idSpieler);
+	}
+	
+	public void setUpdate(ArrayList<D> felddaten,int idSpieler) {
+		updater.put(felddaten,idSpieler);
 	}
 }
