@@ -2,12 +2,14 @@ package backend;
 
 import java.net.URLEncoder;
 
-import com.sun.jersey.api.client.Client;
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
+
 
 public class BackendKarteneditorStub implements iBackendKarteneditor{
 	private String url;
-	private Client client=Client.create();
-	
+	private Client client=ClientBuilder.newClient();
+	 
 	public BackendKarteneditorStub(String url){
 		if (url.endsWith("/"))
 			this.url=url+"wom/karteneditor/";
@@ -16,8 +18,7 @@ public class BackendKarteneditorStub implements iBackendKarteneditor{
 	}
 	
 	private String getXmlvonRest(String pfad){
-		String s=client.resource(url+pfad).accept("application/xml").get(String.class);
-//		System.out.println(s);
+		String s=client.target(url+pfad).request().accept("application/xml").get(String.class);
 		return s;
 	}
 

@@ -2,11 +2,12 @@ package backend;
 
 import java.net.URLEncoder;
 
-import com.sun.jersey.api.client.Client;
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
 
 public class BackendSpielStub implements iBackendSpiel{
 	private String url;
-	private Client client=Client.create();
+	private Client client=ClientBuilder.newClient();
 	
 	public BackendSpielStub(String url){
 		if (url.endsWith("/"))
@@ -16,8 +17,7 @@ public class BackendSpielStub implements iBackendSpiel{
 	}
 	
 	private String getXmlvonRest(String pfad){
-		String s=client.resource(url+pfad).accept("application/xml").get(String.class);
-//		System.out.println(s);
+		String s=client.target(url+pfad).request().accept("application/xml").get(String.class);
 		return s;
 	}
 

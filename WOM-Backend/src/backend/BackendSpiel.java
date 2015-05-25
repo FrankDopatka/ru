@@ -9,6 +9,8 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 
+import org.glassfish.jersey.server.ResourceConfig;
+
 import daten.*;
 import backend.karte.Feld;
 import backend.karte.Karte;
@@ -18,7 +20,7 @@ import backend.spiel.Spieler;
 import backend.spiel.Stadt;
 
 @Path("wom/spiel")
-public class BackendSpiel implements iBackendSpiel{
+public class BackendSpiel extends ResourceConfig implements iBackendSpiel{
 	private static Spiel spiel;
 	
 	public BackendSpiel(){

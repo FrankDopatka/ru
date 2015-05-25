@@ -14,9 +14,10 @@ import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
+import java.net.URI;
 import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -25,11 +26,12 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.ws.rs.core.UriBuilder;
 
-import com.sun.jersey.api.container.httpserver.HttpServerFactory;
-import com.sun.jersey.api.core.PackagesResourceConfig;
-import com.sun.jersey.api.core.ResourceConfig;
-import com.sun.net.httpserver.HttpServer;
+import org.glassfish.grizzly.http.server.HttpServer;
+import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
+import org.glassfish.jersey.server.ResourceConfig;
+import org.glassfish.jersey.server.model.Resource;
 
 public class ServerFrontend extends JFrame implements ActionListener{
 	private static final long serialVersionUID = 1L;
@@ -160,6 +162,14 @@ public class ServerFrontend extends JFrame implements ActionListener{
 		if (button[5]==geklicked){
 			// Server Start
 			try {
+				URI baseUri = UriBuilder.fromUri("http://"+jIP.getText()+"/").port(8000).build();
+		    System.out.println("Starte Server auf "+baseUri+"... ");	
+		    
+		    
+		    final ResourceConfig rc=new ResourceConfig().packages("backend"); 
+				server=GrizzlyHttpServerFactory.createHttpServer(baseUri,rc);
+				
+				/*
 		    String url="http://"+jIP.getText()+":8000/";
 		    System.out.println("Starte Server auf "+url+"... ");
 				final ResourceConfig rc=new PackagesResourceConfig("");
@@ -168,6 +178,9 @@ public class ServerFrontend extends JFrame implements ActionListener{
 		    rc.setPropertiesAndFeatures(config);
 		    server=HttpServerFactory.create(url);
 				server.start();
+				*/
+				
+				
 				System.out.println("OK: Server laueft.");
 			} catch (Exception e) {
 				System.out.println("FEHLER: "+e.getMessage());
@@ -179,11 +192,12 @@ public class ServerFrontend extends JFrame implements ActionListener{
 		}
 		if (button[7]==geklicked){
 			// Server Stop
+			System.out.println("Stoppe Server... ");
 			if (server!=null){
-				server.stop(0);
+				server.shutdownNow();
 				server=null;
-				System.out.println("Server gestoppt.");
 			}
+			System.out.println("Server gestoppt.");
 		}
 	}
 }
