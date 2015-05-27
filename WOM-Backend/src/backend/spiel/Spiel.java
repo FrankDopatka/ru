@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import daten.*;
 import backend.Parameter;
+import backend.Updater;
 import backend.karte.*;
 import backend.karte.karten.Planet;
 import backend.spiel.einheiten.Siedler;
@@ -15,6 +16,7 @@ public class Spiel {
 	private D_Spiel d_Spiel=new D_Spiel();
 	private ArrayList<Spieler> spieler=new ArrayList<Spieler>();
 	private ArrayList<Karte> karten=new ArrayList<Karte>();
+	private Updater updater;
 	
 	public enum Bewegungsrichtung{
 		NORD,NORDOST,OST,SUEDOST,SUED,SUEDWEST,WEST,NORDWEST;
@@ -43,6 +45,7 @@ public class Spiel {
     	iDatensatz++;
     	if (spielDaten.size()>iDatensatz){
   			try{
+  				// KARTEN
 					while (spielDaten.get(iDatensatz) instanceof D_Karte){
 						// Kartendaten sind vorhanden -> auslesen
 						D_Karte dKarte=(D_Karte)spielDaten.get(iDatensatz);
@@ -52,7 +55,7 @@ public class Spiel {
 						kartenDaten.add(dKarte);
 						iDatensatz++;
 						int start=iDatensatz;
-						for(int i=start;i<=start+(x*y)+1;i++){
+						for(int i=start;i<=start+(x*y)+2;i++){
 							kartenDaten.add(spielDaten.get(i));
 							iDatensatz++;
 						}
@@ -63,6 +66,7 @@ public class Spiel {
   			catch (Exception e){
   				throw new RuntimeException("Spiel spielLaden: Kartendaten D_Karte im gespeicherten Spiel sind ungueltig!");
   			}
+  			iDatensatz--;
 				iDatensatz--;
 				iDatensatz--;
 				ArrayList<Spieler> spielerListe=new ArrayList<Spieler>(); 
@@ -122,6 +126,7 @@ public class Spiel {
 	}
 	
 	public Spiel(){
+		updater=new Updater();
 	}
 	
 	public Spiel(int id,int spielerMax,int kartenMax){
@@ -300,14 +305,12 @@ public class Spiel {
 		D_Position posNeu=new D_Position();
 		posNeu.setInt("x",neuX);
 		posNeu.setInt("y",neuY);
-		karte.setUpdate(feldAlt.toDatenArray(),idSpieler);
-		karte.setUpdate(feldNeu.toDatenArray(),idSpieler);
+		karte.setUpdate(feldAlt.toDatenArray(),einheit.getIdSpieler());
+		karte.setUpdate(feldNeu.toDatenArray(),einheit.getIdSpieler());
 		return posNeu;
 	}
-	
-	
-	
-	public void gruendeStadt(int idSpieler, int idKarte, int x, int y, String name) {
+
+	public void gruendeStadt(int idSpieler,int idKarte,int x,int y,String name) {
 		Spieler spieler=getSpieler(idSpieler);
 		if (spieler.getId()!=idSpieler)
 			throw new RuntimeException("Spiel gruendeStadt: Fehler in der ID des Spielers!");
@@ -315,6 +318,50 @@ public class Spiel {
 		Feld feld=karte.getFeld(x, y);		
 		spieler.addStadt(feld,name);
 		karte.setUpdate(feld.toDatenArray(),idSpieler);
+	}
+	
+	public int getAktuelleRunde(){
+		return d_Spiel.getInt("aktuelleRunde");
+	}
+
+	public int getSpielerAmZug(){
+		return d_Spiel.getInt("spielerAmZug");
+	}
+	
+	public void incSpielerAmZug(){
+		for(int i=0;i<spieler.size();i++){
+			if (spieler.get(i).getId()==getSpielerAmZug()){
+				if (i==spieler.size()-1){
+					d_Spiel.incInt("aktuelleRunde"); // neue Runde
+					i=0;
+				}
+				else{
+					i++; // nachster Spieler in dieser Runde					
+				}
+				D_Spieler spielerDaten=spieler.get(i).getDaten();
+				d_Spiel.setInt("spielerAmZug",spielerDaten.getInt("id"));
+				updater.putSpieldaten(d_Spiel);
+				return;
+			}
+		}
+	}
+	
+	public ArrayList<D> getUpdates(int idSpieler,int idKarte) {
+		ArrayList<D> updates=new ArrayList<D>();
+		ArrayList<D> updatesSpiel=this.getUpdates(idSpieler);
+		if((updatesSpiel!=null)&&(updatesSpiel.size()>0)) updates.addAll(updatesSpiel);
+		ArrayList<D> updatesKarte=getKarte(idKarte).getUpdates(idSpieler);
+		if((updatesKarte!=null)&&(updatesKarte.size()>0)) updates.addAll(updatesKarte);
+		return updates;
+	}
+	
+	private ArrayList<D> getUpdates(int idSpieler) { // Updater vom Spiel selbst
+		if (!updater.hatSpieler(idSpieler)) updater.addSpieler(idSpieler);
+		return updater.get(idSpieler);
+	}
+	
+	public void setUpdate(ArrayList<D> felddaten,int idSpieler) {
+		updater.putFelddaten(felddaten,idSpieler);
 	}
 
 	public String toXml() {

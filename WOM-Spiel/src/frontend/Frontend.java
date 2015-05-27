@@ -71,6 +71,7 @@ public class Frontend extends JFrame{
 			ta.setText(" "+text);
 		else
 			ta.setText(ta.getText()+"\n"+" "+text);
+		ta.setCaretPosition(ta.getText().length());
 	}
 	
 	public void setStatus(String text){
@@ -166,12 +167,10 @@ public class Frontend extends JFrame{
 	public Updater getUpdater() {
 		return updater;
 	}
-
 	public void setUpdater() {
 		if (this.updater!=null) killUpdater();
 		this.updater=new Updater(this,karte.getId(),POLLZEIT);
 	}
-	
 	public void killUpdater() {
 		if (this.updater!=null) this.updater.terminate();
 		this.updater=null;

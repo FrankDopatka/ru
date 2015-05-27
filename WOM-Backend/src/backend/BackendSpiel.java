@@ -145,6 +145,24 @@ public class BackendSpiel extends ResourceConfig implements iBackendSpiel{
 			return Xml.verpacken(Xml.fromD(new D_Fehler(e.getMessage())));
 		}
 	}
+	
+	@GET
+	@Path("beendenRunde/{idSpieler}")
+	@Consumes("text/plain")
+	@Produces("application/xml")
+	@Override
+	public String beendenRunde(
+			@PathParam("idSpieler")int idSpieler) {
+		try{
+			if (spiel.getSpielerAmZug()!=idSpieler)
+				throw new RuntimeException("BackendSpiel beendenRunde: Sie sind gar nicht am Zug! Sie koennen die Runde nicht beenden!");
+			spiel.incSpielerAmZug();
+			return Xml.verpacken(Xml.fromD(new D_OK()));
+		} catch (Exception e) {
+			e.printStackTrace();
+			return Xml.verpacken(Xml.fromD(new D_Fehler(e.getMessage())));
+		}
+	}
 
 	@GET
 	@Path("getKarte/{id}")
@@ -345,7 +363,8 @@ public class BackendSpiel extends ResourceConfig implements iBackendSpiel{
 			@PathParam("idSpieler")int idSpieler,
 			@PathParam("idKarte")int idKarte){
 		try {
-			ArrayList<D> daten=spiel.getKarte(idKarte).getUpdates(idSpieler);
+			// Updates des Spiels selbst und der geladenen Karte zusammengefuehrt zurueckgeben
+			ArrayList<D> daten=spiel.getUpdates(idSpieler,idKarte); 
 			if ((daten!=null)&&(daten.size()>0))
 				return Xml.verpacken(Xml.fromArray(daten));
 			else
@@ -355,7 +374,7 @@ public class BackendSpiel extends ResourceConfig implements iBackendSpiel{
 			return Xml.verpacken(Xml.fromD(new D_Fehler(e.getMessage())));
 		}
 	}
-
+	
 	@GET
 	@Path("speichernSpiel/{pfad}")
 	@Consumes("text/plain")

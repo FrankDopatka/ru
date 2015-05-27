@@ -147,23 +147,28 @@ public class Karte extends JPanel implements Scrollable{
 	}
 	
 	public void updateFeld(int x,int y,ArrayList<D> daten) {
+		for(D datenwert:daten){
+			if (datenwert instanceof D_Feld) updateFeldBasis(x,y,(D_Feld)datenwert);
+			if (datenwert instanceof D_Einheit) updateFeldEinheit(x,y,(D_Einheit)datenwert);
+			if (datenwert instanceof D_Stadt) updateFeldStadt(x,y,(D_Stadt)datenwert);
+		}
+	}
+	
+	public void updateFeldBasis(int x,int y,D_Feld datenwert) {
 		Feld f=felder[x][y];
 		f.setEinheit(null);
 		f.setStadt(null);
-		for(D datenwert:daten){
-			if (datenwert instanceof D_Feld){
-				D_Feld datenFeld=(D_Feld)datenwert;
-				f.setDaten(datenFeld);
-			}
-			else if (datenwert instanceof D_Einheit){
-				D_Einheit datenEinheit=(D_Einheit)datenwert;
-				f.setEinheit(datenEinheit);
-			}
-			else if (datenwert instanceof D_Stadt){
-				D_Stadt datenStadt=(D_Stadt)datenwert;
-				f.setStadt(datenStadt);
-			}
-		}
+		f.setDaten(datenwert);
+		zeichneFeld(x,y);
+	}
+	public void updateFeldEinheit(int x,int y,D_Einheit datenwert) {
+		Feld f=felder[x][y];
+		f.setEinheit(datenwert);
+		zeichneFeld(x,y);
+	}
+	public void updateFeldStadt(int x,int y,D_Stadt datenwert) {
+		Feld f=felder[x][y];
+		f.setStadt(datenwert);
 		zeichneFeld(x,y);
 	}
 

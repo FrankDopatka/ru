@@ -1,5 +1,6 @@
 package backend;
 
+
 public interface iBackendSpiel {
 	String neuesSpiel(int id,int anzahlSpieler,int anzahlKarten);
 	String hinzufuegenKarte(String pfad);
@@ -8,6 +9,7 @@ public interface iBackendSpiel {
 	String hinzufuegenSpieler(int id,String name,String rasse,String nation);
 	String getAlleSpieler();
 	String starteSpiel();
+	String beendenRunde(int idSpieler);
 
 	String getKarte(int id);
 	String getKartenArten();

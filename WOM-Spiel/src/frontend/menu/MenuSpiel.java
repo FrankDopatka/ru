@@ -48,6 +48,7 @@ public class MenuSpiel extends MenuTop{
 		buttons[22].setText("Sued");
 		buttons[23].setText("Sued-Ost");
 		buttons[16].setText("Aktion Einheit/Stadt");
+		buttons[20].setText("Runde beenden");
 	}
 	
 	@Override
@@ -129,17 +130,29 @@ public class MenuSpiel extends MenuTop{
 		case 23:
 			bewege(Frontend.Bewegungsrichtung.SUEDOST);
 			break;
+		case 20:
+			beendenRunde(frontend.getIdSpieler());
+			break;
 		default:
 				frontend.log("Button "+i+" wurde geklickt.");
 		}
+	}
+
+	private void beendenRunde(int idSpieler) {
+		String antwort=frontend.getBackend().beendenRunde(idSpieler);
+		frontend.log("Der Spieler mit der ID="+idSpieler+" beendet die Runde...");
+		if (Xml.toD(antwort) instanceof D_OK)
+			frontend.log("OK");
+		else
+			frontend.log("FEHLGESCHLAGEN: "+Xml.toD(antwort).getString("meldung"));
 	}
 
 	private boolean autoUpdate(boolean aktivieren) {
 		try{
 			if (aktivieren){
 				frontend.log("Aktiviere Autoupdate...");
-				if (frontend.getIdSpieler()<=0)
-					throw new RuntimeException("Sie muessen zuerst einen Spieler waehlen, den Sie selbst spielen!");
+				if (frontend.getIdSpieler()<1)
+					throw new RuntimeException("autoUpdate: Sie muessen zuerst einen Spieler waehlen, den Sie ab jetzt spielen!");
 				frontend.setUpdater();				
 				frontend.log("OK");
 			}

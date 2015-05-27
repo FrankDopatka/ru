@@ -215,6 +215,6 @@ public abstract class Karte {
 	}
 	
 	public void setUpdate(ArrayList<D> felddaten,int idSpieler) {
-		updater.put(felddaten,idSpieler);
+		updater.putFelddaten(felddaten,idSpieler);
 	}
 }

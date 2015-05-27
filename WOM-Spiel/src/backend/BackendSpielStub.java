@@ -60,7 +60,12 @@ public class BackendSpielStub implements iBackendSpiel{
 	public String starteSpiel() {
 		return getXmlvonRest("starteSpiel");
 	}
+	
 
+	@Override
+	public String beendenRunde(int idSpieler) {
+		return getXmlvonRest("beendenRunde"+"/"+idSpieler);
+	}
 
 	@Override
 	public String getKarte(int id) {
@@ -143,4 +148,5 @@ public class BackendSpielStub implements iBackendSpiel{
 			return null;
 		}
 	}
+
 }

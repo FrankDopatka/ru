@@ -8,6 +8,7 @@ public interface iBackendSpiel {
 	String hinzufuegenSpieler(int id,String name,String rasse,String nation);
 	String getAlleSpieler();
 	String starteSpiel();
+	String beendenRunde(int idSpieler);
 
 	String getKarte(int id);
 	String getKartenArten();
