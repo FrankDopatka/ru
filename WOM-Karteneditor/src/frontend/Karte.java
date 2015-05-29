@@ -1,5 +1,7 @@
 package frontend;
 
+import interfaces.iBackendKarteneditor;
+
 import java.awt.Dimension;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
@@ -12,7 +14,6 @@ import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import javax.swing.Scrollable;
 
-import backend.iBackendKarteneditor;
 import daten.D;
 import daten.D_Feld;
 import daten.D_FeldArt;

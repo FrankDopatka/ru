@@ -27,11 +27,11 @@ public class MenuTop extends JMenuBar implements ActionListener{
   	this.funktionenKarteneditor=frontend.getFunktionenKarteneditor();
   	server=new JMenu("Server");
     add(server);
-    addMenuItem("spiel-neu","neues Spiel auf dem Server",server);
+    addMenuItem("spiel-neu","neues Spiel auf dem Server erzeugen",server);
     addMenuItem("spiel-karte-neu","dem Spiel eine Karte hinzufuegen",server);
     addMenuItem("spiel-spieler-neu","dem Spiel einen Spieler hinzufuegen",server);
-    addMenuItem("spiel-starten","neues Spiel starten",server);
-    addMenuItem("spiel-laden","Spiel serverseitig starten",server);
+    addMenuItem("spiel-starten","neues Spiel auf dem Server starten",server);
+    addMenuItem("spiel-laden","Spiel serverseitig laden",server);
     addMenuItem("spiel-speichern","Spiel serverseitig speichern",server);
   	karte=new JMenu("Karte");
     add(karte);

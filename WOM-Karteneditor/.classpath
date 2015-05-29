@@ -24,5 +24,6 @@
 	<classpathentry kind="lib" path="jars/jaxrs-ri/ext/osgi-resource-locator-1.0.1.jar"/>
 	<classpathentry kind="lib" path="jars/jaxrs-ri/ext/persistence-api-1.0.jar"/>
 	<classpathentry kind="lib" path="jars/jaxrs-ri/ext/validation-api-1.1.0.Final.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/WOM-Backend"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

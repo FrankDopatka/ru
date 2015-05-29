@@ -1,5 +1,7 @@
 package backend;
 
+import interfaces.iBackendKarteneditor;
+
 import java.net.URLEncoder;
 
 import javax.ws.rs.client.Client;

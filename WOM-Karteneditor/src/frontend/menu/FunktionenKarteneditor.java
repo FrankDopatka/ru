@@ -1,5 +1,7 @@
 package frontend.menu;
 
+import interfaces.iBackendKarteneditor;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -16,7 +18,6 @@ import daten.D_Fehler;
 import daten.D_FeldArt;
 import daten.D_KartenArt;
 import daten.Xml;
-import backend.iBackendKarteneditor;
 import frontend.Frontend;
 import frontend.Karte;
 import frontend.KarteEventHandler;

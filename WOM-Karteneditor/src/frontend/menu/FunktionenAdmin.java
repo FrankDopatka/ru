@@ -1,5 +1,7 @@
 package frontend.menu;
 
+import interfaces.iBackendSpielAdmin;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -7,7 +9,6 @@ import java.util.ArrayList;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
 
-import backend.iBackendSpielAdmin;
 import daten.D;
 import daten.D_OK;
 import daten.D_SpielerNationArt;

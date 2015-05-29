@@ -3,6 +3,7 @@ package frontend.menu;
 import frontend.Frontend;
 import frontend.Karte;
 import frontend.KarteEventHandler;
+import interfaces.iBackendKarteneditor;
 
 import java.awt.Dimension;
 import java.awt.Font;
@@ -25,7 +26,6 @@ import daten.D_FeldArt;
 import daten.D_Karte;
 import daten.D_RessourcenArt;
 import daten.Xml;
-import backend.iBackendKarteneditor;
 
 public class MenuRechts extends JPanel implements ActionListener{
 	private static final long serialVersionUID = 1L;

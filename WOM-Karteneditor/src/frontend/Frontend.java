@@ -4,6 +4,8 @@ import frontend.menu.FunktionenAdmin;
 import frontend.menu.FunktionenKarteneditor;
 import frontend.menu.MenuRechts;
 import frontend.menu.MenuTop;
+import interfaces.iBackendKarteneditor;
+import interfaces.iBackendSpielAdmin;
 
 import java.awt.BorderLayout;
 import java.awt.Font;
@@ -20,8 +22,6 @@ import daten.D_Karte;
 import daten.Xml;
 import backend.BackendKarteneditorStub;
 import backend.BackendSpielAdminStub;
-import backend.iBackendKarteneditor;
-import backend.iBackendSpielAdmin;
 
 public class Frontend extends JFrame{
 	private static final long serialVersionUID = 1L;
