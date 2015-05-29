@@ -1,5 +1,7 @@
 package backend;
 
+import interfaces.iBackendSpiel;
+
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 

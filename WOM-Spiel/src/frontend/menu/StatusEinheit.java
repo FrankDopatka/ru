@@ -1,5 +1,7 @@
 package frontend.menu;
 
+import interfaces.iBackendSpiel;
+
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -18,7 +20,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import backend.iBackendSpiel;
 import daten.*;
 import frontend.Frontend;
 

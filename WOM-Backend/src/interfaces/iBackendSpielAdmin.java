@@ -1,4 +1,4 @@
-package backend;
+package interfaces;
 
 public interface iBackendSpielAdmin {
 	String neuesSpiel(int id,int anzahlSpieler,int anzahlKarten);

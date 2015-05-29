@@ -1,5 +1,7 @@
 package backend;
 
+import interfaces.iBackendKarteneditor;
+
 import java.io.FileWriter;
 import java.io.PrintWriter;
 

@@ -1,7 +1,7 @@
 package frontend;
 
 import frontend.menu.MenuTop;
-import frontend.menu.MenuSpiel;
+import interfaces.iBackendSpiel;
 
 import java.awt.BorderLayout;
 import java.awt.Font;
@@ -17,7 +17,6 @@ import daten.D;
 import daten.D_Karte;
 import daten.Xml;
 import backend.BackendSpielStub;
-import backend.iBackendSpiel;
 
 public class Frontend extends JFrame{
 	private static final long serialVersionUID = 1L;
@@ -59,7 +58,7 @@ public class Frontend extends JFrame{
 		logger.add(st,BorderLayout.SOUTH);
 		panel.add(logger,BorderLayout.SOUTH);
 		// rechtes Menu einblenden:
-		setMenuTop(new MenuSpiel(this));
+		setMenuTop(new MenuTop(this));
 		// Fenster:
 		add(panel);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

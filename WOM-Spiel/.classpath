@@ -24,5 +24,6 @@
 	<classpathentry kind="lib" path="jars/jaxrs-ri/lib/jersey-container-servlet.jar"/>
 	<classpathentry kind="lib" path="jars/jaxrs-ri/lib/jersey-media-jaxb.jar"/>
 	<classpathentry kind="lib" path="jars/jaxrs-ri/lib/jersey-server.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/WOM-Backend"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

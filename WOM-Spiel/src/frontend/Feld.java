@@ -15,7 +15,7 @@ import daten.*;
 public class Feld extends JLabel{
 	private static final long serialVersionUID = 1L;
 	private Frontend frontend;
-	private iEventhandler events;
+	private KarteEventHandler eventHandler;
 	private int x;
 	private int y;
 	private D_Feld d_Feld=null;
@@ -51,11 +51,11 @@ public class Feld extends JLabel{
 		return d_Stadt;
 	}
 	
-	public void setEventhandler(iEventhandler events){
-		this.events=events;
-		if (events!=null){
-			addMouseListener(events);
-			addMouseMotionListener(events);
+	public void setEventhandler(KarteEventHandler eventHandler){
+		this.eventHandler=eventHandler;
+		if (eventHandler!=null){
+			addMouseListener(eventHandler);
+			addMouseMotionListener(eventHandler);
 		}
 	}
 
@@ -117,8 +117,8 @@ public class Feld extends JLabel{
 	}
 	
 	public void terminate(){
-		removeMouseListener(events);
-		removeMouseMotionListener(events);
+		removeMouseListener(eventHandler);
+		removeMouseMotionListener(eventHandler);
 		setIcon(null);
 		setVisible(false);
 	}

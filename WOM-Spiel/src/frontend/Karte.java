@@ -89,10 +89,10 @@ public class Karte extends JPanel implements Scrollable{
 		return bildStadt.get(nummer);
 	}
 
-	public void setEventhandler(iEventhandler events){
+	public void setEventhandler(KarteEventHandler eventHandler){
 		for (int i=1;i<=this.daten.getInt("x");i++){
 			for (int j=1;j<=this.daten.getInt("y");j++){
-				felder[i][j].setEventhandler(events);
+				felder[i][j].setEventhandler(eventHandler);
 			}
 		}
 	}

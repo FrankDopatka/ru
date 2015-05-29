@@ -1,4 +1,6 @@
 package backend;
+import interfaces.iBackendSpiel;
+
 import java.util.ArrayList;
 
 import javax.ws.rs.Consumes;

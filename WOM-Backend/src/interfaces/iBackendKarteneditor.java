@@ -1,4 +1,4 @@
-package backend;
+package interfaces;
 
 public interface iBackendKarteneditor {
 	String neueKarte(int id,int x,int y,String kartenArt,String feldArt);
