@@ -22,6 +22,7 @@ import daten.Xml;
 public class Karte extends JPanel implements Scrollable{
 	private static final long serialVersionUID = 1L;
 	private Frontend frontend;
+	private iBackendKarteneditor backendKarteneditor;
 	private Feld[][] felder;
 	private int groesseX;
 	private int groesseY;
@@ -32,15 +33,15 @@ public class Karte extends JPanel implements Scrollable{
 		this.frontend=frontend;
 		this.groesseX=groesseX;
 		this.groesseY=groesseY;
-		iBackendKarteneditor backend=frontend.getBackend();
-		String kartenArt=Xml.toD(backend.getKartenDaten()).getString("kartenArt");
-		D_FeldArt feldArten=(D_FeldArt)Xml.toD(backend.getErlaubteFeldArten(kartenArt));
+		backendKarteneditor=frontend.getBackendKarteneditor();
+		String kartenArt=Xml.toD(backendKarteneditor.getKartenDaten()).getString("kartenArt");
+		D_FeldArt feldArten=(D_FeldArt)Xml.toD(backendKarteneditor.getErlaubteFeldArten(kartenArt));
 		String pfadBild="daten//felder";
 		String pfadRessource="daten//ressourcen";
 		for (String feldArt:feldArten.getListe()){
   		try {
 				bildFeld.put(feldArt, ImageIO.read(new File(pfadBild,feldArt.toLowerCase()+".jpg")));
-				D_RessourcenArt feldRessourcen=(D_RessourcenArt)Xml.toD(backend.getErlaubteRessourcenArten(feldArt));
+				D_RessourcenArt feldRessourcen=(D_RessourcenArt)Xml.toD(backendKarteneditor.getErlaubteRessourcenArten(feldArt));
 				if (feldRessourcen!=null){
 					for (String resourcenArt:feldRessourcen.getListe()){
 						if (!bildRessource.containsKey(resourcenArt)){
@@ -50,7 +51,6 @@ public class Karte extends JPanel implements Scrollable{
 				}
 			} catch (IOException e) {
 				e.printStackTrace();
-				System.exit(-1);
 			}
   	}
 
@@ -77,10 +77,10 @@ public class Karte extends JPanel implements Scrollable{
 		return bildRessource.get(ressorcenArt);
 	}
 
-	public void setEventhandler(iEventhandler events){
+	public void setEventhandler(KarteEventHandler eventHandler){
 		for (int i=1;i<=groesseX;i++){
 			for (int j=1;j<=groesseY;j++){
-				felder[i][j].setEventhandler(events);
+				felder[i][j].setEventhandler(eventHandler);
 			}
 		}
 	}

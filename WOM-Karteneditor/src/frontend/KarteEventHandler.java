@@ -1,21 +1,26 @@
 package frontend;
 
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
 import backend.iBackendKarteneditor;
 import daten.*;
-import frontend.menu.MenuKarteneditor;
-import frontend.menu.MenuKarteneditor.AktionKarteneditor;
+import frontend.menu.MenuRechts;
+import frontend.menu.MenuRechts.AktionMenuRechts;
 
-
-public class eKarteneditor extends iEventhandler{
+public class KarteEventHandler implements MouseListener,MouseMotionListener{
+	private Frontend frontend;
+	private iBackendKarteneditor backendKarteneditor;
 	private boolean dragging=false;
 	
-	public eKarteneditor(Frontend frontend) {
-		super(frontend);
+	
+	public KarteEventHandler(Frontend frontend) {
+		this.frontend=frontend;
+		this.backendKarteneditor=frontend.getBackendKarteneditor();
 	}
 
 	@Override
@@ -49,7 +54,7 @@ public class eKarteneditor extends iEventhandler{
 	}
 	
 	private void aktion(Feld feld){
-		AktionKarteneditor a=((MenuKarteneditor)frontend.getMenuRechts()).getAktion();
+		AktionMenuRechts a=frontend.getMenuRechts().getAktion();
 		switch (a){
 		case FeldArtSetzen:
 			feldSetzen(feld);
@@ -67,19 +72,17 @@ public class eKarteneditor extends iEventhandler{
 	}
 
 	private void feldSetzen(Feld feld){
-		iBackendKarteneditor backend=frontend.getBackend();
-		MenuKarteneditor menu=(MenuKarteneditor)frontend.getMenuRechts();
+		MenuRechts menu=frontend.getMenuRechts();
 		String fArtNeu=menu.getFeldart();
-		backend.setFeldArt(feld.getPos()[0],feld.getPos()[1],fArtNeu);
+		backendKarteneditor.setFeldArt(feld.getPos()[0],feld.getPos()[1],fArtNeu);
 		feld.zeichnen();
 	}
 	
 	private void ressourceSetzen(Feld feld){
 		dragging=false;
-		iBackendKarteneditor backend=frontend.getBackend();
-		D_Feld feldDaten=(D_Feld)Xml.toD(backend.getFeldDaten(feld.getPos()[0],feld.getPos()[1]));
+		D_Feld feldDaten=(D_Feld)Xml.toD(backendKarteneditor.getFeldDaten(feld.getPos()[0],feld.getPos()[1]));
 		String feldArt=feldDaten.getString("feldArt");
-		D_RessourcenArt feldRessourcenArten=(D_RessourcenArt)Xml.toD(frontend.getBackend().getErlaubteRessourcenArten(feldArt));
+		D_RessourcenArt feldRessourcenArten=(D_RessourcenArt)Xml.toD(backendKarteneditor.getErlaubteRessourcenArten(feldArt));
 		ArrayList<String> feldRessourcenArtenEnum=feldRessourcenArten.getListe();
 		Object[] optionen=new Object[feldRessourcenArtenEnum.size()];
 		for (int i=0;i<feldRessourcenArtenEnum.size();i++){
@@ -92,35 +95,41 @@ public class eKarteneditor extends iEventhandler{
 	    JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, 
 	    null, optionen, optionen[0]);
 	  if (gewaehlt==-1) return;
-	  backend.setRessource(feld.getPos()[0],feld.getPos()[1],""+optionen[gewaehlt]);
+	  backendKarteneditor.setRessource(feld.getPos()[0],feld.getPos()[1],""+optionen[gewaehlt]);
 	  feld.zeichnen();
 	}
 
 	private void ressourceLoeschen(Feld feld){
 		dragging=false;
-		iBackendKarteneditor backend=frontend.getBackend();
-		backend.delRessource(feld.getPos()[0],feld.getPos()[1]);
+		backendKarteneditor.delRessource(feld.getPos()[0],feld.getPos()[1]);
 		feld.zeichnen();
 	}
 	
 	private void spielerstartSetzen(Feld feld){
 		dragging=false;
-		iBackendKarteneditor backend=frontend.getBackend();
-		MenuKarteneditor menu=(MenuKarteneditor)frontend.getMenuRechts();
+		MenuRechts menu=frontend.getMenuRechts();
 		try{
 			int spielernummer=menu.getSpielernummer();
-			D_Position posAlt=(D_Position)Xml.toD(backend.getSpielerstart(spielernummer));
+			D_Position posAlt=(D_Position)Xml.toD(backendKarteneditor.getSpielerstart(spielernummer));
 			int x=posAlt.getInt("x");
 			int y=posAlt.getInt("y");
 			if ((posAlt.getInt("x")!=0)&&(posAlt.getInt("y")!=0)){
-				backend.setSpielerstart(x,y,0);
+				backendKarteneditor.setSpielerstart(x,y,0);
 				frontend.getKarte().zeichneFeld(new int[]{x,y});
 			}
-			backend.setSpielerstart(feld.getPos()[0],feld.getPos()[1],spielernummer);
+			backendKarteneditor.setSpielerstart(feld.getPos()[0],feld.getPos()[1],spielernummer);
 		}
 		catch(RuntimeException e){
 			frontend.log("FEHLER:"+e.getMessage());
 		}
 		feld.zeichnen();
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
 	}
 }

@@ -7,9 +7,9 @@ public class D_Feld extends D {
 		addInt("idKarte",0);
 		addInt("x",0);
 		addInt("y",0);
-		addString("feldArt","");
+		addString("feldArt",""); // Art des Feldes, wie Wald,Wiese,Berg,...
 		
 		addInt("spielerstart",0); // 0: von hier startet kein Spieler, >0: von hier startet der Spieler mit dieser ID
-		addString("ressource","");
+		addString("ressource",""); // Ressource auf diesem Feld
 	}
 }

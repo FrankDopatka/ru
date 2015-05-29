@@ -56,15 +56,17 @@ public class BackendKarteneditor implements iBackendKarteneditor{
 		PrintWriter pw=null;
 		try {
 			if (!pfad.endsWith(".map")) pfad=pfad+".map";
+			if (karte==null) throw new RuntimeException("BackendKarteneditor speichernKarte: Es existiert noch keine Karte!");
 			pw=new PrintWriter(new FileWriter(pfad));
 			pw.println(Xml.verpacken(karte.toXml()));
 			return Xml.verpacken(Xml.fromD(new D_OK()));
 		} catch (Exception e) {
-			e.printStackTrace();
 			return Xml.verpacken(Xml.fromD(new D_Fehler(e.getMessage())));
 		}
 		finally{
-			pw.close();			
+			try{
+				pw.close();							
+			} catch (Exception e){}
 		}
 	}
 	
@@ -80,7 +82,6 @@ public class BackendKarteneditor implements iBackendKarteneditor{
 			karte=Karte.karteVonXml(karteXML);
 			return karteXML;
 		} catch (Exception e) {
-			e.printStackTrace();
 			return Xml.verpacken(Xml.fromD(new D_Fehler(e.getMessage())));
 		}		
 	}
@@ -151,9 +152,9 @@ public class BackendKarteneditor implements iBackendKarteneditor{
 	@Override
 	public String getKartenDaten() {
 		try{
+			if (karte==null) throw new RuntimeException("BackendKarteneditor getKartenDaten: Es existiert noch keine Karte!");
 			return Xml.verpacken(Xml.fromD(karte.getDaten()));
 		} catch (Exception e) {
-			e.printStackTrace();
 			return Xml.verpacken(Xml.fromD(new D_Fehler(e.getMessage())));
 		}
 	}

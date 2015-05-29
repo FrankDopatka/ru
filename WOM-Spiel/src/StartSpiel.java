@@ -1,8 +1,20 @@
+import java.io.IOException;
+
 import frontend.Frontend;
 
 public class StartSpiel {
-	public static void main(String[] args) {
-//		new Frontend("http://192.168.178.33:8000");
-		new Frontend("http://192.168.178.33:8000");
+	public static void main(String[] args) throws IOException{
+		final String zumServer="http://192.168.178.33:8000";
+		final int spielerAnzahl=3;
+		
+		for(int i=1;i<=spielerAnzahl;i++){
+			final int idSpieler=i;
+			new Thread(){
+				@Override
+				public void run(){
+					new Frontend(zumServer,idSpieler);
+				}
+			}.start();
+		}
 	}
 }

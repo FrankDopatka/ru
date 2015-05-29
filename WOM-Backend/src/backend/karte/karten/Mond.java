@@ -6,6 +6,7 @@ public class Mond extends Karte {
 
 	public Mond(){
 		setArt("Mond");
+		getDaten().addInt("idZielkarte",0);
 	}
 
 	@Override

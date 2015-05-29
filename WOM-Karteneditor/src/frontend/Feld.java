@@ -15,7 +15,7 @@ import daten.*;
 public class Feld extends JLabel{
 	private static final long serialVersionUID = 1L;
 	private Frontend frontend;
-	private iEventhandler events;
+	private KarteEventHandler eventHandler;
 	private int x;
 	private int y;
 	
@@ -29,11 +29,11 @@ public class Feld extends JLabel{
 		setVisible(true);
 	}
 	
-	public void setEventhandler(iEventhandler events){
-		this.events=events;
-		if (events!=null){
-			addMouseListener(events);
-			addMouseMotionListener(events);
+	public void setEventhandler(KarteEventHandler eventHandler){
+		this.eventHandler=eventHandler;
+		if (eventHandler!=null){
+			addMouseListener(eventHandler);
+			addMouseMotionListener(eventHandler);
 		}
 	}
 
@@ -49,7 +49,7 @@ public class Feld extends JLabel{
 	}
 
 	public void zeichnen(){
-		D_Feld daten=(D_Feld)Xml.toD(frontend.getBackend().getFeldDaten(x,y));
+		D_Feld daten=(D_Feld)Xml.toD(frontend.getBackendKarteneditor().getFeldDaten(x,y));
 		zeichnen(daten);
 	}
 	
@@ -83,15 +83,15 @@ public class Feld extends JLabel{
 	}
 	
 	public void terminate(){
-		removeMouseListener(events);
-		removeMouseMotionListener(events);
+		removeMouseListener(eventHandler);
+		removeMouseMotionListener(eventHandler);
 		setIcon(null);
 		setVisible(false);
 	}
 	
 	@Override
 	public String toString(){
-		D_Feld d=(D_Feld)Xml.toD(frontend.getBackend().getFeldDaten(x,y));
+		D_Feld d=(D_Feld)Xml.toD(frontend.getBackendKarteneditor().getFeldDaten(x,y));
 		String s="Feld "+d.getInt("x")+"/"+d.getInt("y")+" vom Typ "+d.getString("feldArt");
 		if (d.getString("ressource").length()>0) s+=" und Ressource "+d.getString("ressource");
 		if (d.getInt("spielerstart")>0) s+=" und Start von Spieler Nummer "+d.getInt("spielerstart");

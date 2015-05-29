@@ -42,10 +42,11 @@ public class Frontend extends JFrame{
 		}
 	}
 	
-	public Frontend(String url){
+	public Frontend(String url,int idSpieler){
 		super();
 		backend=new BackendSpielStub(url);
-		setTitle("WorldOfMKI Spiel, Version 0.90 REST");
+		this.idSpieler=idSpieler;
+		setTitle("WorldOfMKI Spiel, Version 0.90, Spieler "+idSpieler);
 		setLayout(new BorderLayout());
 		panel.setLayout(new BorderLayout());
     // Logger:
@@ -63,7 +64,7 @@ public class Frontend extends JFrame{
 		add(panel);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(600,700);
-		setVisible(true);
+		setVisible(true);		
 	}
 	
 	public void log(String text){

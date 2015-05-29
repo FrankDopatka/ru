@@ -159,26 +159,14 @@ public class ServerFrontend extends JFrame implements ActionListener{
 		if (button[5]==geklicked){
 			// Server Start
 			try {
-				URI baseUri = UriBuilder.fromUri("http://"+jIP.getText()+"/").port(8000).build();
-		    System.out.println("Starte Server auf "+baseUri+"... ");	
-		    
-		    
+				URI uri=UriBuilder.fromUri("http://"+jIP.getText()+"/").port(8000).build();
+		    System.out.println("Starte Server auf "+uri+"... ");	
 		    final ResourceConfig rc=new ResourceConfig().packages("backend"); 
-				server=GrizzlyHttpServerFactory.createHttpServer(baseUri,rc);
-				
-				/*
-		    String url="http://"+jIP.getText()+":8000/";
-		    System.out.println("Starte Server auf "+url+"... ");
-				final ResourceConfig rc=new PackagesResourceConfig("");
-		    final Map<String, Object> config=new HashMap<String,Object>();
-		    config.put("com.sun.jersey.api.json.POJOMappingFeature",true);
-		    rc.setPropertiesAndFeatures(config);
-		    server=HttpServerFactory.create(url);
-				server.start();
-				*/
-				
-				
+				server=GrizzlyHttpServerFactory.createHttpServer(uri,rc);
 				System.out.println("OK: Server laueft.");
+				System.out.println("Lade Startzustand ueber die Initialisierungsfunktion...");
+				Initialisierung.ausfuehren();
+				System.out.println("OK");
 			} catch (Exception e) {
 				System.out.println("FEHLER: "+e.getMessage());
 			}

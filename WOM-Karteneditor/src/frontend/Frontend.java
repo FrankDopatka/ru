@@ -1,5 +1,7 @@
 package frontend;
 
+import frontend.menu.FunktionenAdmin;
+import frontend.menu.FunktionenKarteneditor;
 import frontend.menu.MenuRechts;
 import frontend.menu.MenuTop;
 
@@ -17,11 +19,14 @@ import daten.D;
 import daten.D_Karte;
 import daten.Xml;
 import backend.BackendKarteneditorStub;
+import backend.BackendSpielAdminStub;
 import backend.iBackendKarteneditor;
+import backend.iBackendSpielAdmin;
 
 public class Frontend extends JFrame{
 	private static final long serialVersionUID = 1L;
-	private iBackendKarteneditor backend;
+	private iBackendKarteneditor backendKarteneditor;
+	private iBackendSpielAdmin backendSpielAdmin;
 	private MenuTop menuTop;
 	private MenuRechts menuRechts=null;
 	private JPanel panel=new JPanel();
@@ -31,11 +36,16 @@ public class Frontend extends JFrame{
 	private Karte karte;
 	private int spielfeldGroesse=50;
 	private int zoomfaktor=100;
+	private FunktionenAdmin funktionenAdmin;
+	private FunktionenKarteneditor funktionenKarteneditor;
 	
 	public Frontend(String url){
 		super();
-		backend=new BackendKarteneditorStub(url);
-		setTitle("WOM Karteneditor, Version 0.80 REST");
+		backendKarteneditor=new BackendKarteneditorStub(url);
+		backendSpielAdmin=new BackendSpielAdminStub(url);
+		funktionenAdmin=new FunktionenAdmin(this);
+		funktionenKarteneditor=new FunktionenKarteneditor(this);
+		setTitle("WOM Administration, Version 0.80");
 		setLayout(new BorderLayout());
 		panel.setLayout(new BorderLayout());
 		menuTop=new MenuTop(this);
@@ -54,6 +64,8 @@ public class Frontend extends JFrame{
 		add(panel);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(800,600);
+		
+		setMenuRechts(new MenuRechts(this));
 		setVisible(true);
 	}
 	
@@ -68,8 +80,12 @@ public class Frontend extends JFrame{
 		st.setText(" "+text);
 	}
 
-	public iBackendKarteneditor getBackend() {
-		return backend;
+	public iBackendKarteneditor getBackendKarteneditor() {
+		return backendKarteneditor;
+	}
+	
+	public iBackendSpielAdmin getBackendSpielAdmin() {
+		return backendSpielAdmin;
 	}
 
 	public Karte neueKarte(String backendDaten){
@@ -96,7 +112,7 @@ public class Frontend extends JFrame{
 
 	public void zeichneFelder(ArrayList<D> daten) {
 		if (daten==null){
-			String backendDaten=backend.getKarte();
+			String backendDaten=backendKarteneditor.getKarte();
 			daten=Xml.toArray(backendDaten);
 		}	
 		if (karte!=null) karte.zeichneFelder(daten);
@@ -137,5 +153,12 @@ public class Frontend extends JFrame{
 	
 	public int getSpielfeldGroesse(){
 		return spielfeldGroesse;
+	}
+
+	public FunktionenAdmin getFunktionenAdmin() {
+		return funktionenAdmin;
+	}
+	public FunktionenKarteneditor getFunktionenKarteneditor() {
+		return funktionenKarteneditor;
 	}
 }

@@ -6,6 +6,7 @@ public class Planet extends Karte {
 
 	public Planet(){
 		setArt("Planet");
+		getDaten().addInt("idZielkarte",0);
 	}
 
 	@Override
