@@ -13,7 +13,6 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -28,13 +27,15 @@ import daten.Xml;
 
 public class MenuTop extends JPanel implements ActionListener{
 	private static final long serialVersionUID = 1L;
-	protected Frontend frontend;
-	protected int spalten;
-	protected int zeilen;
+	private Frontend frontend;
+	private iBackendSpiel backendSpiel;
+	private int spalten;
+	private int zeilen;
 	private JButton[] buttons;
 
 	public MenuTop(Frontend frontend){
 		this.frontend=frontend;
+		this.backendSpiel=frontend.getBackend();
 		spalten=6;
 		zeilen=4;
 		setPreferredSize(new Dimension(1200,100));
@@ -45,7 +46,6 @@ public class MenuTop extends JPanel implements ActionListener{
 			buttons[i].addActionListener(this);
 			add(buttons[i]);
 		}
-		buttons[3].setText("ich bin Spieler <X>");
 		buttons[5].setText("Karte holen");
 		buttons[18].setText("Autoupdate <AUS>");
 		// Navigation
@@ -81,9 +81,6 @@ public class MenuTop extends JPanel implements ActionListener{
 
 	private void aktion(int i) {
 		switch (i){
-		case 3:
-			wahlSpieler();
-			break;
 		case 5:
 			holenKarte();
 			break;
@@ -131,7 +128,7 @@ public class MenuTop extends JPanel implements ActionListener{
 	}
 
 	private void beendenRunde(int idSpieler) {
-		String antwort=frontend.getBackend().beendenRunde(idSpieler);
+		String antwort=backendSpiel.beendenRunde(idSpieler);
 		frontend.log("Der Spieler mit der ID="+idSpieler+" beendet die Runde...");
 		if (Xml.toD(antwort) instanceof D_OK)
 			frontend.log("OK");
@@ -143,8 +140,6 @@ public class MenuTop extends JPanel implements ActionListener{
 		try{
 			if (aktivieren){
 				frontend.log("Aktiviere Autoupdate...");
-				if (frontend.getIdSpieler()<1)
-					throw new RuntimeException("autoUpdate: Sie muessen zuerst einen Spieler waehlen, den Sie ab jetzt spielen!");
 				frontend.setUpdater();				
 				frontend.log("OK");
 			}
@@ -176,44 +171,8 @@ public class MenuTop extends JPanel implements ActionListener{
 			
 			
 		} else if (einheit!=null){
-			D_Spieler spieler=(D_Spieler)Xml.toD(frontend.getBackend().getSpielerDaten(einheit.getInt("idSpieler")));
+			D_Spieler spieler=(D_Spieler)Xml.toD(backendSpiel.getSpielerDaten(einheit.getInt("idSpieler")));
 			new StatusEinheit(frontend,einheit,spieler);
-		}
-	}
-	
-	private void wahlSpieler() {
-		try{
-			frontend.log("Auswahl der clientseitigen Steuerung eines Spielers...");
-			ArrayList<D> spielerDaten=Xml.toArray(frontend.getBackend().getAlleSpieler());
-			ArrayList<String> eingabeBeschriftungen=new ArrayList<String>();
-			ArrayList<Object> eingabeFelder=new ArrayList<Object>();
-			eingabeBeschriftungen.add("Spieler zum Steuern auswaehlen:");
-			final JComboBox<String> jWahlSpieler=new JComboBox<String>();
-			if ((spielerDaten!=null)&&(spielerDaten.size()>0)){
-				for(D daten:spielerDaten){
-					D_Spieler x=(D_Spieler)daten;
-					if (x.getString("rasse").equals("Mensch"))
-						jWahlSpieler.addItem(x.getInt("id")+" - "+x.getString("name")+","+x.getString("rasse")+","+x.getString("nation"));
-					else
-						jWahlSpieler.addItem(x.getInt("id")+" - "+x.getString("name")+","+x.getString("rasse"));
-		  	}
-			}
-			eingabeFelder.add(jWahlSpieler);
-			MenuEingabe eingabe=new MenuEingabe(this,"Spieler zur Steuerung waehlen",eingabeBeschriftungen,eingabeFelder);
-			if (eingabe.start()){
-				String wahl=(String)jWahlSpieler.getSelectedItem();
-				String[] teile=wahl.split(" - ");
-				frontend.setIdSpieler(Integer.parseInt(teile[0]));
-				buttons[3].setText("ich bin Spieler <"+teile[0]+">");
-				frontend.log("OK");
-			}
-			else{
-				frontend.log("ABGEBROCHEN");
-			}
-		}
-		catch (Exception e){
-			frontend.log("FEHLGESCHLAGEN: "+e.getMessage());
-			e.printStackTrace();
 		}
 	}
 
@@ -230,7 +189,7 @@ public class MenuTop extends JPanel implements ActionListener{
 			frontend.setFeldGewaehlt(null);
 			int id=D.toInt(jId.getText());
 			try{
-				String antwort=frontend.getBackend().getKarte(id);
+				String antwort=backendSpiel.getKarte(id);
 				Karte karte=frontend.neueKarte(antwort);
 				karte.setEventhandler(new KarteEventHandler(frontend));
 				frontend.log("OK");								
@@ -248,22 +207,25 @@ public class MenuTop extends JPanel implements ActionListener{
 	private void bewege(Frontend.Bewegungsrichtung bewegung) {
 		Feld feld=frontend.getFeldGewaehlt();
 		if ((bewegung==null)||(feld==null)||((feld.getEinheit()==null))) return;
-		iBackendSpiel backend=frontend.getBackend();
 		int idSpieler=frontend.getIdSpieler();
 		int idKarte=feld.getDaten().getInt("idKarte");
 		int xAlt=feld.getDaten().getInt("x");
 		int yAlt=feld.getDaten().getInt("y");
+		
+		feld.getEinheit().getInt("idSpieler");
 		try{
 			frontend.log("Bewege Einheit...");
-			D antwort=Xml.toD(backend.bewegeEinheit(idSpieler,idKarte,xAlt,yAlt,bewegung.ordinal()));
+			if (feld.getEinheit().getInt("idSpieler")!=idSpieler)
+				throw new RuntimeException("MenuTop bewege: Sie duerfen nur Ihre eigenen Einheiten bewegen!");
+			D antwort=Xml.toD(backendSpiel.bewegeEinheit(idSpieler,idKarte,xAlt,yAlt,bewegung.ordinal()));
 			Karte karte=frontend.getKarte();
 			if (antwort instanceof D_Fehler)
 				throw new RuntimeException(antwort.getString("meldung"));
 			D_Position posNeu=(D_Position)antwort;
 			int xNeu=posNeu.getInt("x");
 			int yNeu=posNeu.getInt("y");
-			karte.updateFeld(xAlt,yAlt,Xml.toArray(frontend.getBackend().getFeldDaten(idKarte,xAlt,yAlt)));
-			karte.updateFeld(xNeu,yNeu,Xml.toArray(frontend.getBackend().getFeldDaten(idKarte,xNeu,yNeu)));
+			karte.updateFeld(xAlt,yAlt,Xml.toArray(backendSpiel.getFeldDaten(idKarte,xAlt,yAlt)));
+			karte.updateFeld(xNeu,yNeu,Xml.toArray(backendSpiel.getFeldDaten(idKarte,xNeu,yNeu)));
 			frontend.setFeldGewaehlt(karte.getFeld(xNeu,yNeu));
 			frontend.log("OK");
 		}
