@@ -103,7 +103,8 @@ public class Frontend extends JFrame{
 
 	public void zeichneFelder(ArrayList<D> daten) {
 		if (daten==null){
-			String backendDaten=backend.getKarte(1);
+			//TODO: bislang ist nur ein Spiel mit einer Karte ID=1 erlaubt
+			String backendDaten=backend.getKarte(1,getIdSpieler());
 			daten=Xml.toArray(backendDaten);
 		}	
 		if (karte!=null) karte.zeichneFelder(daten);

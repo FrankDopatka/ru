@@ -64,13 +64,15 @@ public class BackendSpiel extends ResourceConfig implements iBackendSpiel{
 	}
 
 	@GET
-	@Path("getKarte/{id}")
+	@Path("getKarte/{id}/{idSpieler}")
 	@Consumes("text/plain")
 	@Produces("application/xml")
 	@Override
 	public String getKarte(
-			@PathParam("id")int id) {
+			@PathParam("id")int id,
+			@PathParam("idSpieler")int idSpieler) {
 		try{
+			spiel.resetUpdates(idSpieler);
 			return Xml.verpacken(spiel.getKarte(id).toXml());
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -26,13 +26,20 @@ public class Updater{
 	}
 	
 	// Auslesen durch den Client
-	public ArrayList<D> get(int vonSpielerId){
-		if (listen[vonSpielerId]==null) return null;
-		if (listen[vonSpielerId].size()==0) return null;
+	public ArrayList<D> get(int vonIdSpieler){
+		if (listen[vonIdSpieler]==null) return null;
+		if (listen[vonIdSpieler].size()==0) return null;
 		ArrayList<D> daten=new ArrayList<D>();
 		D datenwert;
-		while ((datenwert=(D)listen[vonSpielerId].poll())!=null) daten.add(datenwert);
+		while ((datenwert=(D)listen[vonIdSpieler].poll())!=null) daten.add(datenwert);
 		return daten;
+	}
+	
+	// Zuruecksetzen, z.B. beim Holen einer Karte
+	public void reset(int vonIdSpieler){
+		if (listen[vonIdSpieler]==null) return;
+		if (listen[vonIdSpieler].size()==0) return;
+		listen[vonIdSpieler].clear();
 	}
 	
 	// vonSpielerId: der Spieler, der das Update selbst gesetzt hat, wird manuell aktualisiert
@@ -44,7 +51,7 @@ public class Updater{
 		}
 	}
 
-	// Updates des Spiels selbst gehen an alle Spieler
+	// Updates des Spiels selbst gehen immer an alle Spieler
 	@SuppressWarnings("unchecked")
 	public void putSpieldaten(D_Spiel spieldaten){
 		for(int i=1;i<=99;i++){

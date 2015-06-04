@@ -4,7 +4,7 @@ public interface iBackendSpiel {
 	String getAlleSpieler();
 	String beendenRunde(int idSpieler);
 
-	String getKarte(int id);
+	String getKarte(int id,int idSpieler);
 	String getKartenDaten(int id);
 	String getFeldDaten(int idKarte,int x,int y);
 	String getEinheitDaten(int idKarte,int x,int y);

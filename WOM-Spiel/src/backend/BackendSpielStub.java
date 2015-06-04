@@ -32,8 +32,8 @@ public class BackendSpielStub implements iBackendSpiel{
 	}
 
 	@Override
-	public String getKarte(int id) {
-		return getXmlvonRest("getKarte"+"/"+id);
+	public String getKarte(int id,int idSpieler) {
+		return getXmlvonRest("getKarte"+"/"+id+"/"+idSpieler);
 	}
 
 	@Override

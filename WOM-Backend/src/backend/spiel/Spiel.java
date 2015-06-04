@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import daten.*;
 import backend.Parameter;
+import backend.Regelwerk;
 import backend.Updater;
 import backend.karte.*;
 import backend.karte.karten.Planet;
@@ -17,6 +18,7 @@ public class Spiel {
 	private ArrayList<Spieler> spieler=new ArrayList<Spieler>();
 	private ArrayList<Karte> karten=new ArrayList<Karte>();
 	private Updater updater;
+	private Regelwerk regelwerk;
 	
 	public enum Bewegungsrichtung{
 		NORD,NORDOST,OST,SUEDOST,SUED,SUEDWEST,WEST,NORDWEST;
@@ -66,9 +68,7 @@ public class Spiel {
   			catch (Exception e){
   				throw new RuntimeException("Spiel spielLaden: Kartendaten D_Karte im gespeicherten Spiel sind ungueltig!");
   			}
-  			iDatensatz--;
-				iDatensatz--;
-				iDatensatz--;
+  			while (!(spielDaten.get(iDatensatz) instanceof D_Spieler)) iDatensatz--;
 				ArrayList<Spieler> spielerListe=new ArrayList<Spieler>(); 
   			while ((spielDaten.size()>iDatensatz)&&(spielDaten.get(iDatensatz)) instanceof D_Spieler){
   				// SPIELER
@@ -126,6 +126,7 @@ public class Spiel {
 	}
 	
 	public Spiel(){
+		regelwerk=new Regelwerk(this);
 		updater=new Updater();
 	}
 	
@@ -260,54 +261,7 @@ public class Spiel {
 
 	public D_Position bewegeEinheit(int idSpieler,int idKarte,int x,int y,int richtung) {
 		// idSpieler: Spieler der gerade ziehen will
-		Karte karte=getKarte(idKarte);
-		Feld feldAlt=karte.getFeld(x,y);
-		Einheit einheit=feldAlt.getEinheit();
-		int neuX=x;
-		int neuY=y;
-		switch (Bewegungsrichtung.fromOrdinal(richtung)){
-		case NORD:
-			neuY--;
-			break;
-		case NORDOST:
-			neuX++;
-			neuY--;
-			break;
-		case OST:
-			neuX++;
-			break;
-		case SUEDOST:
-			neuX++;
-			neuY++;
-			break;
-		case SUED:
-			neuY++;
-			break;
-		case SUEDWEST:
-			neuX--;
-			neuY++;
-			break;
-		case WEST:
-			neuX--;
-			break;
-		case NORDWEST:
-			neuX--;
-			neuY--;
-			break;
-		}
-		if((neuY<1)||(neuY>karte.getGroesseY()))
-			throw new RuntimeException("Spiel bewegeEinheit: Man kann den Kartenrand nicht verlassen!");
-		if (neuX<1) neuX=karte.getGroesseX();
-		if (neuX>karte.getGroesseX()) neuX=1;
-		Feld feldNeu=karte.getFeld(neuX,neuY);
-		feldAlt.setEinheit(null);
-		feldNeu.setEinheit(einheit);
-		D_Position posNeu=new D_Position();
-		posNeu.setInt("x",neuX);
-		posNeu.setInt("y",neuY);
-		karte.setUpdate(feldAlt.toDatenArray(),einheit.getIdSpieler());
-		karte.setUpdate(feldNeu.toDatenArray(),einheit.getIdSpieler());
-		return posNeu;
+		return regelwerk.bewegeEinheit(idSpieler,idKarte,x,y,richtung);
 	}
 
 	public void gruendeStadt(int idSpieler,int idKarte,int x,int y,String name) {
@@ -362,6 +316,10 @@ public class Spiel {
 	
 	public void setUpdate(ArrayList<D> felddaten,int idSpieler) {
 		updater.putFelddaten(felddaten,idSpieler);
+	}
+	
+	public void resetUpdates(int idSpieler){
+		updater.reset(idSpieler);
 	}
 
 	public String toXml() {

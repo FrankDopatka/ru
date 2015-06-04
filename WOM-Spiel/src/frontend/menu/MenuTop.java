@@ -46,8 +46,8 @@ public class MenuTop extends JPanel implements ActionListener{
 			buttons[i].addActionListener(this);
 			add(buttons[i]);
 		}
-		buttons[5].setText("Karte holen");
-		buttons[18].setText("Autoupdate <AUS>");
+		buttons[0].setText("Karte holen");
+		buttons[1].setText("Autoupdate <AUS>");
 		// Navigation
 		buttons[9].setText("Nord-West");
 		buttons[10].setText("Nord");
@@ -59,6 +59,8 @@ public class MenuTop extends JPanel implements ActionListener{
 		buttons[23].setText("Sued-Ost");
 		buttons[16].setText("Aktion Einheit/Stadt");
 		buttons[20].setText("Runde beenden");
+//		holenKarte(1); // Karte mit der ID=1 standardmaessig holen
+	//	buttons[1].doClick(); // Autoupdate aktivieren
 	}
 	
 	@Override
@@ -81,15 +83,15 @@ public class MenuTop extends JPanel implements ActionListener{
 
 	private void aktion(int i) {
 		switch (i){
-		case 5:
-			holenKarte();
+		case 0:
+			holenKarte(0);
 			break;
-		case 18:
-			if (buttons[18].getText().equals("Autoupdate <AUS>")){
-				if (autoUpdate(true)) buttons[18].setText("Autoupdate <AN>");
+		case 1:
+			if (buttons[1].getText().equals("Autoupdate <AUS>")){
+				if (autoUpdate(true)) buttons[1].setText("Autoupdate <AN>");
 			}
 			else{
-				if (autoUpdate(false)) buttons[18].setText("Autoupdate <AUS>");				
+				if (autoUpdate(false)) buttons[1].setText("Autoupdate <AUS>");				
 			}
 			break;
 		case 16:
@@ -176,31 +178,35 @@ public class MenuTop extends JPanel implements ActionListener{
 		}
 	}
 
-	private void holenKarte() {
+	private void holenKarte(int idKarte) {
 		frontend.log("Holen einer Karte vom Server...");
-		ArrayList<String> eingabeBeschriftungen=new ArrayList<String>();
-		ArrayList<Object> eingabeFelder=new ArrayList<Object>();
-		eingabeBeschriftungen.add("Karte ID:");
-		JTextField jId=new JTextField();
-		jId.setText("1");
-		eingabeFelder.add(jId);
-		MenuEingabe eingabe=new MenuEingabe(this,"Karte holen",eingabeBeschriftungen,eingabeFelder);
-		if (eingabe.start()){
-			frontend.setFeldGewaehlt(null);
-			int id=D.toInt(jId.getText());
-			try{
-				String antwort=backendSpiel.getKarte(id);
-				Karte karte=frontend.neueKarte(antwort);
-				karte.setEventhandler(new KarteEventHandler(frontend));
-				frontend.log("OK");								
+		if (idKarte==0){
+			// keine Karten-ID vorgegeben -> nachfragen
+			ArrayList<String> eingabeBeschriftungen=new ArrayList<String>();
+			ArrayList<Object> eingabeFelder=new ArrayList<Object>();
+			eingabeBeschriftungen.add("Karte ID:");
+			JTextField jId=new JTextField();
+			jId.setText("1");
+			eingabeFelder.add(jId);
+			MenuEingabe eingabe=new MenuEingabe(this,"Karte holen",eingabeBeschriftungen,eingabeFelder);
+			if (eingabe.start()){
+				idKarte=D.toInt(jId.getText());
 			}
-			catch (Exception e){
-				e.printStackTrace();
-				frontend.log("FEHLGESCHLAGEN: "+e.getMessage());
+			else{
+				frontend.log("ABGEBROCHEN");
+				return;
 			}
 		}
-		else{
-			frontend.log("ABGEBROCHEN");
+		frontend.setFeldGewaehlt(null);
+		try{
+			String antwort=backendSpiel.getKarte(idKarte,frontend.getIdSpieler());
+			Karte karte=frontend.neueKarte(antwort);
+			karte.setEventhandler(new KarteEventHandler(frontend));
+			frontend.log("OK");								
+		}
+		catch (Exception e){
+			e.printStackTrace();
+			frontend.log("FEHLGESCHLAGEN: "+e.getMessage());
 		}
 	}
 
