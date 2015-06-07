@@ -11,5 +11,8 @@ public class D_Feld extends D {
 		
 		addInt("spielerstart",0); // 0: von hier startet kein Spieler, >0: von hier startet der Spieler mit dieser ID
 		addString("ressource",""); // Ressource auf diesem Feld
+		
+		addBool("istWasserfeld",false);
+		addInt("bewegungspunkte",100);
 	}
 }

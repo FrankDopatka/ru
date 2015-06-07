@@ -115,6 +115,19 @@ public abstract class Feld {
 		return stadt;
 	}
 	
+	public boolean istWasserfeld(){
+		return d_Feld.getBool("istWasserfeld");
+	}
+	
+	public int getBewegungspunkte(){
+		//TODO komplexere Berechnung noetig bei Feldverbesserungen wie Strasse
+		return d_Feld.getInt("bewegungspunkte");
+	}
+	
+	public void setBewegungspunkte(int punkte){
+		d_Feld.setInt("bewegungspunkte",punkte);
+	}
+	
 	public String toXml(){
 		return Xml.fromArray(toDatenArray());
 	}

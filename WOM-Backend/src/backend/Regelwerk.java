@@ -1,7 +1,5 @@
 package backend;
 
-import java.util.ArrayList;
-
 import daten.D_Position;
 import backend.karte.Feld;
 import backend.karte.Karte;
@@ -10,29 +8,10 @@ import backend.spiel.Spiel;
 import backend.spiel.Spiel.Bewegungsrichtung;
 
 public class Regelwerk {
-	public static final ArrayList<String> landeinheiten=new ArrayList<String>();
-	public static final ArrayList<String> wasserfelder=new ArrayList<String>();
 	public Spiel spiel=null;
-	
-	static{
-		landeinheiten.add("Siedler");
-		landeinheiten.add("Krieger");
-		wasserfelder.add("Meer");
-		wasserfelder.add("Kueste");
-	}
 	
 	public Regelwerk(Spiel spiel){
 		this.spiel=spiel;
-	}
-
-	public boolean istLandeinheit(Einheit einheit){
-		String art=einheit.getDaten().getString("einheitArt");
-		return landeinheiten.contains(art);
-	}
-
-	public boolean istWasserfeld(Feld feld){
-		String art=feld.getDaten().getString("feldArt");
-		return wasserfelder.contains(art);
 	}
 	
 	public D_Position bewegeEinheit(int idSpieler,int idKarte,int xAlt,int yAlt,int richtung) {
@@ -49,9 +28,12 @@ public class Regelwerk {
 		if (xNeu<1) xNeu=karte.getGroesseX();
 		if (xNeu>karte.getGroesseX()) xNeu=1;
 		Feld feldNeu=karte.getFeld(xNeu,yNeu);
-		
-		if (istLandeinheit(einheit)&&istWasserfeld(feldNeu))
-			throw new RuntimeException("Landeinheiten koennen nicht auf dem Wasser bewegt werden!");
+		if (einheit.istLandeinheit()&&feldNeu.istWasserfeld())
+			throw new RuntimeException("Landeinheiten koennen nicht auf Wasser bewegt werden!");
+
+		int punkte=getNoetigeBewegungspunkte(feldAlt,feldNeu);	
+		if (einheit.getDaten().getInt("bewegungAktuell")<punkte)
+			throw new RuntimeException("Diese Einheit kann sich in dieser Runde nicht mehr auf dieses Feld bewegen!");
 
 		Einheit einheitFeldNeu=feldNeu.getEinheit();
 		if (einheitFeldNeu!=null){ // AUF DEM ZIELFELD IST SCHON EINE EINHEIT
@@ -63,9 +45,11 @@ public class Regelwerk {
 			//TODO Kampf
 				
 		}
-		
+
+		einheit.getDaten().setInt("bewegungAktuell",einheit.getDaten().getInt("bewegungAktuell")-punkte);
 		feldAlt.setEinheit(null);
 		feldNeu.setEinheit(einheit);
+
 		D_Position posNeu=new D_Position();
 		posNeu.setInt("x",xNeu);
 		posNeu.setInt("y",yNeu);
@@ -74,6 +58,11 @@ public class Regelwerk {
 		return posNeu;
 	}
 	
+	private int getNoetigeBewegungspunkte(Feld feldAlt,Feld feldNeu) {
+		// TODO ggf. komplexere Berechnung noetig in Abhaengigkeit der Felduebergaenge und der Einheiten
+		return feldNeu.getBewegungspunkte();
+	}
+
 	private int[] getNeueKoordinaten(int xAlt,int yAlt,int richtung){
 		int xNeu=xAlt;
 		int yNeu=yAlt;
@@ -93,7 +82,7 @@ public class Regelwerk {
 			yNeu++;
 			break;
 		case SUED:
-			xNeu++;
+			yNeu++;
 			break;
 		case SUEDWEST:
 			xNeu--;

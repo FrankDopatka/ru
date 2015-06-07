@@ -5,9 +5,15 @@ import backend.karte.Feld;
 public class Wald extends Feld {
 	
 	public Wald(){
+		init();
 	}	
 	public Wald(int idKarte,int x,int y) {
 		super(idKarte,x,y,"Wald");
+		init();
+	}
+	
+	public void init(){
+		setBewegungspunkte(80);
 	}
 
 	@Override

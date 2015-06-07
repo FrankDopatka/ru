@@ -32,6 +32,14 @@ public abstract class Einheit {
 		return d_Einheit;
 	}
 	
+	public boolean istLandeinheit(){
+		return d_Einheit.getBool("istLandeinheit");
+	}
+	
+	public void resetBewegung(){
+		d_Einheit.setInt("bewegungAktuell",d_Einheit.getInt("bewegungMaximal"));
+	}
+	
 	public String toXml() {
 		StringBuffer xml=new StringBuffer();
 		xml.append(Xml.fromD(d_Einheit));

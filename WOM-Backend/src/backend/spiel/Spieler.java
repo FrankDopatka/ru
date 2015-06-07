@@ -62,6 +62,9 @@ public class Spieler {
 			throw new RuntimeException(e.getMessage());
 		}
 	}
+	public ArrayList<Einheit> getEinheiten(){
+		return einheiten;
+	}
 	
 	public Stadt addStadt(Feld feld,String name){
 		try{

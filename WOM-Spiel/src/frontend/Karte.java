@@ -31,6 +31,7 @@ public class Karte extends JPanel implements Scrollable{
 			dateien=(new File(pfad)).listFiles();
 			for (File datei:dateien){
 				String name=datei.getName();
+				Thread.sleep(1);
 				container.put(name.substring(0,name.lastIndexOf('.')),ImageIO.read(datei));
 			}
 		} catch (Exception e) {

@@ -7,8 +7,8 @@ public class Siedler extends Einheit {
 		getDaten().setString("einheitArt","Siedler");
 		getDaten().setString("einheitName","Siedler");
 
-		getDaten().setInt("bewegungMaximal",1);
-		getDaten().setInt("bewegungAktuell",1);
+		getDaten().setInt("bewegungMaximal",100);
+		getDaten().setInt("bewegungAktuell",100);
 		getDaten().setInt("lebenMaximal",1);
 		getDaten().setInt("lebenAktuell",1);
 		getDaten().setInt("angriffMaximal",0);

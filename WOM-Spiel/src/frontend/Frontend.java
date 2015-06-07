@@ -63,7 +63,11 @@ public class Frontend extends JFrame{
 		add(panel);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(600,700);
-		setVisible(true);		
+		setVisible(true);
+		
+		
+		menuTop.holenKarte(1);
+		menuTop.autoUpdate(true);
 	}
 	
 	public void log(String text){

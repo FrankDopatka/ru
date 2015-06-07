@@ -10,6 +10,10 @@ public class Wueste extends Feld {
 		super(idKarte,x,y,"Wueste");
 	}
 	
+	public void init(){
+		setBewegungspunkte(50);
+	}
+	
 	@Override
 	public void setErlaubteRessourcenArt(){
 		addErlaubteRessourcenArt("Oel");

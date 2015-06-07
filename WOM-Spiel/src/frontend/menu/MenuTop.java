@@ -138,7 +138,7 @@ public class MenuTop extends JPanel implements ActionListener{
 			frontend.log("FEHLGESCHLAGEN: "+Xml.toD(antwort).getString("meldung"));
 	}
 
-	private boolean autoUpdate(boolean aktivieren) {
+	public boolean autoUpdate(boolean aktivieren) {
 		try{
 			if (aktivieren){
 				frontend.log("Aktiviere Autoupdate...");
@@ -178,7 +178,7 @@ public class MenuTop extends JPanel implements ActionListener{
 		}
 	}
 
-	private void holenKarte(int idKarte) {
+	public void holenKarte(int idKarte) {
 		frontend.log("Holen einer Karte vom Server...");
 		if (idKarte==0){
 			// keine Karten-ID vorgegeben -> nachfragen
@@ -236,7 +236,7 @@ public class MenuTop extends JPanel implements ActionListener{
 			frontend.log("OK");
 		}
 		catch (Exception e){
-			e.printStackTrace();
+//			e.printStackTrace();
 			frontend.log("FEHLGESCHLAGEN: "+e.getMessage());
 		}
 	}

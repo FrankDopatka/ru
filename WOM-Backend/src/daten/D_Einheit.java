@@ -11,13 +11,15 @@ public class D_Einheit extends D {
 		addString("einheitArt","Krieger"); // gleich der Name der Klasse
 		addString("einheitName","Krieger"); // gleich dem angezeigten Namen im Spiel
 
-		addInt("bewegungMaximal",1);
-		addInt("bewegungAktuell",1);
+		addInt("bewegungMaximal",100);
+		addInt("bewegungAktuell",100);
 		addInt("lebenMaximal",1);
 		addInt("lebenAktuell",1);
 		addInt("angriffMaximal",1);
 		addInt("angriffAktuell",1);
 		addInt("verteidigungMaximal",1);
 		addInt("verteidigungAktuell",1);
+		
+		addBool("istLandeinheit",true);
 	}
 }

@@ -286,6 +286,11 @@ public class Spiel {
 		for(int i=0;i<spieler.size();i++){
 			if (spieler.get(i).getId()==getSpielerAmZug()){
 				if (i==spieler.size()-1){
+					for(Spieler sp:spieler){
+						for (Einheit ei:sp.getEinheiten()){
+							ei.resetBewegung();
+						}
+					}
 					d_Spiel.incInt("aktuelleRunde"); // neue Runde
 					i=0;
 				}
