@@ -6,12 +6,18 @@ import frontend.Karte;
 import frontend.KarteEventHandler;
 import interfaces.iBackendSpiel;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.util.ArrayList;
 
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -27,46 +33,65 @@ import daten.Xml;
 
 public class MenuTop extends JPanel implements ActionListener{
 	private static final long serialVersionUID = 1L;
+	private static final int spalten=6;
+	private static final int zeilen=4;
 	private Frontend frontend;
 	private iBackendSpiel backendSpiel;
-	private int spalten;
-	private int zeilen;
 	private JButton[] buttons;
+	private JButton[] buttonsNavigation=new JButton[9];
 
 	public MenuTop(Frontend frontend){
 		this.frontend=frontend;
 		this.backendSpiel=frontend.getBackend();
-		spalten=6;
-		zeilen=4;
+		this.setLayout(new BorderLayout());
+		JPanel center=new JPanel();
+		JPanel ost=new JPanel();
+		center.setLayout(new GridLayout(zeilen,spalten));
 		setPreferredSize(new Dimension(1200,100));
-		setLayout(new GridLayout(zeilen,spalten));
 		buttons=new JButton[spalten*zeilen];
 		for(int i=0;i<spalten*zeilen;i++){
 			buttons[i]=new JButton("");
 			buttons[i].addActionListener(this);
-			add(buttons[i]);
+			center.add(buttons[i]);
 		}
+		add(center,BorderLayout.CENTER);
+		ost.setLayout(new GridLayout(3,3));
+		for(int i=0;i<buttonsNavigation.length;i++){
+			buttonsNavigation[i]=new JButton();
+			buttonsNavigation[i].setOpaque(true);
+			buttonsNavigation[i].setBackground(new Color(255,255,255));
+			buttonsNavigation[i].setFocusable(false);
+			buttonsNavigation[i].addActionListener(this);
+			BufferedImage bild=null;
+			do{
+				try{
+					bild=ImageIO.read(new File("daten//navigation//"+i+".jpg"));
+					if (bild!=null) buttonsNavigation[i].setIcon((new ImageIcon(bild)));				
+				}
+				catch (Exception e){};
+			} while (bild==null);
+			ost.add(buttonsNavigation[i]);
+		}
+		add(ost,BorderLayout.EAST);
+		
 		buttons[0].setText("Karte holen");
 		buttons[1].setText("Autoupdate <AUS>");
-		// Navigation
-		buttons[9].setText("Nord-West");
-		buttons[10].setText("Nord");
-		buttons[11].setText("Nord-Ost");
-		buttons[15].setText("West");
-		buttons[17].setText("Ost");
-		buttons[21].setText("Sued-West");
-		buttons[22].setText("Sued");
-		buttons[23].setText("Sued-Ost");
-		buttons[16].setText("Aktion Einheit/Stadt");
 		buttons[20].setText("Runde beenden");
-//		holenKarte(1); // Karte mit der ID=1 standardmaessig holen
-	//	buttons[1].doClick(); // Autoupdate aktivieren
+		holenKarte(1); // Karte mit der ID=1 standardmaessig holen
+		buttons[1].doClick(); // Autoupdate aktivieren
 	}
 	
 	@Override
 	public void actionPerformed(ActionEvent ev) {
 		Object o=ev.getSource();
 		if (o instanceof JButton){
+			for(int i=0;i<buttonsNavigation.length;i++){
+				if (o==buttonsNavigation[i]){
+					bewege(Frontend.BewegungsAktion.fromOrdinal(i));
+					break;
+				}
+			}			
+
 			for(int i=0;i<spalten*zeilen;i++){
 				if (o==buttons[i]){
 					aktion(i);
@@ -93,33 +118,6 @@ public class MenuTop extends JPanel implements ActionListener{
 			else{
 				if (autoUpdate(false)) buttons[1].setText("Autoupdate <AUS>");				
 			}
-			break;
-		case 16:
-			aktionEinheitStadt();
-			break;
-		case 9:
-			bewege(Frontend.Bewegungsrichtung.NORDWEST);
-			break;
-		case 10:
-			bewege(Frontend.Bewegungsrichtung.NORD);
-			break;
-		case 11:
-			bewege(Frontend.Bewegungsrichtung.NORDOST);
-			break;
-		case 15:
-			bewege(Frontend.Bewegungsrichtung.WEST);
-			break;
-		case 17:
-			bewege(Frontend.Bewegungsrichtung.OST);
-			break;
-		case 21:
-			bewege(Frontend.Bewegungsrichtung.SUEDWEST);
-			break;
-		case 22:
-			bewege(Frontend.Bewegungsrichtung.SUED);
-			break;
-		case 23:
-			bewege(Frontend.Bewegungsrichtung.SUEDOST);
 			break;
 		case 20:
 			beendenRunde(frontend.getIdSpieler());
@@ -210,9 +208,9 @@ public class MenuTop extends JPanel implements ActionListener{
 		}
 	}
 
-	private void bewege(Frontend.Bewegungsrichtung bewegung) {
+	private void bewege(Frontend.BewegungsAktion bewegungsAktion) {
 		Feld feld=frontend.getFeldGewaehlt();
-		if ((bewegung==null)||(feld==null)||((feld.getEinheit()==null))) return;
+		if ((bewegungsAktion==null)||(feld==null)||((feld.getEinheit()==null))) return;
 		int idSpieler=frontend.getIdSpieler();
 		int idKarte=feld.getDaten().getInt("idKarte");
 		int xAlt=feld.getDaten().getInt("x");
@@ -220,20 +218,25 @@ public class MenuTop extends JPanel implements ActionListener{
 		
 		feld.getEinheit().getInt("idSpieler");
 		try{
-			frontend.log("Bewege Einheit...");
-			if (feld.getEinheit().getInt("idSpieler")!=idSpieler)
-				throw new RuntimeException("MenuTop bewege: Sie duerfen nur Ihre eigenen Einheiten bewegen!");
-			D antwort=Xml.toD(backendSpiel.bewegeEinheit(idSpieler,idKarte,xAlt,yAlt,bewegung.ordinal()));
-			Karte karte=frontend.getKarte();
-			if (antwort instanceof D_Fehler)
-				throw new RuntimeException(antwort.getString("meldung"));
-			D_Position posNeu=(D_Position)antwort;
-			int xNeu=posNeu.getInt("x");
-			int yNeu=posNeu.getInt("y");
-			karte.updateFeld(xAlt,yAlt,Xml.toArray(backendSpiel.getFeldDaten(idKarte,xAlt,yAlt)));
-			karte.updateFeld(xNeu,yNeu,Xml.toArray(backendSpiel.getFeldDaten(idKarte,xNeu,yNeu)));
-			frontend.setFeldGewaehlt(karte.getFeld(xNeu,yNeu));
-			frontend.log("OK");
+			if (bewegungsAktion.equals(Frontend.BewegungsAktion.AKTION)){
+				aktionEinheitStadt();
+			}
+			else{
+				frontend.log("Bewege Einheit...");
+				if (feld.getEinheit().getInt("idSpieler")!=idSpieler)
+					throw new RuntimeException("MenuTop bewege: Sie duerfen nur Ihre eigenen Einheiten bewegen!");
+				D antwort=Xml.toD(backendSpiel.bewegeEinheit(idSpieler,idKarte,xAlt,yAlt,bewegungsAktion.ordinal()));
+				Karte karte=frontend.getKarte();
+				if (antwort instanceof D_Fehler)
+					throw new RuntimeException(antwort.getString("meldung"));
+				D_Position posNeu=(D_Position)antwort;
+				int xNeu=posNeu.getInt("x");
+				int yNeu=posNeu.getInt("y");
+				karte.updateFeld(xAlt,yAlt,Xml.toArray(backendSpiel.getFeldDaten(idKarte,xAlt,yAlt)));
+				karte.updateFeld(xNeu,yNeu,Xml.toArray(backendSpiel.getFeldDaten(idKarte,xNeu,yNeu)));
+				frontend.setFeldGewaehlt(karte.getFeld(xNeu,yNeu));
+				frontend.log("OK");				
+			}
 		}
 		catch (Exception e){
 //			e.printStackTrace();

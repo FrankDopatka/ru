@@ -34,9 +34,9 @@ public class Frontend extends JFrame{
 	private Feld feldGewaehlt=null;
 	private Updater updater;
 	
-	public enum Bewegungsrichtung{
-		NORD,NORDOST,OST,SUEDOST,SUED,SUEDWEST,WEST,NORDWEST;
-		public static Bewegungsrichtung fromOrdinal(int n){
+	public enum BewegungsAktion{
+		NORDWEST,NORD,NORDOST,WEST,AKTION,OST,SUEDWEST,SUED,SUEDOST;
+		public static BewegungsAktion fromOrdinal(int n){
 			return values()[n];
 		}
 	}
@@ -64,10 +64,6 @@ public class Frontend extends JFrame{
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(600,700);
 		setVisible(true);
-		
-		
-		menuTop.holenKarte(1);
-		menuTop.autoUpdate(true);
 	}
 	
 	public void log(String text){

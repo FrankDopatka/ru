@@ -21,7 +21,7 @@ public class Spiel {
 	private Regelwerk regelwerk;
 	
 	public enum Bewegungsrichtung{
-		NORD,NORDOST,OST,SUEDOST,SUED,SUEDWEST,WEST,NORDWEST;
+		NORDWEST,NORD,NORDOST,WEST,AKTION,OST,SUEDWEST,SUED,SUEDOST; // AKTION wird im Backend nicht verwendet
 		public static Bewegungsrichtung fromOrdinal(int n){
 			return values()[n];
 		}
