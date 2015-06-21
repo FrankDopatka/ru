@@ -181,6 +181,24 @@ public abstract class Karte {
 		return xml.toString();
 	}
 
+	public String toXml(int x, int y, int reichweite) {
+		StringBuffer xml=new StringBuffer();
+		int xStart=x-reichweite;
+		int yStart=y-reichweite;
+		int xEnde=x+reichweite;
+		int yEnde=y+reichweite;
+		int xMax=d_Karte.getInt("x");
+		int yMax=d_Karte.getInt("y");
+		for(int i=xStart;i<=xEnde;i++){
+			for(int j=yStart;j<=yEnde;j++){
+				if ((i>=1)&&(i<=xMax)&&(j>=1)&&(j<=yMax)){
+					xml.append(felder[i][j].toXml());
+				}
+			}
+		}
+		return xml.toString();
+	}
+
 	public void setSpielerstart(int[] pos,int spielerstart) {
 		if (spielerstart>0){
 			if (!getArt().equals("Planet"))

@@ -64,16 +64,16 @@ public class BackendSpiel extends ResourceConfig implements iBackendSpiel{
 	}
 
 	@GET
-	@Path("getKarte/{id}/{idSpieler}")
+	@Path("getKarte/{idKarte}/{idSpieler}")
 	@Consumes("text/plain")
 	@Produces("application/xml")
 	@Override
 	public String getKarte(
-			@PathParam("id")int id,
+			@PathParam("idKarte")int idKarte,
 			@PathParam("idSpieler")int idSpieler) {
 		try{
 			spiel.resetUpdates(idSpieler);
-			return Xml.verpacken(spiel.getKarte(id).toXml());
+			return Xml.verpacken(spiel.getKarte(idKarte).toXml());
 		} catch (Exception e) {
 			e.printStackTrace();
 			return Xml.verpacken(Xml.fromD(new D_Fehler(e.getMessage())));
@@ -81,14 +81,33 @@ public class BackendSpiel extends ResourceConfig implements iBackendSpiel{
 	}
 	
 	@GET
-	@Path("getKartenDaten/{id}")
+	@Path("getKartenUmgebung/{idKarte}/{idSpieler}/{x}/{y}/{reichweite}")
+	@Consumes("text/plain")
+	@Produces("application/xml")
+	@Override
+	public String getKartenUmgebung(
+			@PathParam("idKarte")int idKarte,
+			@PathParam("idSpieler")int idSpieler,
+			@PathParam("x")int x,
+			@PathParam("y")int y,
+			@PathParam("reichweite")int reichweite) {
+		try{
+			return Xml.verpacken(spiel.getKarte(idKarte).toXml(x,y,reichweite));
+		} catch (Exception e) {
+			e.printStackTrace();
+			return Xml.verpacken(Xml.fromD(new D_Fehler(e.getMessage())));
+		}
+	}
+	
+	@GET
+	@Path("getKartenDaten/{idKarte}")
 	@Consumes("text/plain")
 	@Produces("application/xml")
 	@Override
 	public String getKartenDaten(
-			@PathParam("id")int id){
+			@PathParam("idKarte")int idKarte){
 		try{
-			return Xml.verpacken(Xml.fromD(spiel.getKarte(id).getDaten()));
+			return Xml.verpacken(Xml.fromD(spiel.getKarte(idKarte).getDaten()));
 		} catch (Exception e) {
 			e.printStackTrace();
 			return Xml.verpacken(Xml.fromD(new D_Fehler(e.getMessage())));

@@ -27,16 +27,18 @@ public class Karte extends JPanel implements Scrollable{
 	
 	private void dateienEinlesen(String pfad,HashMap<String,BufferedImage> container){
 		File[] dateien;
-		try {
-			dateien=(new File(pfad)).listFiles();
-			for (File datei:dateien){
-				String name=datei.getName();
-				Thread.sleep(1);
-				container.put(name.substring(0,name.lastIndexOf('.')),ImageIO.read(datei));
+		dateien=(new File(pfad)).listFiles();
+		for (File datei:dateien){
+			String name=datei.getName();
+			BufferedImage bi=null;
+			do{
+				try{
+					bi=ImageIO.read(datei);							
+				}
+				catch (Exception e){};
 			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			System.exit(-1);
+			while (bi==null);
+			container.put(name.substring(0,name.lastIndexOf('.')),bi);
 		}
 	}
 	
@@ -62,10 +64,10 @@ public class Karte extends JPanel implements Scrollable{
 		int zoomfaktor=frontend.getZoomfaktor();
 		int offset=spielfeldGroesse*zoomfaktor/100;
 		setLayout(null);
-		setPreferredSize(new Dimension(this.daten.getInt("x")*offset,this.daten.getInt("y")*offset));
-		felder=new Feld[this.daten.getInt("x")+1][this.daten.getInt("y")+1];
-		for (int i=1;i<=this.daten.getInt("x");i++){
-			for (int j=1;j<=this.daten.getInt("y");j++){
+		setPreferredSize(new Dimension(getGroesseX()*offset,getGroesseY()*offset));
+		felder=new Feld[getGroesseX()+1][getGroesseY()+1];
+		for (int i=1;i<=getGroesseX();i++){
+			for (int j=1;j<=getGroesseY();j++){
 				Feld f=new Feld(frontend,i,j);
 				felder[i][j]=f;
 				add(f);
@@ -75,6 +77,13 @@ public class Karte extends JPanel implements Scrollable{
 	
 	public int getId(){
 		return this.daten.getInt("id");
+	}
+	
+	public int getGroesseX(){
+		return this.daten.getInt("x");
+	}
+	public int getGroesseY(){
+		return this.daten.getInt("y");
 	}
 	
 	public BufferedImage getBildFeld(String feldArt){
@@ -103,7 +112,7 @@ public class Karte extends JPanel implements Scrollable{
 		int spielfeldGroesse=frontend.getSpielfeldGroesse();
 		int zoomfaktor=frontend.getZoomfaktor();
 		int offset=spielfeldGroesse*zoomfaktor/100;
-		setPreferredSize(new Dimension(this.daten.getInt("y")*offset,this.daten.getInt("y")*offset));
+		setPreferredSize(new Dimension(getGroesseX()*offset,getGroesseY()*offset));
 		for(D datenwert:daten){
 			if (datenwert instanceof D_Feld){
 				D_Feld datenFeld=(D_Feld)datenwert;
@@ -156,21 +165,30 @@ public class Karte extends JPanel implements Scrollable{
 	}
 	
 	public void updateFeldBasis(int x,int y,D_Feld datenwert) {
-		Feld f=felder[x][y];
-		f.setEinheit(null);
-		f.setStadt(null);
-		f.setDaten(datenwert);
-		zeichneFeld(x,y);
+		try{
+			Feld f=felder[x][y];
+			f.setEinheit(null);
+			f.setStadt(null);
+			f.setDaten(datenwert);
+			zeichneFeld(x,y);			
+		}
+		catch (Exception e){};
 	}
 	public void updateFeldEinheit(int x,int y,D_Einheit datenwert) {
-		Feld f=felder[x][y];
-		f.setEinheit(datenwert);
-		zeichneFeld(x,y);
+		try{
+			Feld f=felder[x][y];
+			f.setEinheit(datenwert);
+			zeichneFeld(x,y);
+		}
+		catch (Exception e){};
 	}
 	public void updateFeldStadt(int x,int y,D_Stadt datenwert) {
-		Feld f=felder[x][y];
-		f.setStadt(datenwert);
-		zeichneFeld(x,y);
+		try{
+			Feld f=felder[x][y];
+			f.setStadt(datenwert);
+			zeichneFeld(x,y);
+		}
+		catch (Exception e){};
 	}
 
 	public BufferedImage getBildFeldGewaehlt() {
@@ -178,8 +196,8 @@ public class Karte extends JPanel implements Scrollable{
 	}
 	
 	public void terminate() {
-		for (int i=1;i<=this.daten.getInt("x");i++){
-			for (int j=1;j<=this.daten.getInt("y");j++){
+		for (int i=1;i<=getGroesseX();i++){
+			for (int j=1;j<=getGroesseY();j++){
 				felder[i][j].terminate();
 				felder[i][j]=null;
 			}

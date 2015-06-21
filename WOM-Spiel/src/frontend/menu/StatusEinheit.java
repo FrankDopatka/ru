@@ -29,6 +29,7 @@ public class StatusEinheit extends JDialog implements ActionListener{
 	private D_Einheit einheit;
 	private JButton abbrechen=new JButton("Abbrechen");
 	private JButton[] buttons=new JButton[10];
+	private static int reichweiteUmgebung=2;
 	
 	public StatusEinheit(Frontend frontend,D_Einheit einheit,D_Spieler spieler){
 		super(frontend);
@@ -56,10 +57,27 @@ public class StatusEinheit extends JDialog implements ActionListener{
 		addEintrag(3,jp,"Verteidigung: ",einheit.getInt("verteidigungAktuell")+" von "+einheit.getInt("verteidigungMaximal"));
 		addEintrag(4,jp,"Bewegung: ",einheit.getInt("bewegungAktuell")+" von "+einheit.getInt("bewegungMaximal"));
 
-		JLabel bild=new JLabel();
-		bild.setIcon(new ImageIcon(frontend.getKarte().getFeld(einheit.getInt("x"),einheit.getInt("y")).getBild()));
-
-		add(bild,BorderLayout.WEST);
+		JPanel umgebungPanel=new JPanel();
+		umgebungPanel.setLayout(new GridBagLayout());
+		GridBagConstraints gbc=new GridBagConstraints();
+		int xStart=einheit.getInt("x")-reichweiteUmgebung;
+		int yStart=einheit.getInt("y")-reichweiteUmgebung;
+		for(int i=0;i<reichweiteUmgebung*2+1;i++){
+			for(int j=0;j<reichweiteUmgebung*2+1;j++){
+				JLabel bild=new JLabel();
+				int xAktuellKarte=xStart+i;
+				int yAktuellKarte=yStart+j;
+				if ((xAktuellKarte>=1)&&(xAktuellKarte<=frontend.getKarte().getGroesseX())&&
+						(yAktuellKarte>=1)&&(yAktuellKarte<=frontend.getKarte().getGroesseY())){
+					bild.setIcon(new ImageIcon(frontend.getKarte().getFeld(xAktuellKarte,yAktuellKarte).getBild()));					
+				}
+				gbc.gridx=i;
+				gbc.gridy=j;
+				umgebungPanel.add(bild,gbc);
+			}
+		}
+		add(umgebungPanel,BorderLayout.WEST);
+		
 		if (!spieler.getString("nation").equals("null"))
 			add(setLabelHeader(einheit.getString("einheitName")+" von "+spieler.getString("name")+" aus "+spieler.getString("nation")),BorderLayout.NORTH);
 		else
@@ -68,7 +86,7 @@ public class StatusEinheit extends JDialog implements ActionListener{
 		add(jpButtons,BorderLayout.EAST);
 		add(abbrechen,BorderLayout.SOUTH);
 		
-		setSize(new Dimension(500,300));
+		setSize(new Dimension(700,300));
     setLocationRelativeTo(frontend);
     setModal(true);
 		setVisible(true);
