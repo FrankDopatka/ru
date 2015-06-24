@@ -8,8 +8,8 @@ public class D_Einheit extends D {
 		addInt("x",0);
 		addInt("y",0);
 		addInt("idSpieler",0);
-		addString("einheitArt","Krieger"); // gleich der Name der Klasse
-		addString("einheitName","Krieger"); // gleich dem angezeigten Namen im Spiel
+		addString("art","Krieger"); // gleich der Name der Klasse
+		addString("name","Krieger"); // gleich dem angezeigten Namen im Spiel
 
 		addInt("bewegungMaximal",100);
 		addInt("bewegungAktuell",100);

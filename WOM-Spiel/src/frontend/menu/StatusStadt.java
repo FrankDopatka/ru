@@ -23,17 +23,19 @@ import javax.swing.JTextField;
 import daten.*;
 import frontend.Frontend;
 
-public class StatusEinheit extends JDialog implements ActionListener{
+public class StatusStadt extends JDialog implements ActionListener{
 	private static final long serialVersionUID = 1L;
 	private Frontend frontend;
+	private D_Stadt stadt;
 	private D_Einheit einheit;
 	private JButton abbrechen=new JButton("Abbrechen");
 	private JButton[] buttons=new JButton[10];
 	private static int reichweiteUmgebung=2;
 	
-	public StatusEinheit(Frontend frontend,D_Einheit einheit,D_Spieler spieler){
+	public StatusStadt(Frontend frontend,D_Stadt stadt,D_Einheit einheit,D_Spieler spieler){
 		super(frontend);
 		this.frontend=frontend;
+		this.stadt=stadt;
 		this.einheit=einheit;
 		JPanel jp=new JPanel();
 		JPanel jpButtons=new JPanel();
@@ -46,23 +48,25 @@ public class StatusEinheit extends JDialog implements ActionListener{
 			buttons[i].addActionListener(this);
 			jpButtons.add(buttons[i]);
 		}
-		if (einheit.getString("art").equals("Siedler")) buttons[0].setText("Stadt gruenden");			
+		buttons[0].setText("Produktion");			
 		buttons[9].setText("Aufloesen");
-		
-		setTitle("Status der Einheit");
+		setTitle("Status der Stadt");
 		abbrechen.addActionListener(this);
 
-		int x=1;
-		addEintrag(x++,jp,"Leben: ",einheit.getInt("lebenAktuell")+" von "+einheit.getInt("lebenMaximal"));
-		addEintrag(x++,jp,"Angriff: ",einheit.getInt("angriffAktuell")+" von "+einheit.getInt("angriffMaximal"));
-		addEintrag(x++,jp,"Verteidigung: ",einheit.getInt("verteidigungAktuell")+" von "+einheit.getInt("verteidigungMaximal"));
-		addEintrag(x++,jp,"Bewegung: ",einheit.getInt("bewegungAktuell")+" von "+einheit.getInt("bewegungMaximal"));
+		if (einheit!=null){
+			int x=1;
+			addEintrag(x++,jp,"Einheit in der Stadt","");
+			addEintrag(x++,jp,"Leben: ",einheit.getInt("lebenAktuell")+" von "+einheit.getInt("lebenMaximal"));
+			addEintrag(x++,jp,"Angriff: ",einheit.getInt("angriffAktuell")+" von "+einheit.getInt("angriffMaximal"));
+			addEintrag(x++,jp,"Verteidigung: ",einheit.getInt("verteidigungAktuell")+" von "+einheit.getInt("verteidigungMaximal"));
+			addEintrag(x++,jp,"Bewegung: ",einheit.getInt("bewegungAktuell")+" von "+einheit.getInt("bewegungMaximal"));			
+		}
 
 		JPanel umgebungPanel=new JPanel();
 		umgebungPanel.setLayout(new GridBagLayout());
 		GridBagConstraints gbc=new GridBagConstraints();
-		int xStart=einheit.getInt("x")-reichweiteUmgebung;
-		int yStart=einheit.getInt("y")-reichweiteUmgebung;
+		int xStart=stadt.getInt("x")-reichweiteUmgebung;
+		int yStart=stadt.getInt("y")-reichweiteUmgebung;
 		for(int i=0;i<reichweiteUmgebung*2+1;i++){
 			for(int j=0;j<reichweiteUmgebung*2+1;j++){
 				JLabel bild=new JLabel();
@@ -80,9 +84,9 @@ public class StatusEinheit extends JDialog implements ActionListener{
 		add(umgebungPanel,BorderLayout.WEST);
 		
 		if (!spieler.getString("nation").equals("null"))
-			add(setLabelHeader(einheit.getString("name")+" von "+spieler.getString("name")+" aus "+spieler.getString("nation")),BorderLayout.NORTH);
+			add(setLabelHeader(stadt.getString("name")+" von "+spieler.getString("name")+" aus "+spieler.getString("nation")),BorderLayout.NORTH);
 		else
-			add(setLabelHeader(einheit.getString("name")+" von dem "+spieler.getString("rasse")+" "+spieler.getString("name")),BorderLayout.NORTH);
+			add(setLabelHeader(stadt.getString("name")+" von dem "+spieler.getString("rasse")+" "+spieler.getString("name")),BorderLayout.NORTH);
 		add(jp,BorderLayout.CENTER);
 		add(jpButtons,BorderLayout.EAST);
 		add(abbrechen,BorderLayout.SOUTH);
@@ -129,7 +133,11 @@ public class StatusEinheit extends JDialog implements ActionListener{
 	public void actionPerformed(ActionEvent ev) {
 		Object o=ev.getSource();
 		if (o==buttons[0]){
-			if (einheit.getString("art").equals("Siedler")){
+			
+			// TODO Produktion einstellen
+			
+			/*
+			if (einheit.getString("einheitName").equals("Siedler")){
 				// Stadt gruenden
 				iBackendSpiel backend=frontend.getBackend();
 				JTextField name=new JTextField(20);
@@ -148,13 +156,14 @@ public class StatusEinheit extends JDialog implements ActionListener{
 		  		int idKarte=einheit.getInt("idKarte");
 		  		int x=einheit.getInt("x");
 		  		int y=einheit.getInt("y");
-		  		backend.gruendeStadt(frontend.getIdSpieler(),idKarte,x,y,name.getText());
+		  		backend.gruendeStadt(einheit.getInt("idSpieler"),idKarte,x,y,name.getText());
 		  		ArrayList<D> daten=Xml.toArray(backend.getFeldDaten(idKarte,x,y));
 		  		frontend.getKarte().updateFeld(x,y,daten);
 					this.setVisible(false);
 					this.dispose();
 		  	}
 			}
+			*/
 		}
 		if (o==abbrechen){
 			this.setVisible(false);

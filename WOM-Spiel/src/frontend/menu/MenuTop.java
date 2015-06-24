@@ -74,9 +74,9 @@ public class MenuTop extends JPanel implements ActionListener{
 		}
 		add(ost,BorderLayout.EAST);
 		
-		buttons[0].setText("Karte holen");
-		buttons[1].setText("Autoupdate <AUS>");
-		buttons[20].setText("Runde beenden");
+		buttons[0].setText("getKarte");
+		buttons[1].setText("Updater AUS");
+		buttons[23].setText("Runde Ende");
 		holenKarte(1); // Karte mit der ID=1 standardmaessig holen
 		buttons[1].doClick(); // Autoupdate aktivieren
 	}
@@ -90,8 +90,7 @@ public class MenuTop extends JPanel implements ActionListener{
 					bewege(Frontend.BewegungsAktion.fromOrdinal(i));
 					break;
 				}
-			}			
-
+			}
 			for(int i=0;i<spalten*zeilen;i++){
 				if (o==buttons[i]){
 					aktion(i);
@@ -112,14 +111,14 @@ public class MenuTop extends JPanel implements ActionListener{
 			holenKarte(0);
 			break;
 		case 1:
-			if (buttons[1].getText().equals("Autoupdate <AUS>")){
-				if (autoUpdate(true)) buttons[1].setText("Autoupdate <AN>");
+			if (buttons[1].getText().equals("Updater AUS")){
+				if (autoUpdate(true)) buttons[1].setText("Updater AN");
 			}
 			else{
-				if (autoUpdate(false)) buttons[1].setText("Autoupdate <AUS>");				
+				if (autoUpdate(false)) buttons[1].setText("Updater AUS");				
 			}
 			break;
-		case 20:
+		case 23:
 			beendenRunde(frontend.getIdSpieler());
 			break;
 		default:
@@ -158,20 +157,12 @@ public class MenuTop extends JPanel implements ActionListener{
 	}
 
 
-	private void aktionEinheitStadt() {
-		Feld feld=frontend.getFeldGewaehlt();
-		if (feld==null) return;
-		D_Einheit einheit=feld.getEinheit();
-		D_Stadt stadt=feld.getStadt();
+	private void aktionEinheitStadt(D_Stadt stadt, D_Einheit einheit) {
 		if ((einheit==null)&&(stadt==null)) return;
+		D_Spieler spieler=(D_Spieler)Xml.toD(backendSpiel.getSpielerDaten(frontend.getIdSpieler()));
 		if (stadt!=null){
-			
-			
-			// TODO STADTBILDSCHIRM ANZEIGEN
-			
-			
+			new StatusStadt(frontend,stadt,einheit,spieler);
 		} else if (einheit!=null){
-			D_Spieler spieler=(D_Spieler)Xml.toD(backendSpiel.getSpielerDaten(einheit.getInt("idSpieler")));
 			new StatusEinheit(frontend,einheit,spieler);
 		}
 	}
@@ -210,21 +201,25 @@ public class MenuTop extends JPanel implements ActionListener{
 
 	private void bewege(Frontend.BewegungsAktion bewegungsAktion) {
 		Feld feld=frontend.getFeldGewaehlt();
-		if ((bewegungsAktion==null)||(feld==null)||((feld.getEinheit()==null))) return;
+		if ((bewegungsAktion==null)||(feld==null)||((feld.getEinheit()==null)&&(feld.getStadt()==null))) return;
 		int idSpieler=frontend.getIdSpieler();
 		int idKarte=feld.getDaten().getInt("idKarte");
 		int xAlt=feld.getDaten().getInt("x");
 		int yAlt=feld.getDaten().getInt("y");
-		
-		feld.getEinheit().getInt("idSpieler");
+		D_Einheit einheit=feld.getEinheit();
+		D_Stadt stadt=feld.getStadt();
+		if (einheit!=null)
+			idSpieler=einheit.getInt("idSpieler");
+		else if (stadt!=null) 
+			idSpieler=stadt.getInt("idSpieler");
+		if (idSpieler!=frontend.getIdSpieler())
+			throw new RuntimeException("MenuTop bewege: Sie duerfen nur Ihre eigenen Einheiten bewegen!");
 		try{
 			if (bewegungsAktion.equals(Frontend.BewegungsAktion.AKTION)){
-				aktionEinheitStadt();
+				aktionEinheitStadt(stadt,einheit);
 			}
 			else{
 				frontend.log("Bewege Einheit...");
-				if (feld.getEinheit().getInt("idSpieler")!=idSpieler)
-					throw new RuntimeException("MenuTop bewege: Sie duerfen nur Ihre eigenen Einheiten bewegen!");
 				D antwort=Xml.toD(backendSpiel.bewegeEinheit(idSpieler,idKarte,xAlt,yAlt,bewegungsAktion.ordinal()));
 				Karte karte=frontend.getKarte();
 				if (antwort instanceof D_Fehler)

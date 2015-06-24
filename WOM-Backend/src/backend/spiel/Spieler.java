@@ -69,8 +69,8 @@ public class Spieler {
 	public Stadt addStadt(Feld feld,String name){
 		try{
 			Einheit einheit=feld.getEinheit();
-			if ((einheit==null)||(einheit.getIdSpieler()!=getId())||(!einheit.getDaten().getString("einheitArt").equals("Siedler")))
-				throw new RuntimeException("Spiel gruendeStadt: Nur Siedler koennen Staedte gruenden!");
+			if ((einheit==null)||(einheit.getIdSpieler()!=getId())||(!einheit.getDaten().getString("art").equals("Siedler")))
+				throw new RuntimeException("Nur Siedler koennen Staedte gruenden!");
 			D_Feld feldDaten=feld.getDaten();
 			D_Stadt stadtDaten=new D_Stadt();
 			stadtDaten.setString("name",name);

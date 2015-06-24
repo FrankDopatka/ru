@@ -81,7 +81,7 @@ public class Spiel {
 						D_Einheit datenEinheit=(D_Einheit)spielDaten.get(iDatensatz);
 						// Einheit generieren
 						@SuppressWarnings("unchecked")
-						Class<Einheit> c=(Class<Einheit>)Class.forName(Parameter.pfadKlassenEinheiten+datenEinheit.getString("einheitArt"));
+						Class<Einheit> c=(Class<Einheit>)Class.forName(Parameter.pfadKlassenEinheiten+datenEinheit.getString("art"));
 						Einheit einheit=(Einheit)c.newInstance();
 						einheit.setDaten(datenEinheit);
 						einheiten.add(einheit);
