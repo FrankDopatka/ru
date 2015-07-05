@@ -179,6 +179,10 @@ public class Spiel {
 	public D_Spiel getDaten(){
 		return d_Spiel;
 	}
+	
+	public Regelwerk getRegelwerk(){
+		return regelwerk;
+	}
 
 	public Karte getKarte(int id) {
 		for(Karte karte:karten){

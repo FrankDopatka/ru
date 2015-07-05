@@ -66,6 +66,38 @@ public class Spieler {
 		return einheiten;
 	}
 	
+	public Einheit getEinheit(int idEinheit){
+		if (einheiten.size()==0) return null;
+		for(Einheit einheit:einheiten){
+			if (einheit.getDaten().getInt("id")==idEinheit) return einheit;
+		}
+		return null;
+	}
+	
+	public Stadt getStadt(int idStadt){
+		if (staedte.size()==0) return null;
+		for(Stadt stadt:staedte){
+			if (stadt.getDaten().getInt("id")==idStadt) return stadt;
+		}
+		return null;
+	}
+	
+	public int getIdNaechsteStadt(){
+		int id=1;
+		boolean vergeben=false;
+		if (staedte.size()==0) return id;
+		do{
+			for(Stadt stadt:staedte){
+				if (stadt.getDaten().getInt("id")==id){
+					vergeben=true;
+					id++;
+					break;
+				}
+			}
+		}while (vergeben);
+		return id;
+	}
+	
 	public Stadt addStadt(Feld feld,String name){
 		try{
 			Einheit einheit=feld.getEinheit();
@@ -74,6 +106,7 @@ public class Spieler {
 			D_Feld feldDaten=feld.getDaten();
 			D_Stadt stadtDaten=new D_Stadt();
 			stadtDaten.setString("name",name);
+			stadtDaten.setInt("id",getIdNaechsteStadt());
 			stadtDaten.setInt("idSpieler",getId());
 			stadtDaten.setInt("idKarte",feldDaten.getInt("idKarte"));
 			stadtDaten.setInt("x",feldDaten.getInt("x"));

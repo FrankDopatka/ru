@@ -187,6 +187,18 @@ public class BackendSpiel extends ResourceConfig implements iBackendSpiel{
 	}
 
 	@GET
+	@Path("getProduzierbareEinheiten/{idSpieler}/{idStadt}")
+	@Consumes("text/plain")
+	@Produces("application/xml")
+	@Override
+	public String getProduzierbareEinheiten(
+			@PathParam("idSpieler")int idSpieler,
+			@PathParam("idStadt")int idStadt) {
+		ArrayList<D> daten=spiel.getRegelwerk().getProduzierbareEinheiten(idSpieler,idStadt);
+		return Xml.verpacken(Xml.fromArray(daten));
+	}
+	
+	@GET
 	@Path("bewegeEinheit/{idSpieler}/{idKarte}/{x}/{y}/{richtung}")
 	@Consumes("text/plain")
 	@Produces("application/xml")

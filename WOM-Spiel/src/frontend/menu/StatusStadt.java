@@ -74,7 +74,10 @@ public class StatusStadt extends JDialog implements ActionListener{
 				int yAktuellKarte=yStart+j;
 				if ((xAktuellKarte>=1)&&(xAktuellKarte<=frontend.getKarte().getGroesseX())&&
 						(yAktuellKarte>=1)&&(yAktuellKarte<=frontend.getKarte().getGroesseY())){
-					bild.setIcon(new ImageIcon(frontend.getKarte().getFeld(xAktuellKarte,yAktuellKarte).getBild()));					
+					bild.setIcon(new ImageIcon(frontend.getKarte().getFeld(xAktuellKarte,yAktuellKarte).getBild()));
+				}
+				else{
+					bild.setIcon(new ImageIcon(frontend.getKarte().getBildFeldLeer()));
 				}
 				gbc.gridx=i;
 				gbc.gridy=j;
@@ -133,7 +136,8 @@ public class StatusStadt extends JDialog implements ActionListener{
 	public void actionPerformed(ActionEvent ev) {
 		Object o=ev.getSource();
 		if (o==buttons[0]){
-			
+			ArrayList<D> daten=Xml.toArray(frontend.getBackend().getProduzierbareEinheiten(stadt.getInt("idSpieler"),stadt.getInt("id")));
+			System.out.println(daten);
 			// TODO Produktion einstellen
 			
 			/*

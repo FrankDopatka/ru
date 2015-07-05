@@ -132,17 +132,11 @@ public class Feld extends JLabel{
 	
 	@Override
 	public String toString(){
-		String s="";
-		/*
-		s+="Feld "+d_Feld.getInt("x")+"/"+d_Feld.getInt("y")+" vom Typ "+d_Feld.getString("feldArt");
-		if (d_Feld.getString("ressource").length()>0) s+=" und Ressource "+d_Feld.getString("ressource");
-		if (d_Feld.getInt("spielerstart")>0) s+=" und Start von Spieler Nummer "+d_Feld.getInt("spielerstart");
-		if (d_Einheit!=null) s+=" und Einheit "+d_Einheit.getString("name")+" von Spieler "+d_Einheit.getInt("idSpieler");
-		if (d_Stadt!=null) s+=" und Stadt "+d_Stadt.getString("name")+" von Spieler "+d_Stadt.getInt("idSpieler");
-		*/
-		s+="Feld: "+d_Feld+"\n";
+		String s="Feld: "+d_Feld+"\n";
 		if (d_Einheit!=null) s+="Einheit: "+d_Einheit+"\n";
 		if (d_Stadt!=null) s+="Stadt: "+d_Stadt+"\n";
+		s=s.trim();
+		if (s.endsWith("\n")) s=s.substring(0,s.length()-1);
 		return s;
 	}
 }

@@ -12,6 +12,8 @@ public interface iBackendSpiel {
 	String getStadtDaten(int idKarte,int x,int y);
 	String getSpielerDaten(int idSpieler);
 	
+	String getProduzierbareEinheiten(int idSpieler,int idStadt);
+	
 	String bewegeEinheit(int idSpieler,int idKarte,int x,int y,int richtung);
 	String gruendeStadt(int idSpieler,int idKarte,int x,int y,String name);
 	String update(int idSpieler,int idKarte);

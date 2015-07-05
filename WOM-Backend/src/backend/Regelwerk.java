@@ -1,11 +1,19 @@
 package backend;
 
+import java.util.ArrayList;
+
+import daten.D;
+import daten.D_Einheit;
 import daten.D_Position;
 import backend.karte.Feld;
 import backend.karte.Karte;
 import backend.spiel.Einheit;
 import backend.spiel.Spiel;
 import backend.spiel.Spiel.Bewegungsrichtung;
+import backend.spiel.Spieler;
+import backend.spiel.Stadt;
+import backend.spiel.einheiten.Krieger;
+import backend.spiel.einheiten.Siedler;
 
 public class Regelwerk {
 	public Spiel spiel=null;
@@ -43,6 +51,7 @@ public class Regelwerk {
 				throw new RuntimeException("Ihre Einheit kann nicht angreifen!");
 			
 			//TODO Kampf
+			System.out.println("KAMPF!");
 				
 		}
 
@@ -61,6 +70,22 @@ public class Regelwerk {
 	private int getNoetigeBewegungspunkte(Feld feldAlt,Feld feldNeu) {
 		// TODO ggf. komplexere Berechnung noetig in Abhaengigkeit der Felduebergaenge und der Einheiten
 		return feldNeu.getBewegungspunkte();
+	}
+	
+	public ArrayList<D> getProduzierbareEinheiten(int idSpieler,int idStadt){
+		ArrayList<D> ergebnis=new ArrayList<D>();
+		Spieler spieler=spiel.getSpieler(idSpieler);
+		Stadt stadt=spieler.getStadt(idStadt);
+		
+		// TODO Produktion abhaengig von Wissenschaft, Lage, Stadt
+		
+		Krieger krieger=new Krieger();
+		krieger.setSpieler(spieler.getId());
+		ergebnis.add(krieger.getDaten());
+		Siedler siedler=new Siedler();
+		siedler.setSpieler(spieler.getId());
+		ergebnis.add(siedler.getDaten());
+		return ergebnis;
 	}
 
 	private int[] getNeueKoordinaten(int xAlt,int yAlt,int richtung){
@@ -94,6 +119,8 @@ public class Regelwerk {
 		case NORDWEST:
 			xNeu--;
 			yNeu--;
+			break;
+		case AKTION:
 			break;
 		}
 		return new int[]{xNeu,yNeu};

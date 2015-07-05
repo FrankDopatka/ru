@@ -72,6 +72,9 @@ public class StatusEinheit extends JDialog implements ActionListener{
 						(yAktuellKarte>=1)&&(yAktuellKarte<=frontend.getKarte().getGroesseY())){
 					bild.setIcon(new ImageIcon(frontend.getKarte().getFeld(xAktuellKarte,yAktuellKarte).getBild()));					
 				}
+				else{
+					bild.setIcon(new ImageIcon(frontend.getKarte().getBildFeldLeer()));
+				}
 				gbc.gridx=i;
 				gbc.gridy=j;
 				umgebungPanel.add(bild,gbc);

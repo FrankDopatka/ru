@@ -89,6 +89,11 @@ public class Karte extends JPanel implements Scrollable{
 	public BufferedImage getBildFeld(String feldArt){
 		return bildFeld.get(feldArt);
 	}
+
+	public BufferedImage getBildFeldLeer() {
+		return bildFeld.get("leer");
+	}
+	
 	public BufferedImage getBildRessource(String ressorcenArt){
 		return bildRessource.get(ressorcenArt);
 	}

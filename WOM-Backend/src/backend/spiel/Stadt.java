@@ -16,7 +16,7 @@ public class Stadt {
 	public D_Stadt getDaten(){
 		return d_stadt;
 	}
-
+	
 	public Object toXml() {
 		StringBuffer xml=new StringBuffer();
 		xml.append(Xml.fromD(d_stadt));
