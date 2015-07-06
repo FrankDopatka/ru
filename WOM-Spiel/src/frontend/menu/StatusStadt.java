@@ -14,18 +14,18 @@ import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
-
 import daten.*;
 import frontend.Frontend;
 
 public class StatusStadt extends JDialog implements ActionListener{
 	private static final long serialVersionUID = 1L;
 	private Frontend frontend;
+	private iBackendSpiel backend;
 	private D_Stadt stadt;
 	private D_Einheit einheit;
 	private JButton abbrechen=new JButton("Abbrechen");
@@ -35,6 +35,7 @@ public class StatusStadt extends JDialog implements ActionListener{
 	public StatusStadt(Frontend frontend,D_Stadt stadt,D_Einheit einheit,D_Spieler spieler){
 		super(frontend);
 		this.frontend=frontend;
+		backend=frontend.getBackend();
 		this.stadt=stadt;
 		this.einheit=einheit;
 		JPanel jp=new JPanel();
@@ -136,38 +137,32 @@ public class StatusStadt extends JDialog implements ActionListener{
 	public void actionPerformed(ActionEvent ev) {
 		Object o=ev.getSource();
 		if (o==buttons[0]){
-			ArrayList<D> daten=Xml.toArray(frontend.getBackend().getProduzierbareEinheiten(stadt.getInt("idSpieler"),stadt.getInt("id")));
-			System.out.println(daten);
-			// TODO Produktion einstellen
-			
-			/*
-			if (einheit.getString("einheitName").equals("Siedler")){
-				// Stadt gruenden
-				iBackendSpiel backend=frontend.getBackend();
-				JTextField name=new JTextField(20);
-		  	Object[] eingaben={"Name der Stadt",name};
-		  	JOptionPane eingabe=new JOptionPane(eingaben,JOptionPane.PLAIN_MESSAGE, JOptionPane.OK_CANCEL_OPTION){
-					private static final long serialVersionUID = 1L;
-					 @Override
-		        public void selectInitialValue() {
-		          super.selectInitialValue();
-		          Object[] felder=(Object[]) this.getMessage();
-		          ((JTextField)felder[1]).requestFocusInWindow();
-		        }
-		  	};
-		  	eingabe.createDialog(null, "Neue Stadt gruenden...").setVisible(true);
-		  	if ((eingabe.getValue()!=null)&&(eingabe.getValue().equals(JOptionPane.OK_OPTION))){
-		  		int idKarte=einheit.getInt("idKarte");
-		  		int x=einheit.getInt("x");
-		  		int y=einheit.getInt("y");
-		  		backend.gruendeStadt(einheit.getInt("idSpieler"),idKarte,x,y,name.getText());
-		  		ArrayList<D> daten=Xml.toArray(backend.getFeldDaten(idKarte,x,y));
-		  		frontend.getKarte().updateFeld(x,y,daten);
-					this.setVisible(false);
-					this.dispose();
-		  	}
-			}
-			*/
+			ArrayList<D> daten=Xml.toArray(backend.getProduzierbareEinheiten(stadt.getInt("idSpieler"),stadt.getInt("id")));
+			final JComboBox<String> jWahlStadtproduktion=new JComboBox<String>();
+			for(D produzierbareEinheit:daten){
+				String name=""+produzierbareEinheit.getString("name");
+				String kosten=""+produzierbareEinheit.getString("kostenProduktion");
+				jWahlStadtproduktion.addItem(name+" ("+kosten+")");
+	  	}
+	  	Object[] eingaben={"Produziere...",jWahlStadtproduktion};
+	  	JOptionPane eingabe=new JOptionPane(eingaben,JOptionPane.PLAIN_MESSAGE, JOptionPane.OK_CANCEL_OPTION){
+				private static final long serialVersionUID = 1L;
+				@SuppressWarnings("unchecked")
+				@Override
+        public void selectInitialValue() {
+          super.selectInitialValue();
+          Object[] felder=(Object[]) this.getMessage();
+          ((JComboBox<String>)felder[1]).requestFocusInWindow();
+        }
+	  	};
+	  	eingabe.createDialog(null, "Produktion der Stadt einstellen...").setVisible(true);
+	  	if ((eingabe.getValue()!=null)&&(eingabe.getValue().equals(JOptionPane.OK_OPTION))){
+	  		String wahl=""+jWahlStadtproduktion.getSelectedItem();
+	  		wahl=wahl.split(" ")[0];
+	  		backend.produziere(stadt.getInt("idSpieler"),stadt.getInt("id"),wahl);	  		
+	  		this.setVisible(false);
+				this.dispose();
+	  	}
 		}
 		if (o==abbrechen){
 			this.setVisible(false);

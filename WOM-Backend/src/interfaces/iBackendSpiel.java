@@ -17,4 +17,9 @@ public interface iBackendSpiel {
 	String bewegeEinheit(int idSpieler,int idKarte,int x,int y,int richtung);
 	String gruendeStadt(int idSpieler,int idKarte,int x,int y,String name);
 	String update(int idSpieler,int idKarte);
+	
+	// neu ab 06.07.2015
+	String produziere(int idSpieler,int idStadt,String zuProduzieren);
+	
+	// TODO getStadtproduktion
 }

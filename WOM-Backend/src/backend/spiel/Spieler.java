@@ -11,14 +11,17 @@ public class Spieler {
 	private D_Spieler d_Spieler=new D_Spieler();
 	private ArrayList<Einheit> einheiten=new ArrayList<Einheit>();
 	private ArrayList<Stadt> staedte=new ArrayList<Stadt>();
+	private Spiel spiel;
 	
-	public Spieler(int id,String name,String rasse,String nation){
+	public Spieler(Spiel spiel,int id,String name,String rasse,String nation){
+		this.spiel=spiel;
 		d_Spieler.setInt("id",id);
 		d_Spieler.setString("name",name);
 		d_Spieler.setString("rasse",rasse);
 		d_Spieler.setString("nation",nation);
 	}
-	public Spieler(D_Spieler daten){
+	public Spieler(Spiel spiel,D_Spieler daten){
+		this.spiel=spiel;
 		d_Spieler=daten;
 	}
 	
@@ -101,7 +104,7 @@ public class Spieler {
 	public Stadt addStadt(Feld feld,String name){
 		try{
 			Einheit einheit=feld.getEinheit();
-			if ((einheit==null)||(einheit.getIdSpieler()!=getId())||(!einheit.getDaten().getString("art").equals("Siedler")))
+			if ((einheit==null)||(einheit.getIdSpieler()!=getId())||(!einheit.getDaten().getString("name").equals("Siedler")))
 				throw new RuntimeException("Nur Siedler koennen Staedte gruenden!");
 			D_Feld feldDaten=feld.getDaten();
 			D_Stadt stadtDaten=new D_Stadt();
@@ -111,7 +114,7 @@ public class Spieler {
 			stadtDaten.setInt("idKarte",feldDaten.getInt("idKarte"));
 			stadtDaten.setInt("x",feldDaten.getInt("x"));
 			stadtDaten.setInt("y",feldDaten.getInt("y"));
-			Stadt stadt=new Stadt(stadtDaten);
+			Stadt stadt=new Stadt(spiel,stadtDaten);
 			einheit.setSpieler(getId());
 			feld.setEinheit(null);
 			feld.setStadt(stadt);
@@ -122,6 +125,10 @@ public class Spieler {
 		catch (Exception e){
 			throw new RuntimeException(e.getMessage());
 		}
+	}
+	
+	public Spiel getSpiel() {
+		return spiel;
 	}
 
 	public String toXml() {
@@ -142,5 +149,4 @@ public class Spieler {
 		Spieler s=(Spieler)o;
 		return this.getDaten().getInt("id")==s.getDaten().getInt("id");
 	}
-
 }

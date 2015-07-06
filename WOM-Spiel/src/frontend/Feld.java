@@ -101,7 +101,7 @@ public class Feld extends JLabel{
 			g.drawImage(bildGewaehlt,bildIcon.getWidth()/2-bildGewaehlt.getWidth()/2,bildIcon.getHeight()/2-bildGewaehlt.getWidth()/2,null);
 		}
 		if ((d_Einheit!=null)&&(d_Stadt==null)){
-			BufferedImage bildEinheit=karte.getBildEinheit(d_Einheit.getString("art").toLowerCase());
+			BufferedImage bildEinheit=karte.getBildEinheit(d_Einheit.getString("name").toLowerCase());
 			g.drawImage(bildEinheit,bildIcon.getWidth()/2-bildEinheit.getWidth()/2,bildIcon.getHeight()/2-bildEinheit.getWidth()/2,null);
 		}
 		if (d_Stadt!=null){

@@ -46,7 +46,7 @@ public class StatusEinheit extends JDialog implements ActionListener{
 			buttons[i].addActionListener(this);
 			jpButtons.add(buttons[i]);
 		}
-		if (einheit.getString("art").equals("Siedler")) buttons[0].setText("Stadt gruenden");			
+		if (einheit.getString("name").equals("Siedler")) buttons[0].setText("Stadt gruenden");			
 		buttons[9].setText("Aufloesen");
 		
 		setTitle("Status der Einheit");
@@ -132,7 +132,7 @@ public class StatusEinheit extends JDialog implements ActionListener{
 	public void actionPerformed(ActionEvent ev) {
 		Object o=ev.getSource();
 		if (o==buttons[0]){
-			if (einheit.getString("art").equals("Siedler")){
+			if (einheit.getString("name").equals("Siedler")){
 				// Stadt gruenden
 				iBackendSpiel backend=frontend.getBackend();
 				JTextField name=new JTextField(20);

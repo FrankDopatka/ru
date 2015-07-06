@@ -213,23 +213,23 @@
 <entry key="istWasserfeld">false</entry>
 </properties>
 <properties>
-<entry key="angriffAktuell">0</entry>
-<entry key="name">Siedler</entry>
-<entry key="id">0</entry>
-<entry key="bewegungMaximal">100</entry>
-<entry key="lebenMaximal">1</entry>
-<entry key="bewegungAktuell">100</entry>
-<entry key="verteidigungMaximal">0</entry>
-<entry key="art">Siedler</entry>
-<entry key="istLandeinheit">true</entry>
-<entry key="lebenAktuell">1</entry>
-<entry key="verteidigungAktuell">0</entry>
-<entry key="y">6</entry>
-<entry key="klasse">D_Einheit</entry>
-<entry key="idSpieler">1</entry>
 <entry key="idKarte">1</entry>
+<entry key="lebenMaximal">1</entry>
+<entry key="idSpieler">1</entry>
+<entry key="lebenAktuell">1</entry>
+<entry key="y">6</entry>
 <entry key="x">2</entry>
+<entry key="bewegungMaximal">100</entry>
+<entry key="id">0</entry>
+<entry key="bewegungAktuell">100</entry>
+<entry key="kostenProduktion">500</entry>
+<entry key="istLandeinheit">true</entry>
 <entry key="angriffMaximal">0</entry>
+<entry key="klasse">D_Einheit</entry>
+<entry key="verteidigungMaximal">0</entry>
+<entry key="angriffAktuell">0</entry>
+<entry key="verteidigungAktuell">0</entry>
+<entry key="name">Siedler</entry>
 </properties>
 <properties>
 <entry key="id">0</entry>
@@ -784,23 +784,23 @@
 <entry key="istWasserfeld">false</entry>
 </properties>
 <properties>
-<entry key="angriffAktuell">0</entry>
-<entry key="name">Siedler</entry>
-<entry key="id">0</entry>
-<entry key="bewegungMaximal">100</entry>
-<entry key="lebenMaximal">1</entry>
-<entry key="bewegungAktuell">100</entry>
-<entry key="verteidigungMaximal">0</entry>
-<entry key="art">Siedler</entry>
-<entry key="istLandeinheit">true</entry>
-<entry key="lebenAktuell">1</entry>
-<entry key="verteidigungAktuell">0</entry>
-<entry key="y">2</entry>
-<entry key="klasse">D_Einheit</entry>
-<entry key="idSpieler">2</entry>
 <entry key="idKarte">1</entry>
+<entry key="lebenMaximal">1</entry>
+<entry key="idSpieler">2</entry>
+<entry key="lebenAktuell">1</entry>
+<entry key="y">2</entry>
 <entry key="x">7</entry>
+<entry key="bewegungMaximal">100</entry>
+<entry key="id">0</entry>
+<entry key="bewegungAktuell">100</entry>
+<entry key="kostenProduktion">500</entry>
+<entry key="istLandeinheit">true</entry>
 <entry key="angriffMaximal">0</entry>
+<entry key="klasse">D_Einheit</entry>
+<entry key="verteidigungMaximal">0</entry>
+<entry key="angriffAktuell">0</entry>
+<entry key="verteidigungAktuell">0</entry>
+<entry key="name">Siedler</entry>
 </properties>
 <properties>
 <entry key="id">0</entry>
@@ -1266,49 +1266,49 @@
 <entry key="id">1</entry>
 </properties>
 <properties>
-<entry key="angriffAktuell">0</entry>
-<entry key="name">Siedler</entry>
-<entry key="id">0</entry>
-<entry key="bewegungMaximal">100</entry>
-<entry key="lebenMaximal">1</entry>
-<entry key="bewegungAktuell">100</entry>
-<entry key="verteidigungMaximal">0</entry>
-<entry key="art">Siedler</entry>
-<entry key="istLandeinheit">true</entry>
-<entry key="lebenAktuell">1</entry>
-<entry key="verteidigungAktuell">0</entry>
-<entry key="y">6</entry>
-<entry key="klasse">D_Einheit</entry>
-<entry key="idSpieler">1</entry>
 <entry key="idKarte">1</entry>
+<entry key="lebenMaximal">1</entry>
+<entry key="idSpieler">1</entry>
+<entry key="lebenAktuell">1</entry>
+<entry key="y">6</entry>
 <entry key="x">2</entry>
+<entry key="bewegungMaximal">100</entry>
+<entry key="id">0</entry>
+<entry key="bewegungAktuell">100</entry>
+<entry key="kostenProduktion">500</entry>
+<entry key="istLandeinheit">true</entry>
 <entry key="angriffMaximal">0</entry>
+<entry key="klasse">D_Einheit</entry>
+<entry key="verteidigungMaximal">0</entry>
+<entry key="angriffAktuell">0</entry>
+<entry key="verteidigungAktuell">0</entry>
+<entry key="name">Siedler</entry>
 </properties>
 <properties>
 <entry key="name">Uli</entry>
-<entry key="nation">null</entry>
-<entry key="rasse">Klingon</entry>
+<entry key="nation">England</entry>
+<entry key="rasse">Mensch</entry>
 <entry key="klasse">D_Spieler</entry>
 <entry key="id">2</entry>
 </properties>
 <properties>
-<entry key="angriffAktuell">0</entry>
-<entry key="name">Siedler</entry>
-<entry key="id">0</entry>
-<entry key="bewegungMaximal">100</entry>
-<entry key="lebenMaximal">1</entry>
-<entry key="bewegungAktuell">100</entry>
-<entry key="verteidigungMaximal">0</entry>
-<entry key="art">Siedler</entry>
-<entry key="istLandeinheit">true</entry>
-<entry key="lebenAktuell">1</entry>
-<entry key="verteidigungAktuell">0</entry>
-<entry key="y">2</entry>
-<entry key="klasse">D_Einheit</entry>
-<entry key="idSpieler">2</entry>
 <entry key="idKarte">1</entry>
+<entry key="lebenMaximal">1</entry>
+<entry key="idSpieler">2</entry>
+<entry key="lebenAktuell">1</entry>
+<entry key="y">2</entry>
 <entry key="x">7</entry>
+<entry key="bewegungMaximal">100</entry>
+<entry key="id">0</entry>
+<entry key="bewegungAktuell">100</entry>
+<entry key="kostenProduktion">500</entry>
+<entry key="istLandeinheit">true</entry>
 <entry key="angriffMaximal">0</entry>
+<entry key="klasse">D_Einheit</entry>
+<entry key="verteidigungMaximal">0</entry>
+<entry key="angriffAktuell">0</entry>
+<entry key="verteidigungAktuell">0</entry>
+<entry key="name">Siedler</entry>
 </properties>
 </propertiesarray>
 

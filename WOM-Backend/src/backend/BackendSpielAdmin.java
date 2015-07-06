@@ -103,11 +103,12 @@ public class BackendSpielAdmin extends ResourceConfig implements iBackendSpielAd
 			@PathParam("rasse") String rasse,
 			@PathParam("nation") String nation){
 		try{
-			Spieler spieler=new Spieler(id,name,rasse,nation);
-			if (BackendSpiel.getSpiel().getDaten().getBool("istGestartet"))
-				BackendSpiel.getSpiel().spielerEinbinden(spieler);
+			Spiel spiel=BackendSpiel.getSpiel();
+			Spieler spieler=new Spieler(spiel,id,name,rasse,nation);
+			if (spiel.getDaten().getBool("istGestartet"))
+				spiel.spielerEinbinden(spieler);
 			else
-				BackendSpiel.getSpiel().addSpieler(spieler);
+				spiel.addSpieler(spieler);
 			return Xml.verpacken(Xml.fromD(new D_OK()));
 		} catch (Exception e) {
 			e.printStackTrace();

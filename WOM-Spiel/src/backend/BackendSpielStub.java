@@ -1,5 +1,8 @@
 package backend;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+
 import interfaces.iBackendSpiel;
 
 import javax.ws.rs.client.Client;
@@ -78,11 +81,26 @@ public class BackendSpielStub implements iBackendSpiel{
 	
 	@Override
 	public String gruendeStadt(int idSpieler, int idKarte, int x, int y, String name) {
-		return getXmlvonRest("gruendeStadt"+"/"+idSpieler+"/"+idKarte+"/"+x+"/"+y+"/"+name);
+		try {
+			return getXmlvonRest("gruendeStadt"+"/"+idSpieler+"/"+idKarte+"/"+x+"/"+y+"/"+URLEncoder.encode(""+name,"ISO-8859-1"));
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+			return "";
+		}
 	}
 	
 	@Override
 	public String update(int idSpieler,int idKarte) {
 		return getXmlvonRest("update"+"/"+idSpieler+"/"+idKarte);
+	}
+
+	@Override
+	public String produziere(int idSpieler, int idStadt, String zuProduzieren) {
+		try {
+			return getXmlvonRest("produziere"+"/"+idSpieler+"/"+idStadt+"/"+URLEncoder.encode(""+zuProduzieren,"ISO-8859-1"));
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+			return "";
+		}
 	}
 }

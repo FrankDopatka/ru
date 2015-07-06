@@ -9,5 +9,7 @@ public class D_Stadt extends D{
 		addInt("y",0);
 		addInt("idSpieler",0);
 		addString("name","");
+		addString("produziere","");
+		addInt("bereitsProduziert",0);
 	}
 }

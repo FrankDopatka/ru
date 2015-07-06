@@ -4,7 +4,6 @@ import backend.spiel.Einheit;
 
 public class Siedler extends Einheit {
 	public Siedler(){
-		getDaten().setString("art","Siedler");
 		getDaten().setString("name","Siedler");
 
 		getDaten().setInt("bewegungMaximal",100);

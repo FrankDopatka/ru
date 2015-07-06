@@ -4,7 +4,6 @@ import backend.spiel.Einheit;
 
 public class Krieger extends Einheit {
 	public Krieger(){
-		getDaten().setString("art","Krieger");
 		getDaten().setString("name","Krieger");
 
 		getDaten().setInt("bewegungMaximal",100);

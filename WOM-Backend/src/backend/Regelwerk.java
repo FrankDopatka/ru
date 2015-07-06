@@ -125,4 +125,13 @@ public class Regelwerk {
 		}
 		return new int[]{xNeu,yNeu};
 	}
+
+	public boolean istEinheit(String zuProduzieren) {
+		switch (zuProduzieren){
+		case "Siedler":
+		case "Krieger":
+			return true;
+		}
+		return false;
+	}
 }

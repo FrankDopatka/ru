@@ -73,7 +73,7 @@ public class Spiel {
   			while ((spielDaten.size()>iDatensatz)&&(spielDaten.get(iDatensatz)) instanceof D_Spieler){
   				// SPIELER
   				D_Spieler dSpieler=(D_Spieler)spielDaten.get(iDatensatz);
-  				Spieler spieler=new Spieler(dSpieler);
+  				Spieler spieler=new Spieler(spiel,dSpieler);
   				iDatensatz++;
   				// EINHEITEN DES SPIELERS
 					ArrayList<Einheit> einheiten=new ArrayList<Einheit>(); 
@@ -81,7 +81,7 @@ public class Spiel {
 						D_Einheit datenEinheit=(D_Einheit)spielDaten.get(iDatensatz);
 						// Einheit generieren
 						@SuppressWarnings("unchecked")
-						Class<Einheit> c=(Class<Einheit>)Class.forName(Parameter.pfadKlassenEinheiten+datenEinheit.getString("art"));
+						Class<Einheit> c=(Class<Einheit>)Class.forName(Parameter.pfadKlassenEinheiten+datenEinheit.getString("name"));
 						Einheit einheit=(Einheit)c.newInstance();
 						einheit.setDaten(datenEinheit);
 						einheiten.add(einheit);
@@ -98,7 +98,7 @@ public class Spiel {
 					while ((spielDaten.size()>iDatensatz)&&(spielDaten.get(iDatensatz)) instanceof D_Stadt){
 						// Stadt generieren
 						D_Stadt datenStadt=(D_Stadt)spielDaten.get(iDatensatz);
-						Stadt stadt=new Stadt(datenStadt);
+						Stadt stadt=new Stadt(spiel,datenStadt);
 						stadte.add(stadt);
 						// Stadt auf dem Feld plazieren
 						Karte karte=spiel.getKarte(datenStadt.getInt("idKarte"));

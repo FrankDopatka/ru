@@ -257,4 +257,23 @@ public class BackendSpiel extends ResourceConfig implements iBackendSpiel{
 			return Xml.verpacken(Xml.fromD(new D_Fehler(e.getMessage())));
 		}
 	}
+
+	@GET
+	@Path("produziere/{idSpieler}/{idStadt}/{zuProduzieren}")
+	@Consumes("text/plain")
+	@Produces("application/xml")
+	@Override
+	public String produziere(
+			@PathParam("idSpieler")int idSpieler, 
+			@PathParam("idStadt")int idStadt, 
+			@PathParam("zuProduzieren")String zuProduzieren) {
+		try {
+			Stadt stadt=spiel.getSpieler(idSpieler).getStadt(idStadt);
+			stadt.setProduktion(zuProduzieren);
+			return Xml.verpacken(Xml.fromD(new D_OK()));
+		} catch (Exception e) {
+			e.printStackTrace();
+			return Xml.verpacken(Xml.fromD(new D_Fehler(e.getMessage())));
+		}
+	}
 }
