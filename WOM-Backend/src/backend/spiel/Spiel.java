@@ -274,7 +274,7 @@ public class Spiel {
 			throw new RuntimeException("Spiel gruendeStadt: Fehler in der ID des Spielers!");
 		Karte karte=getKarte(idKarte);
 		Feld feld=karte.getFeld(x, y);		
-		spieler.addStadt(feld,name);
+		spieler.addStadt(feld,name); // TODO: FEHLER !!!!!
 		karte.setUpdate(feld.toDatenArray(),idSpieler);
 	}
 	
@@ -304,6 +304,7 @@ public class Spiel {
 				D_Spieler spielerDaten=spieler.get(i).getDaten();
 				d_Spiel.setInt("spielerAmZug",spielerDaten.getInt("id"));
 				updater.putSpieldaten(d_Spiel);
+				regelwerk.neueRunde();
 				return;
 			}
 		}

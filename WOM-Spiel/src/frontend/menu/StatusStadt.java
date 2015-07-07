@@ -54,9 +54,15 @@ public class StatusStadt extends JDialog implements ActionListener{
 		setTitle("Status der Stadt");
 		abbrechen.addActionListener(this);
 
+		int x=1;
+		String produktion=stadt.getString("produziere");
+		if ((produktion!=null)&&(produktion.length()>1)){
+			addEintrag(x++,jp,"Produktion: ",produktion+", "+stadt.getString("bereitsProduziert")+" von "+stadt.getString("kostenProduktion"));			
+		}
 		if (einheit!=null){
-			int x=1;
-			addEintrag(x++,jp,"Einheit in der Stadt","");
+			addEintrag(x++,jp,"","");
+			addEintrag(x++,jp,"Einheit in der Stadt:","");
+			addEintrag(x++,jp,"Typ: ",einheit.getString("name"));
 			addEintrag(x++,jp,"Leben: ",einheit.getInt("lebenAktuell")+" von "+einheit.getInt("lebenMaximal"));
 			addEintrag(x++,jp,"Angriff: ",einheit.getInt("angriffAktuell")+" von "+einheit.getInt("angriffMaximal"));
 			addEintrag(x++,jp,"Verteidigung: ",einheit.getInt("verteidigungAktuell")+" von "+einheit.getInt("verteidigungMaximal"));

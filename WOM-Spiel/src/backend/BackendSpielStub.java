@@ -2,13 +2,18 @@ package backend;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 
 import interfaces.iBackendSpiel;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 
+import daten.D;
+import daten.Xml;
+
 public class BackendSpielStub implements iBackendSpiel{
+	private static final boolean log=true;
 	private String url;
 	private Client client=ClientBuilder.newClient();
 	
@@ -20,7 +25,13 @@ public class BackendSpielStub implements iBackendSpiel{
 	}
 	
 	private String getXmlvonRest(String pfad){
-		String s=client.target(url+pfad).request().accept("application/xml").get(String.class);
+		String anfrage=url+pfad;
+		if ((log)&&(!anfrage.contains("/update/"))) System.out.println("CLIENT ANFRAGE: "+anfrage);
+		String s=client.target(anfrage).request().accept("application/xml").get(String.class);
+		if ((log)&&(!anfrage.contains("/update/"))){
+			ArrayList<D> daten=Xml.toArray(s);
+			System.out.println(daten);
+		}
 		return s;
 	}
 	

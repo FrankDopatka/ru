@@ -40,37 +40,29 @@ public class D{
 	}
 
 	public void setString(String name,String wert){
-		if (!existKey(name))
-			throw new RuntimeException("Daten setString: Keine Berechtigung zum Anlegen neuer Attribute!");
 		if (wert==null) wert="";
 		p.setProperty(name,wert);
 	}
 	public void setInt(String name,int wert){
-		if (!existKey(name))
-			throw new RuntimeException("Daten setInt: Keine Berechtigung zum Anlegen neuer Attribute!");
 		p.setProperty(name,""+wert);
 	}
 	public void setBool(String name,boolean wert){
-		if (!existKey(name))
-			throw new RuntimeException("Daten setBool: Keine Berechtigung zum Anlegen neuer Attribute!");
 		p.setProperty(name,""+wert);
 	}
 	public void setDecimal(String name,String wert){
-		if (!existKey(name))
-			throw new RuntimeException("Daten setDecimal: Keine Berechtigung zum Anlegen neuer Attribute!");
 		if (wert==null) wert="0.0";
 		p.setProperty(name,wert);
 	}
 	public void incInt(String name){
 		if (!existKey(name))
-			throw new RuntimeException("Daten incInt: Keine Berechtigung zum Anlegen neuer Attribute!");
+			throw new RuntimeException("Daten incInt: Attribut existiert nicht!");
 		int wert=Integer.parseInt(p.getProperty(name));
 		wert++;
 		p.setProperty(name,""+wert);
 	}
 	public void decInt(String name){
 		if (!existKey(name))
-			throw new RuntimeException("Daten incInt: Keine Berechtigung zum Anlegen neuer Attribute!");
+			throw new RuntimeException("Daten incInt: Attribut existiert nicht!");
 		int wert=Integer.parseInt(p.getProperty(name));
 		wert--;
 		p.setProperty(name,""+wert);

@@ -54,7 +54,6 @@ public class Spieler {
 		try{
 			@SuppressWarnings("unchecked")
 			Class<Einheit> c=(Class<Einheit>)Class.forName(Parameter.pfadKlassenEinheiten+typ); // Reflection
-
 			Einheit einheit=(Einheit)c.newInstance();
 			einheit.setSpieler(getId());
 			feld.setEinheit(einheit);
@@ -90,6 +89,7 @@ public class Spieler {
 		boolean vergeben=false;
 		if (staedte.size()==0) return id;
 		do{
+			vergeben=false;
 			for(Stadt stadt:staedte){
 				if (stadt.getDaten().getInt("id")==id){
 					vergeben=true;
@@ -129,6 +129,10 @@ public class Spieler {
 	
 	public Spiel getSpiel() {
 		return spiel;
+	}
+	
+	public ArrayList<Stadt> getStaedte(){
+		return staedte;
 	}
 
 	public String toXml() {

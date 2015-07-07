@@ -9,7 +9,15 @@ public class D_Stadt extends D{
 		addInt("y",0);
 		addInt("idSpieler",0);
 		addString("name","");
+		
 		addString("produziere","");
 		addInt("bereitsProduziert",0);
+		addInt("kostenProduktion",0);
+		
+		addInt("groesse",1);
+		addInt("proRundeWissenschaft",10);
+		addInt("proRundeProduktion",50);
+		addInt("proRundeGeld",10);
+		addInt("proRundeNahrung",10);
 	}
 }

@@ -134,4 +134,11 @@ public class Regelwerk {
 		}
 		return false;
 	}
+
+	public void neueRunde() {
+		Spieler spieler=spiel.getSpieler(spiel.getSpielerAmZug());
+		for (Stadt stadt:spieler.getStaedte()){
+			stadt.updateProduktion();
+		}
+	}
 }

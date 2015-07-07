@@ -100,8 +100,10 @@ public class MenuTop extends JPanel implements ActionListener{
 		}
 		else if (o instanceof Feld){
 			Feld feld=(Feld)o;
-			frontend.log(feld.toString());
 			frontend.setFeldGewaehlt(feld);
+			ArrayList<D> feldDaten=Xml.toArray(backendSpiel.getFeldDaten(frontend.getKarte().getId(),feld.getPosX(),feld.getPosY()));
+			frontend.getKarte().updateFeld(feld.getPosX(),feld.getPosY(),feldDaten);
+			frontend.log(feld.toString());
 		}
 	}
 
@@ -156,7 +158,6 @@ public class MenuTop extends JPanel implements ActionListener{
 		}
 	}
 
-
 	private void aktionEinheitStadt(D_Stadt stadt, D_Einheit einheit) {
 		if ((einheit==null)&&(stadt==null)) return;
 		D_Spieler spieler=(D_Spieler)Xml.toD(backendSpiel.getSpielerDaten(frontend.getIdSpieler()));
@@ -203,17 +204,21 @@ public class MenuTop extends JPanel implements ActionListener{
 		Feld feld=frontend.getFeldGewaehlt();
 		if ((bewegungsAktion==null)||(feld==null)||((feld.getEinheit()==null)&&(feld.getStadt()==null))) return;
 		int idSpieler=frontend.getIdSpieler();
-		int idKarte=feld.getDaten().getInt("idKarte");
-		int xAlt=feld.getDaten().getInt("x");
-		int yAlt=feld.getDaten().getInt("y");
+		int idKarte=feld.getKartenId();
+		int xAlt=feld.getPosX();
+		int yAlt=feld.getPosY();
+		ArrayList<D> datenAktuell=Xml.toArray(backendSpiel.getFeldDaten(idKarte,xAlt,yAlt));
+		frontend.getKarte().updateFeld(xAlt,yAlt,datenAktuell);
 		D_Einheit einheit=feld.getEinheit();
 		D_Stadt stadt=feld.getStadt();
 		if (einheit!=null)
 			idSpieler=einheit.getInt("idSpieler");
 		else if (stadt!=null) 
 			idSpieler=stadt.getInt("idSpieler");
-		if (idSpieler!=frontend.getIdSpieler())
-			throw new RuntimeException("MenuTop bewege: Sie duerfen nur Ihre eigenen Einheiten bewegen!");
+		if (idSpieler!=frontend.getIdSpieler()){
+			frontend.log("Sie duerfen nur Ihre eigenen Einheiten bewegen!");
+			return;
+		}
 		try{
 			if (bewegungsAktion.equals(Frontend.BewegungsAktion.AKTION)){
 				aktionEinheitStadt(stadt,einheit);

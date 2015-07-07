@@ -5,7 +5,6 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
-
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -31,7 +30,7 @@ public class Feld extends JLabel{
 		setFocusable(false);
 		setVisible(true);
 	}
-
+	
 	public void setDaten(D_Feld daten){
 		d_Feld=daten;
 	}
@@ -57,6 +56,10 @@ public class Feld extends JLabel{
 			addMouseListener(eventHandler);
 			addMouseMotionListener(eventHandler);
 		}
+	}
+	
+	public int getKartenId(){
+		return d_Feld.getInt("idKarte");
 	}
 
 	public int getPosX(){
@@ -107,6 +110,10 @@ public class Feld extends JLabel{
 		if (d_Stadt!=null){
 			BufferedImage bildStadt=karte.getBildStadt("1");
 			g.drawImage(bildStadt,bildIcon.getWidth()/2-bildStadt.getWidth()/2,bildIcon.getHeight()/2-bildStadt.getWidth()/2,null);
+			if (d_Einheit!=null){
+				BufferedImage bildFlagge=karte.getBildStadt("flagge");
+				g.drawImage(bildFlagge,bildIcon.getWidth()/2-bildStadt.getWidth()/2,bildIcon.getHeight()/2-bildStadt.getWidth()/2,null);
+			}
 		}
 		g.dispose();
 		if (frontend.getZoomfaktor()==100)
@@ -132,9 +139,9 @@ public class Feld extends JLabel{
 	
 	@Override
 	public String toString(){
-		String s="Feld: "+d_Feld+"\n";
-		if (d_Einheit!=null) s+="Einheit: "+d_Einheit+"\n";
-		if (d_Stadt!=null) s+="Stadt: "+d_Stadt+"\n";
+		String s="Feld: "+d_Feld.toString()+"\n";
+		if (d_Einheit!=null) s+="Einheit: "+d_Einheit.toString()+"\n";
+		if (d_Stadt!=null) s+="Stadt: "+d_Stadt.toString()+"\n";
 		s=s.trim();
 		if (s.endsWith("\n")) s=s.substring(0,s.length()-1);
 		return s;

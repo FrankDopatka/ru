@@ -1,5 +1,10 @@
 package backend.spiel;
 
+import java.util.ArrayList;
+
+import backend.Parameter;
+import backend.karte.Feld;
+import daten.D;
 import daten.D_Stadt;
 import daten.Xml;
 
@@ -27,11 +32,49 @@ public class Stadt {
 	}
 
 	public void setProduktion(String zuProduzieren) {
-		if (spiel.getRegelwerk().istEinheit(zuProduzieren)){
-			d_stadt.setString("produziere",zuProduzieren);
-			d_stadt.setInt("bereitsProduziert",0);
+		try{
+			if (spiel.getRegelwerk().istEinheit(zuProduzieren)){
+				d_stadt.setString("produziere",zuProduzieren);
+				d_stadt.setInt("bereitsProduziert",0);
+				@SuppressWarnings("unchecked")
+				Class<Einheit> c=(Class<Einheit>)Class.forName(Parameter.pfadKlassenEinheiten+zuProduzieren);
+				Einheit einheit=(Einheit)c.newInstance();
+				d_stadt.setInt("kostenProduktion",einheit.getProduktionskosten());
+			}
+			else
+				throw new RuntimeException("Stadtproduktion von "+zuProduzieren+" ist nicht erlaubt!");			
 		}
-		else
-			throw new RuntimeException("Stadtproduktion von "+zuProduzieren+" ist nicht erlaubt!");
+		catch (Exception e){
+			throw new RuntimeException(e.getMessage());			
+		}		
+	}
+
+	public void updateProduktion() {
+		String produziere=d_stadt.getString("produziere");
+		if ((produziere!=null)&&(produziere.length()>1)){
+			int wert=d_stadt.getInt("bereitsProduziert");
+			wert+=d_stadt.getInt("proRundeProduktion");
+			d_stadt.setInt("bereitsProduziert",wert);
+			if (wert>=d_stadt.getInt("kostenProduktion")){
+				if (spiel.getRegelwerk().istEinheit(produziere)){
+					int idSpieler=d_stadt.getInt("idSpieler");
+					Feld feld=spiel.getKarte(d_stadt.getInt("idKarte")).getFeld(d_stadt.getInt("x"),d_stadt.getInt("y"));
+					Einheit einheit=spiel.getSpieler(idSpieler).addEinheit(produziere, feld);
+					ArrayList<D> daten=new ArrayList<D>();
+					daten.add(feld.getDaten());
+					daten.add(this.getDaten());
+					daten.add(einheit.getDaten());
+					spiel.setUpdate(daten,0);
+				}
+				else{
+
+					// TODO Stadtverbesserung abschliessen
+					
+				}
+				d_stadt.setString("produziere","");
+				d_stadt.setInt("bereitsProduziert",0);
+				d_stadt.setInt("kostenProduktion",0);
+			}
+		}
 	}
 }

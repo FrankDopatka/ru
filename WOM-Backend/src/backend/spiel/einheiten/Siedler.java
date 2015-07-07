@@ -15,6 +15,6 @@ public class Siedler extends Einheit {
 		getDaten().setInt("verteidigungMaximal",0);
 		getDaten().setInt("verteidigungAktuell",0);
 		
-		getDaten().setInt("kostenProduktion",500);
+		getDaten().setInt("kostenProduktion",150);
 	}
 }
