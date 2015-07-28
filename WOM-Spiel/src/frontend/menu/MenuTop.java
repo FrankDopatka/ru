@@ -103,7 +103,7 @@ public class MenuTop extends JPanel implements ActionListener{
 			frontend.setFeldGewaehlt(feld);
 			ArrayList<D> feldDaten=Xml.toArray(backendSpiel.getFeldDaten(frontend.getKarte().getId(),feld.getPosX(),feld.getPosY()));
 			frontend.getKarte().updateFeld(feld.getPosX(),feld.getPosY(),feldDaten);
-			frontend.log(feld.toString());
+			frontend.log(""+feld);
 		}
 	}
 

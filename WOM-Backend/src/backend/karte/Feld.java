@@ -102,6 +102,9 @@ public abstract class Feld {
 	public Einheit getEinheit(){
 		return einheit;
 	}
+	public void removeEinheit(){
+		setEinheit(null);
+	}
 	
 	public void setStadt(Stadt stadt) {
 		if (stadt!=null){

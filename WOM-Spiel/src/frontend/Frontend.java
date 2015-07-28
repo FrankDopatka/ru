@@ -24,12 +24,12 @@ public class Frontend extends JFrame{
 	private iBackendSpiel backend;
 	private MenuTop menuTop=null;
 	private JPanel panel=new JPanel();
-	private JTextArea ta=new JTextArea(6,20);
+//	private JTextArea ta=new JTextArea(6,20);
 	private JTextField st=new JTextField("");
 	private JScrollPane scrollerKarte;
 	private Karte karte;
 	private int spielfeldGroesse=50;
-	private int zoomfaktor=100;
+	private int zoomfaktor=80;
 	private int idSpieler=0;
 	private Feld feldGewaehlt=null;
 	private Updater updater;
@@ -49,23 +49,23 @@ public class Frontend extends JFrame{
 		setLayout(new BorderLayout());
 		panel.setLayout(new BorderLayout());
     // Logger:
-    JPanel logger=new JPanel();
-    logger.setLayout(new BorderLayout());
-		ta.setFont(new Font("Arial", Font.PLAIN, 11));
-		ta.setOpaque(true);
-		ta.setEditable(false);
-		logger.add(new JScrollPane(ta),BorderLayout.CENTER);
-		logger.add(st,BorderLayout.SOUTH);
-		panel.add(logger,BorderLayout.SOUTH);
+//    JPanel logger=new JPanel();
+//    logger.setLayout(new BorderLayout());
+//		ta.setFont(new Font("Arial", Font.PLAIN, 11));
+//		ta.setOpaque(true);
+//		ta.setEditable(false);
+//		logger.add(new JScrollPane(ta),BorderLayout.CENTER);
+//		logger.add(st,BorderLayout.SOUTH);
+//		panel.add(logger,BorderLayout.SOUTH);
 		// rechtes Menu einblenden:
 		setMenuTop(new MenuTop(this));
 		// Fenster:
 		add(panel);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(600,700);
+		setSize(600,500);
 		setVisible(true);
 	}
-	
+/*	
 	public void log(String text){
 		if (ta.getText().length()==0)
 			ta.setText(" "+text);
@@ -73,7 +73,11 @@ public class Frontend extends JFrame{
 			ta.setText(ta.getText()+"\n"+" "+text);
 		ta.setCaretPosition(ta.getText().length());
 	}
-	
+*/
+	public void log(String text){
+		System.out.println(text);
+	}
+
 	public void setStatus(String text){
 		st.setText(" "+text);
 	}

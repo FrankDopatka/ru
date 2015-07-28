@@ -116,10 +116,11 @@ public class Feld extends JLabel{
 			}
 		}
 		g.dispose();
-		if (frontend.getZoomfaktor()==100)
+		int zoomfaktor=frontend.getZoomfaktor();
+		if (zoomfaktor==100)
 			im=bild;
 		else
-			im=bild.getScaledInstance(bild.getWidth()*frontend.getZoomfaktor()/100,bild.getHeight()*frontend.getZoomfaktor()/100,Image.SCALE_FAST);
+			im=bild.getScaledInstance(bild.getWidth()*zoomfaktor/100,bild.getHeight()*zoomfaktor/100,Image.SCALE_FAST);
 		return im;
 	}
 	
@@ -139,11 +140,10 @@ public class Feld extends JLabel{
 	
 	@Override
 	public String toString(){
-		String s="Feld: "+d_Feld.toString()+"\n";
-		if (d_Einheit!=null) s+="Einheit: "+d_Einheit.toString()+"\n";
-		if (d_Stadt!=null) s+="Stadt: "+d_Stadt.toString()+"\n";
-		s=s.trim();
-		if (s.endsWith("\n")) s=s.substring(0,s.length()-1);
+		String idString="["+frontend.getIdSpieler()+"] ";
+		String s=idString+"Feld: "+d_Feld.toString();
+		if (d_Einheit!=null) s+="\n"+idString+"Einheit: "+d_Einheit.toString();
+		if (d_Stadt!=null) s+="\n"+idString+"Stadt: "+d_Stadt.toString();
 		return s;
 	}
 }

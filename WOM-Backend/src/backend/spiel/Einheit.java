@@ -18,6 +18,18 @@ public abstract class Einheit {
 	}
 	public void setId(int id){
 		d_einheit.setInt("id",id);
+	}	
+	public int getPosX(){
+		return d_einheit.getInt("x");
+	}
+	public void getPosX(int x){
+		d_einheit.setInt("x",x);
+	}
+	public int getPosY(){
+		return d_einheit.getInt("y");
+	}
+	public void getPosY(int y){
+		d_einheit.setInt("y",y);
 	}
 	
 	public void setSpieler(int idSpieler){

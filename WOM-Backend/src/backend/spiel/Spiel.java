@@ -27,7 +27,7 @@ public class Spiel {
 		}
 	}
 	
-	public static Spiel spielLaden(String pfad) {
+	public static Spiel spielLaden(String pfad) throws Exception{
 		BufferedReader br=null;
 		try {
 			pfad=URLDecoder.decode(""+pfad,"ISO-8859-1");
@@ -38,7 +38,7 @@ public class Spiel {
 	    	spielXML.append(zeile+"/n");
 	      zeile=br.readLine(); 
 	    } 
-	    ArrayList<D> spielDaten=Xml.toArray(spielXML.toString());
+	    ArrayList<D> spielDaten=Xml.toArray(spielXML.toString());    
 	    Spiel spiel=new Spiel();
 	    int iDatensatz=0;
 	    if ((spielDaten==null)||(spielDaten.size()==0)||(!(spielDaten.get(iDatensatz) instanceof D_Spiel)))
@@ -49,28 +49,25 @@ public class Spiel {
   			try{
   				// KARTEN
 					while (spielDaten.get(iDatensatz) instanceof D_Karte){
-						// Kartendaten sind vorhanden -> auslesen
+						// globale Kartendaten sind vorhanden -> auslesen
 						D_Karte dKarte=(D_Karte)spielDaten.get(iDatensatz);
-						int x=dKarte.getInt("x");
-						int y=dKarte.getInt("y");
 						ArrayList<D> kartenDaten=new ArrayList<D>();
 						kartenDaten.add(dKarte);
 						iDatensatz++;
-						int start=iDatensatz;
-						for(int i=start;i<=start+(x*y)+2;i++){
-							kartenDaten.add(spielDaten.get(i));
+						// Felder der Karte solange auslesen, wie keine neue Karte und kein neuer Spieler kommt
+						do{
+							kartenDaten.add(spielDaten.get(iDatensatz));
 							iDatensatz++;
-						}
+						} while ((!(spielDaten.get(iDatensatz) instanceof D_Spieler)&&(!(spielDaten.get(iDatensatz) instanceof D_Spieler))));
 						Karte karte=Karte.karteVonArray(kartenDaten);
-						spiel.karten.add(karte);    				
+						spiel.karten.add(karte); 
 					}
   			}
   			catch (Exception e){
   				throw new RuntimeException("Spiel spielLaden: Kartendaten D_Karte im gespeicherten Spiel sind ungueltig!");
-  			}
-  			while (!(spielDaten.get(iDatensatz) instanceof D_Spieler)) iDatensatz--;
+  			} 			
 				ArrayList<Spieler> spielerListe=new ArrayList<Spieler>(); 
-  			while ((spielDaten.size()>iDatensatz)&&(spielDaten.get(iDatensatz)) instanceof D_Spieler){
+  			while ((spielDaten.size()>iDatensatz)&&(spielDaten.get(iDatensatz) instanceof D_Spieler)){
   				// SPIELER
   				D_Spieler dSpieler=(D_Spieler)spielDaten.get(iDatensatz);
   				Spieler spieler=new Spieler(spiel,dSpieler);
@@ -114,9 +111,6 @@ public class Spiel {
   			spiel.setSpieler(spielerListe);
     	}
 	    return spiel;
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw new RuntimeException("Spiel spielLaden:"+e.getMessage());
 		}
 		finally{
 			try {

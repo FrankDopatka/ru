@@ -1,6 +1,7 @@
 package frontend;
 
 import java.awt.Dimension;
+import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -90,8 +91,12 @@ public class Karte extends JPanel implements Scrollable{
 		return bildFeld.get(feldArt);
 	}
 
-	public BufferedImage getBildFeldLeer() {
-		return bildFeld.get("leer");
+	public Image getBildFeldLeer() {
+		int zoomfaktor=frontend.getZoomfaktor();
+		BufferedImage original=bildFeld.get("leer");
+		if (zoomfaktor==100) return original;
+		Image kopie=original.getScaledInstance(original.getWidth()*zoomfaktor/100,original.getHeight()*zoomfaktor/100,Image.SCALE_FAST);		
+		return kopie;
 	}
 	
 	public BufferedImage getBildRessource(String ressorcenArt){

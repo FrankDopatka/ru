@@ -64,6 +64,12 @@ public class Spieler {
 			throw new RuntimeException(e.getMessage());
 		}
 	}
+	
+	public void removeEinheit(Einheit einheit,Feld feld){
+		if (!einheiten.contains(einheit)) return;
+		einheiten.remove(einheit);
+		feld.removeEinheit();
+	}
 	public ArrayList<Einheit> getEinheiten(){
 		return einheiten;
 	}
