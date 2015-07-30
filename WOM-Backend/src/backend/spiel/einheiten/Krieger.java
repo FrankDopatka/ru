@@ -17,4 +17,9 @@ public class Krieger extends Einheit {
 		
 		getDaten().setInt("kostenProduktion",100);
 	}
+	
+	public Krieger(int idSpieler){
+		this();
+		setSpieler(idSpieler);
+	}
 }

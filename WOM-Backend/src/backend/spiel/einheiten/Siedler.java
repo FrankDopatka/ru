@@ -17,4 +17,9 @@ public class Siedler extends Einheit {
 		
 		getDaten().setInt("kostenProduktion",150);
 	}
+	
+	public Siedler(int idSpieler){
+		this();
+		setSpieler(idSpieler);
+	}
 }

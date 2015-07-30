@@ -13,7 +13,7 @@ import daten.D;
 import daten.Xml;
 
 public class BackendSpielStub implements iBackendSpiel{
-	private static final boolean log=false;
+	private static final boolean log=true;
 	private String url;
 	private Client client=ClientBuilder.newClient();
 	

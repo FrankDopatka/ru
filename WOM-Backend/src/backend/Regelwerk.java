@@ -13,6 +13,8 @@ import backend.spiel.Spiel.Bewegungsrichtung;
 import backend.spiel.Spieler;
 import backend.spiel.Stadt;
 import backend.spiel.einheiten.Krieger;
+import backend.spiel.einheiten.Panzer;
+import backend.spiel.einheiten.Schwertkaempfer;
 import backend.spiel.einheiten.Siedler;
 
 public class Regelwerk {
@@ -149,12 +151,11 @@ public class Regelwerk {
 		
 		// TODO Produktion abhaengig von Wissenschaft, Lage, Stadt
 		
-		Krieger krieger=new Krieger();
-		krieger.setSpieler(spieler.getId());
-		ergebnis.add(krieger.getDaten());
-		Siedler siedler=new Siedler();
-		siedler.setSpieler(spieler.getId());
-		ergebnis.add(siedler.getDaten());
+		ergebnis.add((new Siedler(idSpieler)).getDaten());
+		ergebnis.add((new Krieger(idSpieler)).getDaten());
+		ergebnis.add((new Schwertkaempfer(idSpieler)).getDaten());
+		ergebnis.add((new Panzer(idSpieler)).getDaten());
+
 		return ergebnis;
 	}
 
@@ -199,7 +200,9 @@ public class Regelwerk {
 	public boolean istEinheit(String zuProduzieren) {
 		switch (zuProduzieren){
 		case "Siedler":
+		case "Schwertkaempfer":
 		case "Krieger":
+		case "Panzer":
 			return true;
 		}
 		return false;
