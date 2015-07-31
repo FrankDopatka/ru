@@ -7,15 +7,9 @@ import daten.D;
 import daten.D_Position;
 import backend.karte.Feld;
 import backend.karte.Karte;
-import backend.spiel.Einheit;
-import backend.spiel.Spiel;
+import backend.spiel.*;
 import backend.spiel.Spiel.Bewegungsrichtung;
-import backend.spiel.Spieler;
-import backend.spiel.Stadt;
-import backend.spiel.einheiten.Krieger;
-import backend.spiel.einheiten.Panzer;
-import backend.spiel.einheiten.Schwertkaempfer;
-import backend.spiel.einheiten.Siedler;
+import backend.spiel.einheiten.*;
 
 public class Regelwerk {
 	public Spiel spiel=null;
@@ -153,6 +147,7 @@ public class Regelwerk {
 		
 		ergebnis.add((new Siedler(idSpieler)).getDaten());
 		ergebnis.add((new Krieger(idSpieler)).getDaten());
+		ergebnis.add((new Bogenschuetze(idSpieler)).getDaten());
 		ergebnis.add((new Schwertkaempfer(idSpieler)).getDaten());
 		ergebnis.add((new Panzer(idSpieler)).getDaten());
 
@@ -200,6 +195,7 @@ public class Regelwerk {
 	public boolean istEinheit(String zuProduzieren) {
 		switch (zuProduzieren){
 		case "Siedler":
+		case "Bogenschuetze":
 		case "Schwertkaempfer":
 		case "Krieger":
 		case "Panzer":

@@ -25,6 +25,7 @@ public class Karte extends JPanel implements Scrollable{
 	private HashMap<String,BufferedImage> bildEinheit=new HashMap<String,BufferedImage>();
 	private HashMap<String,BufferedImage> bildStadt=new HashMap<String,BufferedImage>();
 	private BufferedImage bildFeldGewaehlt;
+	private BufferedImage bildFeldMarkiert;
 	
 	private void dateienEinlesen(String pfad,HashMap<String,BufferedImage> container){
 		File[] dateien;
@@ -52,6 +53,7 @@ public class Karte extends JPanel implements Scrollable{
 		String pfadStadt="daten//stadt";
 		try {
 			bildFeldGewaehlt=ImageIO.read(new File(pfadBild,"gewaehlt.png"));
+			bildFeldMarkiert=ImageIO.read(new File(pfadBild,"markiert.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 			System.exit(-1);
@@ -166,6 +168,20 @@ public class Karte extends JPanel implements Scrollable{
 		zeichneFeld(pos[0],pos[1]);
 	}
 	
+	public void markiereFeld(int x,int y){
+		if (!felder[x][y].istMarkiert()){
+			felder[x][y].markiere(true);
+			zeichneFeld(x,y);
+		}
+	}
+	
+	public void entmarkiereFeld(int x,int y){
+		if (felder[x][y].istMarkiert()){
+			felder[x][y].markiere(false);
+			zeichneFeld(x,y);
+		}
+	}
+	
 	public void updateFeld(int x,int y,ArrayList<D> daten) {
 		for(D datenwert:daten){
 			if (datenwert instanceof D_Feld) updateFeldBasis(x,y,(D_Feld)datenwert);
@@ -203,6 +219,10 @@ public class Karte extends JPanel implements Scrollable{
 
 	public BufferedImage getBildFeldGewaehlt() {
 		return bildFeldGewaehlt;
+	}
+	
+	public BufferedImage getBildFeldMarkiert() {
+		return bildFeldMarkiert;
 	}
 	
 	public void terminate() {

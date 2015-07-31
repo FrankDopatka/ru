@@ -22,5 +22,9 @@ public class D_Einheit extends D {
 		addInt("kostenProduktion",0);
 		
 		addBool("istLandeinheit",true);
+		addBool("istWassereinheit",false);
+		addBool("istLufteinheit",false);
+		addBool("istWeltraumeinheit",false);
+		addBool("istFernkampfeinheit",false);
 	}
 }

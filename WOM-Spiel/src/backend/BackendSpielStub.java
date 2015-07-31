@@ -105,13 +105,22 @@ public class BackendSpielStub implements iBackendSpiel{
 		return getXmlvonRest("update"+"/"+idSpieler+"/"+idKarte);
 	}
 
+	
+	
+	
+	
 	@Override
-	public String produziere(int idSpieler, int idStadt, String zuProduzieren) {
+	public String produziere(int idSpieler,int idStadt,String zuProduzieren) {
 		try {
 			return getXmlvonRest("produziere"+"/"+idSpieler+"/"+idStadt+"/"+URLEncoder.encode(""+zuProduzieren,"ISO-8859-1"));
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 			return "";
 		}
+	}
+
+	@Override
+	public String getAngriffsRadius(int idSpieler,int idKarte,int x,int y) {
+		return getXmlvonRest("getAngriffsRadius"+"/"+idSpieler+"/"+idKarte+"/"+x+"/"+y);
 	}
 }

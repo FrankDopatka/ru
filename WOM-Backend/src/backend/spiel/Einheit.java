@@ -48,6 +48,11 @@ public abstract class Einheit {
 		return d_einheit.getBool("istLandeinheit");
 	}
 	
+	public boolean istFernkampfeinheit(){
+		return d_einheit.getBool("istFernkampfeinheit");
+		
+	}
+	
 	public void resetBewegung(){
 		d_einheit.setInt("bewegungAktuell",d_einheit.getInt("bewegungMaximal"));
 	}

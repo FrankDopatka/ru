@@ -20,6 +20,7 @@ public interface iBackendSpiel {
 	
 	// neu ab 06.07.2015
 	String produziere(int idSpieler,int idStadt,String zuProduzieren);
+	String getAngriffsRadius(int idSpieler,int idKarte,int x,int y);
 	
 	// TODO getStadtproduktion
 }

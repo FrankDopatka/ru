@@ -17,6 +17,7 @@ public class Feld extends JLabel{
 	private KarteEventHandler eventHandler;
 	private int x;
 	private int y;
+	private boolean istMarkiert=false;
 	private D_Feld d_Feld=null;
 	private D_Einheit d_Einheit=null;
 	private D_Stadt d_Stadt=null;
@@ -29,6 +30,14 @@ public class Feld extends JLabel{
 		setOpaque(true);
 		setFocusable(false);
 		setVisible(true);
+	}
+	
+	public void markiere(boolean istMarkiert){
+		this.istMarkiert=istMarkiert;
+	}
+	
+	public boolean istMarkiert(){
+		return istMarkiert;
 	}
 	
 	public void setDaten(D_Feld daten){
@@ -98,6 +107,10 @@ public class Feld extends JLabel{
 			g.setFont(new Font("Arial",Font.BOLD,24));
 			g.setColor(new Color(0,0,0));
 			g.drawString(d_Feld.getString("spielerstart"),5,24);
+		}
+		if (istMarkiert()){
+			BufferedImage bildMarkiert=karte.getBildFeldMarkiert();
+			g.drawImage(bildMarkiert,bildIcon.getWidth()/2-bildMarkiert.getWidth()/2,bildIcon.getHeight()/2-bildMarkiert.getWidth()/2,null);
 		}
 		if (this.equals(frontend.getFeldGewaehlt())){
 			BufferedImage bildGewaehlt=karte.getBildFeldGewaehlt();

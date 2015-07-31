@@ -76,6 +76,7 @@ public class MenuTop extends JPanel implements ActionListener{
 		
 		buttons[0].setText("getKarte");
 		buttons[1].setText("Updater AUS");
+		buttons[17].setText("Angriff!");
 		buttons[23].setText("Runde Ende");
 		holenKarte(1); // Karte mit der ID=1 standardmaessig holen
 		buttons[1].doClick(); // Autoupdate aktivieren
@@ -118,6 +119,17 @@ public class MenuTop extends JPanel implements ActionListener{
 			}
 			else{
 				if (autoUpdate(false)) buttons[1].setText("Updater AUS");				
+			}
+			break;
+		case 17:
+			Feld feld=frontend.getFeldGewaehlt();
+			ArrayList<D> felder=Xml.toArray(backendSpiel.getAngriffsRadius(frontend.getIdSpieler(),1,feld.getPosX(),feld.getPosY()));
+			if (felder.get(0) instanceof D_Fehler){
+				System.out.println("FEHLER: "+felder.get(0).getString("meldung"));
+				break;
+			}
+			for (D datenwert:felder){
+				frontend.getKarte().markiereFeld(datenwert.getInt("x"),datenwert.getInt("y"));
 			}
 			break;
 		case 23:

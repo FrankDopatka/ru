@@ -12,6 +12,7 @@ import javax.ws.rs.Produces;
 import org.glassfish.jersey.server.ResourceConfig;
 
 import daten.*;
+import backend.karte.Feld;
 import backend.spiel.*;
 
 @Path("wom/spiel")
@@ -257,6 +258,8 @@ public class BackendSpiel extends ResourceConfig implements iBackendSpiel{
 			return Xml.verpacken(Xml.fromD(new D_Fehler(e.getMessage())));
 		}
 	}
+	
+	
 
 	@GET
 	@Path("produziere/{idSpieler}/{idStadt}/{zuProduzieren}")
@@ -271,6 +274,38 @@ public class BackendSpiel extends ResourceConfig implements iBackendSpiel{
 			Stadt stadt=spiel.getSpieler(idSpieler).getStadt(idStadt);
 			stadt.setProduktion(zuProduzieren);
 			return Xml.verpacken(Xml.fromD(new D_OK()));
+		} catch (Exception e) {
+			e.printStackTrace();
+			return Xml.verpacken(Xml.fromD(new D_Fehler(e.getMessage())));
+		}
+	}
+
+	@GET
+	@Path("getAngriffsRadius/{idSpieler}/{idKarte}/{x}/{y}")
+	@Consumes("text/plain")
+	@Produces("application/xml")
+	@Override
+	public String getAngriffsRadius(
+			@PathParam("idSpieler")int idSpieler,
+			@PathParam("idKarte")int idKarte,
+			@PathParam("x")int x, 
+			@PathParam("y")int y) {
+		try {
+			Feld feld=spiel.getKarte(idKarte).getFeld(x,y);
+			Einheit einheit=feld.getEinheit();
+			if (einheit==null)
+				throw new RuntimeException("Auf dem Feld "+x+"/"+y+" befindet sich keine Einheit!");
+			if (einheit.getIdSpieler()!=idSpieler)
+				throw new RuntimeException("Dies ist nicht Ihre Einheit!");
+			
+			if (einheit.getDaten().getInt("angriffAktuell")==0)
+				return Xml.verpacken(spiel.getKarte(idKarte).toXml(x,y,0));
+			else if (!einheit.istFernkampfeinheit())
+				return Xml.verpacken(spiel.getKarte(idKarte).toXml(x,y,1));	
+			else{
+				int reichweite=einheit.getDaten().getInt("reichweiteFernkampf");
+				return Xml.verpacken(spiel.getKarte(idKarte).toXml(x,y,reichweite));		
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			return Xml.verpacken(Xml.fromD(new D_Fehler(e.getMessage())));
