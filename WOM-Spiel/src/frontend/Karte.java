@@ -175,6 +175,27 @@ public class Karte extends JPanel implements Scrollable{
 		}
 	}
 	
+	public void markiereFelder(ArrayList<D> felder){
+		markiereFelderReset();
+		for (D datenwert:felder){
+			markiereFeld(datenwert.getInt("x"),datenwert.getInt("y"));
+		}
+	}
+	
+	public void markiereFelderReset(){
+		for (int i=1;i<=getGroesseX();i++){
+			for (int j=1;j<=getGroesseY();j++){
+				Feld feld=felder[i][j];
+				if (feld.istMarkiert()){
+					feld.markiere(false);
+					zeichneFeld(i,j);
+				}
+			}
+		}
+		
+		
+	}
+	
 	public void entmarkiereFeld(int x,int y){
 		if (felder[x][y].istMarkiert()){
 			felder[x][y].markiere(false);

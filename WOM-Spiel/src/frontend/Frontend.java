@@ -4,16 +4,15 @@ import frontend.menu.MenuTop;
 import interfaces.iBackendSpiel;
 
 import java.awt.BorderLayout;
-import java.awt.Font;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import daten.D;
+import daten.D_Einheit;
 import daten.D_Karte;
 import daten.Xml;
 import backend.BackendSpielStub;
@@ -24,7 +23,6 @@ public class Frontend extends JFrame{
 	private iBackendSpiel backend;
 	private MenuTop menuTop=null;
 	private JPanel panel=new JPanel();
-//	private JTextArea ta=new JTextArea(6,20);
 	private JTextField st=new JTextField("");
 	private JScrollPane scrollerKarte;
 	private Karte karte;
@@ -33,6 +31,8 @@ public class Frontend extends JFrame{
 	private int idSpieler=0;
 	private Feld feldGewaehlt=null;
 	private Updater updater;
+	private boolean fernangriffsModus=false;
+	private D_Einheit fernangiffsEinheit=null;
 	
 	public enum BewegungsAktion{
 		NORDWEST,NORD,NORDOST,WEST,AKTION,OST,SUEDWEST,SUED,SUEDOST;
@@ -48,15 +48,6 @@ public class Frontend extends JFrame{
 		setTitle("WorldOfMKI Spiel, Version 0.90, Spieler "+idSpieler);
 		setLayout(new BorderLayout());
 		panel.setLayout(new BorderLayout());
-    // Logger:
-//    JPanel logger=new JPanel();
-//    logger.setLayout(new BorderLayout());
-//		ta.setFont(new Font("Arial", Font.PLAIN, 11));
-//		ta.setOpaque(true);
-//		ta.setEditable(false);
-//		logger.add(new JScrollPane(ta),BorderLayout.CENTER);
-//		logger.add(st,BorderLayout.SOUTH);
-//		panel.add(logger,BorderLayout.SOUTH);
 		// rechtes Menu einblenden:
 		setMenuTop(new MenuTop(this));
 		// Fenster:
@@ -65,15 +56,7 @@ public class Frontend extends JFrame{
 		setSize(600,500);
 		setVisible(true);
 	}
-/*	
-	public void log(String text){
-		if (ta.getText().length()==0)
-			ta.setText(" "+text);
-		else
-			ta.setText(ta.getText()+"\n"+" "+text);
-		ta.setCaretPosition(ta.getText().length());
-	}
-*/
+	
 	public void log(String text){
 		System.out.println(text);
 	}
@@ -107,7 +90,9 @@ public class Frontend extends JFrame{
 
 	public void zeichneFelder(ArrayList<D> daten) {
 		if (daten==null){
-			//TODO: bislang ist nur ein Spiel mit einer Karte ID=1 erlaubt
+			
+			// TODO: bislang ist nur ein Spiel mit einer Karte ID=1 erlaubt
+			
 			String backendDaten=backend.getKarte(1,getIdSpieler());
 			daten=Xml.toArray(backendDaten);
 		}	
@@ -157,6 +142,22 @@ public class Frontend extends JFrame{
 
 	public Feld getFeldGewaehlt(){
 		return feldGewaehlt;
+	}
+	
+	public void setFernangriffsmodus(boolean angriff){
+		if (this.fernangriffsModus && (!angriff))
+			karte.markiereFelderReset();
+		if (! this.fernangriffsModus && angriff)
+			this.fernangiffsEinheit=feldGewaehlt.getEinheit();
+		this.fernangriffsModus=angriff;
+	}
+	
+	public boolean istImFernangriffsmodus(){
+		return fernangriffsModus;
+	}
+	
+	public D_Einheit getAngriffsEinheit(){
+		return fernangiffsEinheit;
 	}
 
 	public void setFeldGewaehlt(Feld feldGewaehlt){

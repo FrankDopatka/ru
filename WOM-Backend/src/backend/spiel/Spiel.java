@@ -337,4 +337,8 @@ public class Spiel {
 		}
 		return xml.toString();
 	}
+
+	public void fernkampf(int idSpieler,int idKarte,int xAngreifer,int yAngreifer,int xVerteidiger,int yVerteidiger) {
+		regelwerk.fernkampf(idSpieler,idKarte,xAngreifer,yAngreifer,xVerteidiger,yVerteidiger);
+	}
 }

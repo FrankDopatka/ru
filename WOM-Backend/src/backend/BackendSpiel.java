@@ -258,8 +258,6 @@ public class BackendSpiel extends ResourceConfig implements iBackendSpiel{
 			return Xml.verpacken(Xml.fromD(new D_Fehler(e.getMessage())));
 		}
 	}
-	
-	
 
 	@GET
 	@Path("produziere/{idSpieler}/{idStadt}/{zuProduzieren}")
@@ -306,6 +304,27 @@ public class BackendSpiel extends ResourceConfig implements iBackendSpiel{
 				int reichweite=einheit.getDaten().getInt("reichweiteFernkampf");
 				return Xml.verpacken(spiel.getKarte(idKarte).toXml(x,y,reichweite));		
 			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return Xml.verpacken(Xml.fromD(new D_Fehler(e.getMessage())));
+		}
+	}
+
+	@GET
+	@Path("fernangriff/{idSpieler}/{idKarte}/{xAngreifer}/{yAngreifer}/{xVerteidiger}/{yVerteidiger}")
+	@Consumes("text/plain")
+	@Produces("application/xml")
+	@Override
+	public String fernangriff(
+			@PathParam("idSpieler")int idSpieler,
+			@PathParam("idKarte")int idKarte,
+			@PathParam("xAngreifer")int xAngreifer,
+			@PathParam("yAngreifer")int yAngreifer,
+			@PathParam("xVerteidiger")int xVerteidiger,
+			@PathParam("yVerteidiger")int yVerteidiger) {
+		try{
+			spiel.fernkampf(idSpieler,idKarte,xAngreifer,yAngreifer,xVerteidiger,yVerteidiger);
+			return Xml.verpacken(Xml.fromD(new D_OK()));
 		} catch (Exception e) {
 			e.printStackTrace();
 			return Xml.verpacken(Xml.fromD(new D_Fehler(e.getMessage())));

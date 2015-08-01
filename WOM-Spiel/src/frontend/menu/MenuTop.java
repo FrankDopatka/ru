@@ -76,7 +76,7 @@ public class MenuTop extends JPanel implements ActionListener{
 		
 		buttons[0].setText("getKarte");
 		buttons[1].setText("Updater AUS");
-		buttons[17].setText("Angriff!");
+		buttons[17].setText("Fernangriff");
 		buttons[23].setText("Runde Ende");
 		holenKarte(1); // Karte mit der ID=1 standardmaessig holen
 		buttons[1].doClick(); // Autoupdate aktivieren
@@ -87,7 +87,8 @@ public class MenuTop extends JPanel implements ActionListener{
 		Object o=ev.getSource();
 		if (o instanceof JButton){
 			for(int i=0;i<buttonsNavigation.length;i++){
-				if (o==buttonsNavigation[i]){
+				if (o==buttonsNavigation[i]){ // Bewegungen
+					if (frontend.istImFernangriffsmodus()) frontend.setFernangriffsmodus(false);
 					bewege(Frontend.BewegungsAktion.fromOrdinal(i));
 					break;
 				}
@@ -101,10 +102,40 @@ public class MenuTop extends JPanel implements ActionListener{
 		}
 		else if (o instanceof Feld){
 			Feld feld=(Feld)o;
-			frontend.setFeldGewaehlt(feld);
-			ArrayList<D> feldDaten=Xml.toArray(backendSpiel.getFeldDaten(frontend.getKarte().getId(),feld.getPosX(),feld.getPosY()));
-			frontend.getKarte().updateFeld(feld.getPosX(),feld.getPosY(),feldDaten);
-			frontend.log(""+feld);
+			if (frontend.istImFernangriffsmodus()){
+				if (!feld.istMarkiert()){
+					frontend.setFernangriffsmodus(false);
+				}
+				else{
+					D_Einheit fernangriffsEinheit=frontend.getAngriffsEinheit();
+					if (fernangriffsEinheit.getBool("istFernkampfeinheit")){
+						D_Einheit einheitZielfeld=feld.getEinheit();
+						D_Stadt stadtZielfeld=feld.getStadt();
+						if ((einheitZielfeld==null)&&(stadtZielfeld==null))
+							throw new RuntimeException("Auf dem Zielfeld ist weder eine Einheit, noch eine Stadt!");
+						Karte karte=frontend.getKarte();
+						int idKarte=karte.getId();
+						int xAngreifer=fernangriffsEinheit.getInt("x");
+						int yAngreifer=fernangriffsEinheit.getInt("y");
+						int xVerteidiger=feld.getPosX();
+						int yVerteidiger=feld.getPosY();
+						backendSpiel.fernangriff(frontend.getIdSpieler(),1,
+								fernangriffsEinheit.getInt("x"),
+								fernangriffsEinheit.getInt("y"),
+								feld.getPosX(),
+								feld.getPosY());
+						karte.updateFeld(xAngreifer,yAngreifer,Xml.toArray(backendSpiel.getFeldDaten(idKarte,xAngreifer,yAngreifer)));
+						karte.updateFeld(xVerteidiger,yVerteidiger,Xml.toArray(backendSpiel.getFeldDaten(idKarte,xVerteidiger,yVerteidiger)));
+						frontend.setFernangriffsmodus(false);
+					}
+				}
+			}
+			else{
+				frontend.setFeldGewaehlt(feld);
+				ArrayList<D> feldDaten=Xml.toArray(backendSpiel.getFeldDaten(frontend.getKarte().getId(),feld.getPosX(),feld.getPosY()));
+				frontend.getKarte().updateFeld(feld.getPosX(),feld.getPosY(),feldDaten);
+				frontend.log(""+feld);				
+			}
 		}
 	}
 
@@ -121,18 +152,22 @@ public class MenuTop extends JPanel implements ActionListener{
 				if (autoUpdate(false)) buttons[1].setText("Updater AUS");				
 			}
 			break;
-		case 17:
-			Feld feld=frontend.getFeldGewaehlt();
-			ArrayList<D> felder=Xml.toArray(backendSpiel.getAngriffsRadius(frontend.getIdSpieler(),1,feld.getPosX(),feld.getPosY()));
-			if (felder.get(0) instanceof D_Fehler){
-				System.out.println("FEHLER: "+felder.get(0).getString("meldung"));
-				break;
-			}
-			for (D datenwert:felder){
-				frontend.getKarte().markiereFeld(datenwert.getInt("x"),datenwert.getInt("y"));
+		case 17: // Angriffsmodus fuer Fernkampf
+			if (!frontend.istImFernangriffsmodus()){
+				Feld feld=frontend.getFeldGewaehlt();
+				if (!feld.getEinheit().getBool("istFernkampfeinheit")) return;
+				ArrayList<D> felder=Xml.toArray(backendSpiel.getAngriffsRadius(frontend.getIdSpieler(),1,feld.getPosX(),feld.getPosY()));
+				if (felder.get(0) instanceof D_Fehler){
+					System.out.println(felder.get(0).getString("meldung"));
+					break;
+				}
+				frontend.getKarte().markiereFelder(felder);
+				frontend.setFernangriffsmodus(true);
+			} else{
+				frontend.setFernangriffsmodus(false);
 			}
 			break;
-		case 23:
+		case 23: // Runde beenden
 			beendenRunde(frontend.getIdSpieler());
 			break;
 		default:
@@ -143,8 +178,10 @@ public class MenuTop extends JPanel implements ActionListener{
 	private void beendenRunde(int idSpieler) {
 		String antwort=backendSpiel.beendenRunde(idSpieler);
 		frontend.log("Der Spieler mit der ID="+idSpieler+" beendet die Runde...");
-		if (Xml.toD(antwort) instanceof D_OK)
+		if (Xml.toD(antwort) instanceof D_OK){
+			if (frontend.istImFernangriffsmodus()) frontend.setFernangriffsmodus(false);
 			frontend.log("OK");
+		}
 		else
 			frontend.log("FEHLGESCHLAGEN: "+Xml.toD(antwort).getString("meldung"));
 	}
@@ -251,7 +288,6 @@ public class MenuTop extends JPanel implements ActionListener{
 			}
 		}
 		catch (Exception e){
-//			e.printStackTrace();
 			frontend.log("FEHLGESCHLAGEN: "+e.getMessage());
 		}
 	}
