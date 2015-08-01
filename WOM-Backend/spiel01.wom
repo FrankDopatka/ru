@@ -4,13 +4,13 @@
 <properties>
 <entry key="id">1</entry>
 <entry key="spielerAnzahl">2</entry>
-<entry key="aktuelleRunde">1</entry>
+<entry key="aktuelleRunde">5</entry>
 <entry key="kartenAnzahl">1</entry>
 <entry key="kartenMax">1</entry>
 <entry key="klasse">D_Spiel</entry>
 <entry key="istGestartet">true</entry>
 <entry key="spielerMax">2</entry>
-<entry key="spielerAmZug">1</entry>
+<entry key="spielerAmZug">2</entry>
 </properties>
 <properties>
 <entry key="x">10</entry>
@@ -470,6 +470,30 @@
 <entry key="istWasserfeld">false</entry>
 </properties>
 <properties>
+<entry key="istLufteinheit">false</entry>
+<entry key="idKarte">1</entry>
+<entry key="lebenMaximal">12</entry>
+<entry key="istWeltraumeinheit">false</entry>
+<entry key="idSpieler">1</entry>
+<entry key="lebenAktuell">12</entry>
+<entry key="y">6</entry>
+<entry key="x">4</entry>
+<entry key="bewegungMaximal">100</entry>
+<entry key="istWassereinheit">false</entry>
+<entry key="id">0</entry>
+<entry key="reichweiteFernkampf">2</entry>
+<entry key="bewegungAktuell">0</entry>
+<entry key="istFernkampfeinheit">true</entry>
+<entry key="kostenProduktion">200</entry>
+<entry key="angriffMaximal">10</entry>
+<entry key="istLandeinheit">true</entry>
+<entry key="klasse">D_Einheit</entry>
+<entry key="verteidigungMaximal">3</entry>
+<entry key="angriffAktuell">10</entry>
+<entry key="verteidigungAktuell">3</entry>
+<entry key="name">Bogenschuetze</entry>
+</properties>
+<properties>
 <entry key="id">0</entry>
 <entry key="feldArt">Wueste</entry>
 <entry key="bewegungspunkte">100</entry>
@@ -708,6 +732,29 @@
 <entry key="x">6</entry>
 <entry key="spielerstart">0</entry>
 <entry key="istWasserfeld">false</entry>
+</properties>
+<properties>
+<entry key="istLufteinheit">false</entry>
+<entry key="idKarte">1</entry>
+<entry key="lebenMaximal">10</entry>
+<entry key="istWeltraumeinheit">false</entry>
+<entry key="idSpieler">2</entry>
+<entry key="lebenAktuell">10</entry>
+<entry key="y">6</entry>
+<entry key="x">6</entry>
+<entry key="bewegungMaximal">100</entry>
+<entry key="istWassereinheit">false</entry>
+<entry key="id">0</entry>
+<entry key="bewegungAktuell">50</entry>
+<entry key="istFernkampfeinheit">false</entry>
+<entry key="kostenProduktion">100</entry>
+<entry key="angriffMaximal">8</entry>
+<entry key="istLandeinheit">true</entry>
+<entry key="klasse">D_Einheit</entry>
+<entry key="verteidigungMaximal">3</entry>
+<entry key="angriffAktuell">8</entry>
+<entry key="verteidigungAktuell">3</entry>
+<entry key="name">Krieger</entry>
 </properties>
 <properties>
 <entry key="id">0</entry>
@@ -782,25 +829,6 @@
 <entry key="istWasserfeld">false</entry>
 </properties>
 <properties>
-<entry key="angriffAktuell">0</entry>
-<entry key="name">Siedler</entry>
-<entry key="id">0</entry>
-<entry key="bewegungMaximal">100</entry>
-<entry key="kostenProduktion">500</entry>
-<entry key="lebenMaximal">1</entry>
-<entry key="bewegungAktuell">100</entry>
-<entry key="verteidigungMaximal">0</entry>
-<entry key="lebenAktuell">1</entry>
-<entry key="istLandeinheit">true</entry>
-<entry key="verteidigungAktuell">0</entry>
-<entry key="idSpieler">2</entry>
-<entry key="klasse">D_Einheit</entry>
-<entry key="y">2</entry>
-<entry key="x">7</entry>
-<entry key="idKarte">1</entry>
-<entry key="angriffMaximal">0</entry>
-</properties>
-<properties>
 <entry key="id">0</entry>
 <entry key="feldArt">Huegel</entry>
 <entry key="bewegungspunkte">80</entry>
@@ -847,6 +875,23 @@
 <entry key="x">7</entry>
 <entry key="spielerstart">0</entry>
 <entry key="istWasserfeld">false</entry>
+</properties>
+<properties>
+<entry key="name">London</entry>
+<entry key="bereitsProduziert">0</entry>
+<entry key="id">1</entry>
+<entry key="kostenProduktion">0</entry>
+<entry key="proRundeGeld">10</entry>
+<entry key="produziere"/>
+<entry key="proRundeNahrung">10</entry>
+<entry key="groesse">1</entry>
+<entry key="y">6</entry>
+<entry key="klasse">D_Stadt</entry>
+<entry key="idSpieler">2</entry>
+<entry key="idKarte">1</entry>
+<entry key="x">7</entry>
+<entry key="proRundeProduktion">50</entry>
+<entry key="proRundeWissenschaft">10</entry>
 </properties>
 <properties>
 <entry key="id">0</entry>
@@ -1266,6 +1311,30 @@
 <entry key="id">1</entry>
 </properties>
 <properties>
+<entry key="istLufteinheit">false</entry>
+<entry key="idKarte">1</entry>
+<entry key="lebenMaximal">12</entry>
+<entry key="istWeltraumeinheit">false</entry>
+<entry key="idSpieler">1</entry>
+<entry key="lebenAktuell">12</entry>
+<entry key="y">6</entry>
+<entry key="x">4</entry>
+<entry key="bewegungMaximal">100</entry>
+<entry key="istWassereinheit">false</entry>
+<entry key="id">0</entry>
+<entry key="reichweiteFernkampf">2</entry>
+<entry key="bewegungAktuell">0</entry>
+<entry key="istFernkampfeinheit">true</entry>
+<entry key="kostenProduktion">200</entry>
+<entry key="angriffMaximal">10</entry>
+<entry key="istLandeinheit">true</entry>
+<entry key="klasse">D_Einheit</entry>
+<entry key="verteidigungMaximal">3</entry>
+<entry key="angriffAktuell">10</entry>
+<entry key="verteidigungAktuell">3</entry>
+<entry key="name">Bogenschuetze</entry>
+</properties>
+<properties>
 <entry key="name">Berlin</entry>
 <entry key="bereitsProduziert">0</entry>
 <entry key="id">1</entry>
@@ -1283,7 +1352,7 @@
 <entry key="proRundeWissenschaft">10</entry>
 </properties>
 <properties>
-<entry key="name">Uli</entry>
+<entry key="name">Greg</entry>
 <entry key="nation">England</entry>
 <entry key="wissenschaft">0</entry>
 <entry key="rasse">Mensch</entry>
@@ -1292,23 +1361,44 @@
 <entry key="id">2</entry>
 </properties>
 <properties>
-<entry key="angriffAktuell">0</entry>
-<entry key="name">Siedler</entry>
-<entry key="id">0</entry>
-<entry key="bewegungMaximal">100</entry>
-<entry key="kostenProduktion">500</entry>
-<entry key="lebenMaximal">1</entry>
-<entry key="bewegungAktuell">100</entry>
-<entry key="verteidigungMaximal">0</entry>
-<entry key="lebenAktuell">1</entry>
-<entry key="istLandeinheit">true</entry>
-<entry key="verteidigungAktuell">0</entry>
-<entry key="idSpieler">2</entry>
-<entry key="klasse">D_Einheit</entry>
-<entry key="y">2</entry>
-<entry key="x">7</entry>
+<entry key="istLufteinheit">false</entry>
 <entry key="idKarte">1</entry>
-<entry key="angriffMaximal">0</entry>
+<entry key="lebenMaximal">10</entry>
+<entry key="istWeltraumeinheit">false</entry>
+<entry key="idSpieler">2</entry>
+<entry key="lebenAktuell">10</entry>
+<entry key="y">6</entry>
+<entry key="x">6</entry>
+<entry key="bewegungMaximal">100</entry>
+<entry key="istWassereinheit">false</entry>
+<entry key="id">0</entry>
+<entry key="bewegungAktuell">50</entry>
+<entry key="istFernkampfeinheit">false</entry>
+<entry key="kostenProduktion">100</entry>
+<entry key="angriffMaximal">8</entry>
+<entry key="istLandeinheit">true</entry>
+<entry key="klasse">D_Einheit</entry>
+<entry key="verteidigungMaximal">3</entry>
+<entry key="angriffAktuell">8</entry>
+<entry key="verteidigungAktuell">3</entry>
+<entry key="name">Krieger</entry>
+</properties>
+<properties>
+<entry key="name">London</entry>
+<entry key="bereitsProduziert">0</entry>
+<entry key="id">1</entry>
+<entry key="kostenProduktion">0</entry>
+<entry key="proRundeGeld">10</entry>
+<entry key="produziere"/>
+<entry key="proRundeNahrung">10</entry>
+<entry key="groesse">1</entry>
+<entry key="y">6</entry>
+<entry key="klasse">D_Stadt</entry>
+<entry key="idSpieler">2</entry>
+<entry key="idKarte">1</entry>
+<entry key="x">7</entry>
+<entry key="proRundeProduktion">50</entry>
+<entry key="proRundeWissenschaft">10</entry>
 </properties>
 </propertiesarray>
 
