@@ -13,9 +13,9 @@ public class BackendSpielAdminStub implements iBackendSpielAdmin{
 	
 	public BackendSpielAdminStub(String url){
 		if (url.endsWith("/"))
-			this.url=url+"wom/spiel/admin/";
+			this.url=url+"ru/spiel/admin/";
 		else
-			this.url=url+"/wom/spiel/admin/";
+			this.url=url+"/ru/spiel/admin/";
 	}
 	
 	private String getXmlvonRest(String pfad){

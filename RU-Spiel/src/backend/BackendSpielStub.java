@@ -19,9 +19,9 @@ public class BackendSpielStub implements iBackendSpiel{
 	
 	public BackendSpielStub(String url){
 		if (url.endsWith("/"))
-			this.url=url+"wom/spiel/";
+			this.url=url+"ru/spiel/";
 		else
-			this.url=url+"/wom/spiel/";
+			this.url=url+"/ru/spiel/";
 	}
 	
 	private String getXmlvonRest(String pfad){

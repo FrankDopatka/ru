@@ -5,7 +5,7 @@ import daten.D_OK;
 import daten.Xml;
 
 public class Initialisierung {
-	private static String ladeSpiel="/home/informatik/Repository-RU/ru/spiel01.wom";
+	private static String ladeSpiel="/home/informatik/Repository-RU/ru/RU-Backend/spiel01.wom";
 	
 	public static void ausfuehren(){
 		BackendSpielAdmin administration=new BackendSpielAdmin();

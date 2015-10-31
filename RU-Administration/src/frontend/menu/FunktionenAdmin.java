@@ -70,7 +70,7 @@ public class FunktionenAdmin {
 			ArrayList<Object> eingabeFelder=new ArrayList<Object>();
 			eingabeBeschriftungen.add("Server-Pfad zur Karte:");
 			JTextField jPfad=new JTextField();
-			jPfad.setText("/home/informatik/erde.map");
+			jPfad.setText("/home/informatik/Repository-RU/ru/RU-Backend/erde.map");
 			eingabeFelder.add(jPfad);
 			MenuEingabe eingabe=new MenuEingabe(frontend,"neues Spiel",eingabeBeschriftungen,eingabeFelder);
 			if (eingabe.start()){
@@ -180,7 +180,7 @@ public class FunktionenAdmin {
 			ArrayList<Object> eingabeFelder=new ArrayList<Object>();
 			eingabeBeschriftungen.add("Server-Pfad zum Laden:");
 			JTextField jPfad=new JTextField();
-			jPfad.setText("/home/informatik/spiel01.wom");
+			jPfad.setText("/home/informatik/Repository-RU/ru/RU-Backend/spiel01.wom");
 			eingabeFelder.add(jPfad);
 			MenuEingabe eingabe=new MenuEingabe(frontend,"Spiel laden",eingabeBeschriftungen,eingabeFelder);
 			if (eingabe.start()){
@@ -209,7 +209,7 @@ public class FunktionenAdmin {
 			ArrayList<Object> eingabeFelder=new ArrayList<Object>();
 			eingabeBeschriftungen.add("Server-Pfad zum Speichern:");
 			JTextField jPfad=new JTextField();
-			jPfad.setText("/home/informatik/spiel01.wom");
+			jPfad.setText("/home/informatik/Repository-RU/ru/RU-Backend/spiel01.wom");
 			eingabeFelder.add(jPfad);
 			MenuEingabe eingabe=new MenuEingabe(frontend,"Spiel speichern",eingabeBeschriftungen,eingabeFelder);
 			if (eingabe.start()){

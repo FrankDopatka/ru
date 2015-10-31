@@ -22,7 +22,7 @@ import daten.D_SpielerNationArt;
 import daten.D_SpielerRassenArt;
 import daten.Xml;
 
-@Path("wom/spiel/admin")
+@Path("ru/spiel/admin")
 public class BackendSpielAdmin extends ResourceConfig implements iBackendSpielAdmin{
 
 	@GET

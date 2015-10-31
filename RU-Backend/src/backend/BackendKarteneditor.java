@@ -15,7 +15,7 @@ import daten.*;
 import backend.karte.Feld;
 import backend.karte.Karte;
 
-@Path("wom/karteneditor")
+@Path("ru/karteneditor")
 public class BackendKarteneditor implements iBackendKarteneditor{
 	private static Karte karte;
 	

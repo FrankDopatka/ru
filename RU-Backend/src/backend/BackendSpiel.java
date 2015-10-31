@@ -15,7 +15,7 @@ import daten.*;
 import backend.karte.Feld;
 import backend.spiel.*;
 
-@Path("wom/spiel")
+@Path("ru/spiel")
 public class BackendSpiel extends ResourceConfig implements iBackendSpiel{
 	private static Spiel spiel;
 	

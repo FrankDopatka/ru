@@ -45,7 +45,7 @@ public class Frontend extends JFrame{
 		backendSpielAdmin=new BackendSpielAdminStub(url);
 		funktionenAdmin=new FunktionenAdmin(this);
 		funktionenKarteneditor=new FunktionenKarteneditor(this);
-		setTitle("WOM Administration, Version 0.80");
+		setTitle("Rising Universe Administration, Version 0.80");
 		setLayout(new BorderLayout());
 		panel.setLayout(new BorderLayout());
 		menuTop=new MenuTop(this);

@@ -14,9 +14,9 @@ public class BackendKarteneditorStub implements iBackendKarteneditor{
 	 
 	public BackendKarteneditorStub(String url){
 		if (url.endsWith("/"))
-			this.url=url+"wom/karteneditor/";
+			this.url=url+"ru/karteneditor/";
 		else
-			this.url=url+"/wom/karteneditor/";
+			this.url=url+"/ru/karteneditor/";
 	}
 	
 	private String getXmlvonRest(String pfad){

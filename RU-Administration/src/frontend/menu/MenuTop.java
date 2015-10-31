@@ -73,7 +73,7 @@ public class MenuTop extends JMenuBar implements ActionListener{
     if (o==menus.get("hilfe-ueber")){
     	JOptionPane.showMessageDialog(
     			frontend,frontend.getTitle()+"\n\n"+"Copyright by Prof. Dr. Frank Dopatka",
-    			"Ueber WorldOfMKI",JOptionPane.INFORMATION_MESSAGE);
+    			"Ueber Rising Universe",JOptionPane.INFORMATION_MESSAGE);
     }
 		if (o==menus.get("beenden")) System.exit(0);
 	}

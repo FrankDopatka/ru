@@ -45,7 +45,7 @@ public class Frontend extends JFrame{
 		super();
 		backend=new BackendSpielStub(url);
 		this.idSpieler=idSpieler;
-		setTitle("WorldOfMKI Spiel, Version 0.90, Spieler "+idSpieler);
+		setTitle("Rising Universe Spiel, Version 0.90, Spieler "+idSpieler);
 		setLayout(new BorderLayout());
 		panel.setLayout(new BorderLayout());
 		// rechtes Menu einblenden:
