@@ -39,7 +39,7 @@ public class ServerFrontend extends JFrame implements ActionListener{
 	private HttpServer server;
 
 	public ServerFrontend() throws SecurityException, IOException{
-		setTitle("WOM Server, Version 0.80 REST");
+		setTitle("RU Server, Version 0.80 REST");
 		setLayout(new BorderLayout());
 		JPanel jNorth=new JPanel();
 		JPanel jSouth=new JPanel();

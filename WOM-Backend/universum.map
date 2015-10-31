@@ -1,0 +1,1011 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<propertiesarray>
+<properties>
+<entry key="x">10</entry>
+<entry key="kartenArt">Weltraum</entry>
+<entry key="klasse">D_Karte</entry>
+<entry key="id">2</entry>
+<entry key="y">10</entry>
+</properties>
+<properties>
+<entry key="x">1</entry>
+<entry key="feldArt">Leere</entry>
+<entry key="spielerstart">0</entry>
+<entry key="ressource"/>
+<entry key="klasse">D_Feld</entry>
+<entry key="idKarte">0</entry>
+<entry key="y">1</entry>
+<entry key="id">0</entry>
+</properties>
+<properties>
+<entry key="x">1</entry>
+<entry key="feldArt">Leere</entry>
+<entry key="spielerstart">0</entry>
+<entry key="ressource"/>
+<entry key="klasse">D_Feld</entry>
+<entry key="idKarte">0</entry>
+<entry key="y">2</entry>
+<entry key="id">0</entry>
+</properties>
+<properties>
+<entry key="x">1</entry>
+<entry key="feldArt">Leere</entry>
+<entry key="spielerstart">0</entry>
+<entry key="ressource"/>
+<entry key="klasse">D_Feld</entry>
+<entry key="idKarte">0</entry>
+<entry key="y">3</entry>
+<entry key="id">0</entry>
+</properties>
+<properties>
+<entry key="x">1</entry>
+<entry key="feldArt">Leere</entry>
+<entry key="spielerstart">0</entry>
+<entry key="ressource"/>
+<entry key="klasse">D_Feld</entry>
+<entry key="idKarte">0</entry>
+<entry key="y">4</entry>
+<entry key="id">0</entry>
+</properties>
+<properties>
+<entry key="x">1</entry>
+<entry key="feldArt">Leere</entry>
+<entry key="spielerstart">0</entry>
+<entry key="ressource"/>
+<entry key="klasse">D_Feld</entry>
+<entry key="idKarte">0</entry>
+<entry key="y">5</entry>
+<entry key="id">0</entry>
+</properties>
+<properties>
+<entry key="x">1</entry>
+<entry key="feldArt">Leere</entry>
+<entry key="spielerstart">0</entry>
+<entry key="ressource"/>
+<entry key="klasse">D_Feld</entry>
+<entry key="idKarte">0</entry>
+<entry key="y">6</entry>
+<entry key="id">0</entry>
+</properties>
+<properties>
+<entry key="x">1</entry>
+<entry key="feldArt">Leere</entry>
+<entry key="spielerstart">0</entry>
+<entry key="ressource"/>
+<entry key="klasse">D_Feld</entry>
+<entry key="idKarte">0</entry>
+<entry key="y">7</entry>
+<entry key="id">0</entry>
+</properties>
+<properties>
+<entry key="x">1</entry>
+<entry key="feldArt">Leere</entry>
+<entry key="spielerstart">0</entry>
+<entry key="ressource"/>
+<entry key="klasse">D_Feld</entry>
+<entry key="idKarte">0</entry>
+<entry key="y">8</entry>
+<entry key="id">0</entry>
+</properties>
+<properties>
+<entry key="x">1</entry>
+<entry key="feldArt">Leere</entry>
+<entry key="spielerstart">0</entry>
+<entry key="ressource"/>
+<entry key="klasse">D_Feld</entry>
+<entry key="idKarte">0</entry>
+<entry key="y">9</entry>
+<entry key="id">0</entry>
+</properties>
+<properties>
+<entry key="x">1</entry>
+<entry key="feldArt">Leere</entry>
+<entry key="spielerstart">0</entry>
+<entry key="ressource"/>
+<entry key="klasse">D_Feld</entry>
+<entry key="idKarte">0</entry>
+<entry key="y">10</entry>
+<entry key="id">0</entry>
+</properties>
+<properties>
+<entry key="x">2</entry>
+<entry key="feldArt">Leere</entry>
+<entry key="spielerstart">0</entry>
+<entry key="ressource"/>
+<entry key="klasse">D_Feld</entry>
+<entry key="idKarte">0</entry>
+<entry key="y">1</entry>
+<entry key="id">0</entry>
+</properties>
+<properties>
+<entry key="x">2</entry>
+<entry key="feldArt">Planet</entry>
+<entry key="spielerstart">0</entry>
+<entry key="ressource"/>
+<entry key="klasse">D_Feld</entry>
+<entry key="idKarte">0</entry>
+<entry key="y">2</entry>
+<entry key="id">0</entry>
+</properties>
+<properties>
+<entry key="x">2</entry>
+<entry key="feldArt">Leere</entry>
+<entry key="spielerstart">0</entry>
+<entry key="ressource"/>
+<entry key="klasse">D_Feld</entry>
+<entry key="idKarte">0</entry>
+<entry key="y">3</entry>
+<entry key="id">0</entry>
+</properties>
+<properties>
+<entry key="x">2</entry>
+<entry key="feldArt">Leere</entry>
+<entry key="spielerstart">0</entry>
+<entry key="ressource"/>
+<entry key="klasse">D_Feld</entry>
+<entry key="idKarte">0</entry>
+<entry key="y">4</entry>
+<entry key="id">0</entry>
+</properties>
+<properties>
+<entry key="x">2</entry>
+<entry key="feldArt">Leere</entry>
+<entry key="spielerstart">0</entry>
+<entry key="ressource"/>
+<entry key="klasse">D_Feld</entry>
+<entry key="idKarte">0</entry>
+<entry key="y">5</entry>
+<entry key="id">0</entry>
+</properties>
+<properties>
+<entry key="x">2</entry>
+<entry key="feldArt">Leere</entry>
+<entry key="spielerstart">0</entry>
+<entry key="ressource"/>
+<entry key="klasse">D_Feld</entry>
+<entry key="idKarte">0</entry>
+<entry key="y">6</entry>
+<entry key="id">0</entry>
+</properties>
+<properties>
+<entry key="x">2</entry>
+<entry key="feldArt">Leere</entry>
+<entry key="spielerstart">0</entry>
+<entry key="ressource"/>
+<entry key="klasse">D_Feld</entry>
+<entry key="idKarte">0</entry>
+<entry key="y">7</entry>
+<entry key="id">0</entry>
+</properties>
+<properties>
+<entry key="x">2</entry>
+<entry key="feldArt">Leere</entry>
+<entry key="spielerstart">0</entry>
+<entry key="ressource"/>
+<entry key="klasse">D_Feld</entry>
+<entry key="idKarte">0</entry>
+<entry key="y">8</entry>
+<entry key="id">0</entry>
+</properties>
+<properties>
+<entry key="x">2</entry>
+<entry key="feldArt">Leere</entry>
+<entry key="spielerstart">0</entry>
+<entry key="ressource"/>
+<entry key="klasse">D_Feld</entry>
+<entry key="idKarte">0</entry>
+<entry key="y">9</entry>
+<entry key="id">0</entry>
+</properties>
+<properties>
+<entry key="x">2</entry>
+<entry key="feldArt">Leere</entry>
+<entry key="spielerstart">0</entry>
+<entry key="ressource"/>
+<entry key="klasse">D_Feld</entry>
+<entry key="idKarte">0</entry>
+<entry key="y">10</entry>
+<entry key="id">0</entry>
+</properties>
+<properties>
+<entry key="x">3</entry>
+<entry key="feldArt">Leere</entry>
+<entry key="spielerstart">0</entry>
+<entry key="ressource"/>
+<entry key="klasse">D_Feld</entry>
+<entry key="idKarte">0</entry>
+<entry key="y">1</entry>
+<entry key="id">0</entry>
+</properties>
+<properties>
+<entry key="x">3</entry>
+<entry key="feldArt">Mond</entry>
+<entry key="spielerstart">0</entry>
+<entry key="ressource"/>
+<entry key="klasse">D_Feld</entry>
+<entry key="idKarte">0</entry>
+<entry key="y">2</entry>
+<entry key="id">0</entry>
+</properties>
+<properties>
+<entry key="x">3</entry>
+<entry key="feldArt">Leere</entry>
+<entry key="spielerstart">0</entry>
+<entry key="ressource"/>
+<entry key="klasse">D_Feld</entry>
+<entry key="idKarte">0</entry>
+<entry key="y">3</entry>
+<entry key="id">0</entry>
+</properties>
+<properties>
+<entry key="x">3</entry>
+<entry key="feldArt">Leere</entry>
+<entry key="spielerstart">0</entry>
+<entry key="ressource"/>
+<entry key="klasse">D_Feld</entry>
+<entry key="idKarte">0</entry>
+<entry key="y">4</entry>
+<entry key="id">0</entry>
+</properties>
+<properties>
+<entry key="x">3</entry>
+<entry key="feldArt">Leere</entry>
+<entry key="spielerstart">0</entry>
+<entry key="ressource"/>
+<entry key="klasse">D_Feld</entry>
+<entry key="idKarte">0</entry>
+<entry key="y">5</entry>
+<entry key="id">0</entry>
+</properties>
+<properties>
+<entry key="x">3</entry>
+<entry key="feldArt">Leere</entry>
+<entry key="spielerstart">0</entry>
+<entry key="ressource"/>
+<entry key="klasse">D_Feld</entry>
+<entry key="idKarte">0</entry>
+<entry key="y">6</entry>
+<entry key="id">0</entry>
+</properties>
+<properties>
+<entry key="x">3</entry>
+<entry key="feldArt">Leere</entry>
+<entry key="spielerstart">0</entry>
+<entry key="ressource"/>
+<entry key="klasse">D_Feld</entry>
+<entry key="idKarte">0</entry>
+<entry key="y">7</entry>
+<entry key="id">0</entry>
+</properties>
+<properties>
+<entry key="x">3</entry>
+<entry key="feldArt">Leere</entry>
+<entry key="spielerstart">0</entry>
+<entry key="ressource"/>
+<entry key="klasse">D_Feld</entry>
+<entry key="idKarte">0</entry>
+<entry key="y">8</entry>
+<entry key="id">0</entry>
+</properties>
+<properties>
+<entry key="x">3</entry>
+<entry key="feldArt">Leere</entry>
+<entry key="spielerstart">0</entry>
+<entry key="ressource"/>
+<entry key="klasse">D_Feld</entry>
+<entry key="idKarte">0</entry>
+<entry key="y">9</entry>
+<entry key="id">0</entry>
+</properties>
+<properties>
+<entry key="x">3</entry>
+<entry key="feldArt">Leere</entry>
+<entry key="spielerstart">0</entry>
+<entry key="ressource"/>
+<entry key="klasse">D_Feld</entry>
+<entry key="idKarte">0</entry>
+<entry key="y">10</entry>
+<entry key="id">0</entry>
+</properties>
+<properties>
+<entry key="x">4</entry>
+<entry key="feldArt">Leere</entry>
+<entry key="spielerstart">0</entry>
+<entry key="ressource"/>
+<entry key="klasse">D_Feld</entry>
+<entry key="idKarte">0</entry>
+<entry key="y">1</entry>
+<entry key="id">0</entry>
+</properties>
+<properties>
+<entry key="x">4</entry>
+<entry key="feldArt">Leere</entry>
+<entry key="spielerstart">0</entry>
+<entry key="ressource"/>
+<entry key="klasse">D_Feld</entry>
+<entry key="idKarte">0</entry>
+<entry key="y">2</entry>
+<entry key="id">0</entry>
+</properties>
+<properties>
+<entry key="x">4</entry>
+<entry key="feldArt">Leere</entry>
+<entry key="spielerstart">0</entry>
+<entry key="ressource"/>
+<entry key="klasse">D_Feld</entry>
+<entry key="idKarte">0</entry>
+<entry key="y">3</entry>
+<entry key="id">0</entry>
+</properties>
+<properties>
+<entry key="x">4</entry>
+<entry key="feldArt">Leere</entry>
+<entry key="spielerstart">0</entry>
+<entry key="ressource"/>
+<entry key="klasse">D_Feld</entry>
+<entry key="idKarte">0</entry>
+<entry key="y">4</entry>
+<entry key="id">0</entry>
+</properties>
+<properties>
+<entry key="x">4</entry>
+<entry key="feldArt">Leere</entry>
+<entry key="spielerstart">0</entry>
+<entry key="ressource"/>
+<entry key="klasse">D_Feld</entry>
+<entry key="idKarte">0</entry>
+<entry key="y">5</entry>
+<entry key="id">0</entry>
+</properties>
+<properties>
+<entry key="x">4</entry>
+<entry key="feldArt">Leere</entry>
+<entry key="spielerstart">0</entry>
+<entry key="ressource"/>
+<entry key="klasse">D_Feld</entry>
+<entry key="idKarte">0</entry>
+<entry key="y">6</entry>
+<entry key="id">0</entry>
+</properties>
+<properties>
+<entry key="x">4</entry>
+<entry key="feldArt">Leere</entry>
+<entry key="spielerstart">0</entry>
+<entry key="ressource"/>
+<entry key="klasse">D_Feld</entry>
+<entry key="idKarte">0</entry>
+<entry key="y">7</entry>
+<entry key="id">0</entry>
+</properties>
+<properties>
+<entry key="x">4</entry>
+<entry key="feldArt">Leere</entry>
+<entry key="spielerstart">0</entry>
+<entry key="ressource"/>
+<entry key="klasse">D_Feld</entry>
+<entry key="idKarte">0</entry>
+<entry key="y">8</entry>
+<entry key="id">0</entry>
+</properties>
+<properties>
+<entry key="x">4</entry>
+<entry key="feldArt">Leere</entry>
+<entry key="spielerstart">0</entry>
+<entry key="ressource"/>
+<entry key="klasse">D_Feld</entry>
+<entry key="idKarte">0</entry>
+<entry key="y">9</entry>
+<entry key="id">0</entry>
+</properties>
+<properties>
+<entry key="x">4</entry>
+<entry key="feldArt">Wurmloch</entry>
+<entry key="spielerstart">0</entry>
+<entry key="ressource"/>
+<entry key="klasse">D_Feld</entry>
+<entry key="idKarte">0</entry>
+<entry key="y">10</entry>
+<entry key="id">0</entry>
+</properties>
+<properties>
+<entry key="x">5</entry>
+<entry key="feldArt">Leere</entry>
+<entry key="spielerstart">0</entry>
+<entry key="ressource"/>
+<entry key="klasse">D_Feld</entry>
+<entry key="idKarte">0</entry>
+<entry key="y">1</entry>
+<entry key="id">0</entry>
+</properties>
+<properties>
+<entry key="x">5</entry>
+<entry key="feldArt">Leere</entry>
+<entry key="spielerstart">0</entry>
+<entry key="ressource"/>
+<entry key="klasse">D_Feld</entry>
+<entry key="idKarte">0</entry>
+<entry key="y">2</entry>
+<entry key="id">0</entry>
+</properties>
+<properties>
+<entry key="x">5</entry>
+<entry key="feldArt">Leere</entry>
+<entry key="spielerstart">0</entry>
+<entry key="ressource"/>
+<entry key="klasse">D_Feld</entry>
+<entry key="idKarte">0</entry>
+<entry key="y">3</entry>
+<entry key="id">0</entry>
+</properties>
+<properties>
+<entry key="x">5</entry>
+<entry key="feldArt">Leere</entry>
+<entry key="spielerstart">0</entry>
+<entry key="ressource"/>
+<entry key="klasse">D_Feld</entry>
+<entry key="idKarte">0</entry>
+<entry key="y">4</entry>
+<entry key="id">0</entry>
+</properties>
+<properties>
+<entry key="x">5</entry>
+<entry key="feldArt">Leere</entry>
+<entry key="spielerstart">0</entry>
+<entry key="ressource"/>
+<entry key="klasse">D_Feld</entry>
+<entry key="idKarte">0</entry>
+<entry key="y">5</entry>
+<entry key="id">0</entry>
+</properties>
+<properties>
+<entry key="x">5</entry>
+<entry key="feldArt">Leere</entry>
+<entry key="spielerstart">0</entry>
+<entry key="ressource"/>
+<entry key="klasse">D_Feld</entry>
+<entry key="idKarte">0</entry>
+<entry key="y">6</entry>
+<entry key="id">0</entry>
+</properties>
+<properties>
+<entry key="x">5</entry>
+<entry key="feldArt">Leere</entry>
+<entry key="spielerstart">0</entry>
+<entry key="ressource"/>
+<entry key="klasse">D_Feld</entry>
+<entry key="idKarte">0</entry>
+<entry key="y">7</entry>
+<entry key="id">0</entry>
+</properties>
+<properties>
+<entry key="x">5</entry>
+<entry key="feldArt">Leere</entry>
+<entry key="spielerstart">0</entry>
+<entry key="ressource"/>
+<entry key="klasse">D_Feld</entry>
+<entry key="idKarte">0</entry>
+<entry key="y">8</entry>
+<entry key="id">0</entry>
+</properties>
+<properties>
+<entry key="x">5</entry>
+<entry key="feldArt">Leere</entry>
+<entry key="spielerstart">0</entry>
+<entry key="ressource"/>
+<entry key="klasse">D_Feld</entry>
+<entry key="idKarte">0</entry>
+<entry key="y">9</entry>
+<entry key="id">0</entry>
+</properties>
+<properties>
+<entry key="x">5</entry>
+<entry key="feldArt">Leere</entry>
+<entry key="spielerstart">0</entry>
+<entry key="ressource"/>
+<entry key="klasse">D_Feld</entry>
+<entry key="idKarte">0</entry>
+<entry key="y">10</entry>
+<entry key="id">0</entry>
+</properties>
+<properties>
+<entry key="x">6</entry>
+<entry key="feldArt">Leere</entry>
+<entry key="spielerstart">0</entry>
+<entry key="ressource"/>
+<entry key="klasse">D_Feld</entry>
+<entry key="idKarte">0</entry>
+<entry key="y">1</entry>
+<entry key="id">0</entry>
+</properties>
+<properties>
+<entry key="x">6</entry>
+<entry key="feldArt">Wurmloch</entry>
+<entry key="spielerstart">0</entry>
+<entry key="ressource"/>
+<entry key="klasse">D_Feld</entry>
+<entry key="idKarte">0</entry>
+<entry key="y">2</entry>
+<entry key="id">0</entry>
+</properties>
+<properties>
+<entry key="x">6</entry>
+<entry key="feldArt">Leere</entry>
+<entry key="spielerstart">0</entry>
+<entry key="ressource"/>
+<entry key="klasse">D_Feld</entry>
+<entry key="idKarte">0</entry>
+<entry key="y">3</entry>
+<entry key="id">0</entry>
+</properties>
+<properties>
+<entry key="x">6</entry>
+<entry key="feldArt">Leere</entry>
+<entry key="spielerstart">0</entry>
+<entry key="ressource"/>
+<entry key="klasse">D_Feld</entry>
+<entry key="idKarte">0</entry>
+<entry key="y">4</entry>
+<entry key="id">0</entry>
+</properties>
+<properties>
+<entry key="x">6</entry>
+<entry key="feldArt">Leere</entry>
+<entry key="spielerstart">0</entry>
+<entry key="ressource"/>
+<entry key="klasse">D_Feld</entry>
+<entry key="idKarte">0</entry>
+<entry key="y">5</entry>
+<entry key="id">0</entry>
+</properties>
+<properties>
+<entry key="x">6</entry>
+<entry key="feldArt">Leere</entry>
+<entry key="spielerstart">0</entry>
+<entry key="ressource"/>
+<entry key="klasse">D_Feld</entry>
+<entry key="idKarte">0</entry>
+<entry key="y">6</entry>
+<entry key="id">0</entry>
+</properties>
+<properties>
+<entry key="x">6</entry>
+<entry key="feldArt">Leere</entry>
+<entry key="spielerstart">0</entry>
+<entry key="ressource"/>
+<entry key="klasse">D_Feld</entry>
+<entry key="idKarte">0</entry>
+<entry key="y">7</entry>
+<entry key="id">0</entry>
+</properties>
+<properties>
+<entry key="x">6</entry>
+<entry key="feldArt">Leere</entry>
+<entry key="spielerstart">0</entry>
+<entry key="ressource"/>
+<entry key="klasse">D_Feld</entry>
+<entry key="idKarte">0</entry>
+<entry key="y">8</entry>
+<entry key="id">0</entry>
+</properties>
+<properties>
+<entry key="x">6</entry>
+<entry key="feldArt">Leere</entry>
+<entry key="spielerstart">0</entry>
+<entry key="ressource"/>
+<entry key="klasse">D_Feld</entry>
+<entry key="idKarte">0</entry>
+<entry key="y">9</entry>
+<entry key="id">0</entry>
+</properties>
+<properties>
+<entry key="x">6</entry>
+<entry key="feldArt">Leere</entry>
+<entry key="spielerstart">0</entry>
+<entry key="ressource"/>
+<entry key="klasse">D_Feld</entry>
+<entry key="idKarte">0</entry>
+<entry key="y">10</entry>
+<entry key="id">0</entry>
+</properties>
+<properties>
+<entry key="x">7</entry>
+<entry key="feldArt">Leere</entry>
+<entry key="spielerstart">0</entry>
+<entry key="ressource"/>
+<entry key="klasse">D_Feld</entry>
+<entry key="idKarte">0</entry>
+<entry key="y">1</entry>
+<entry key="id">0</entry>
+</properties>
+<properties>
+<entry key="x">7</entry>
+<entry key="feldArt">Leere</entry>
+<entry key="spielerstart">0</entry>
+<entry key="ressource"/>
+<entry key="klasse">D_Feld</entry>
+<entry key="idKarte">0</entry>
+<entry key="y">2</entry>
+<entry key="id">0</entry>
+</properties>
+<properties>
+<entry key="x">7</entry>
+<entry key="feldArt">Leere</entry>
+<entry key="spielerstart">0</entry>
+<entry key="ressource"/>
+<entry key="klasse">D_Feld</entry>
+<entry key="idKarte">0</entry>
+<entry key="y">3</entry>
+<entry key="id">0</entry>
+</properties>
+<properties>
+<entry key="x">7</entry>
+<entry key="feldArt">Leere</entry>
+<entry key="spielerstart">0</entry>
+<entry key="ressource"/>
+<entry key="klasse">D_Feld</entry>
+<entry key="idKarte">0</entry>
+<entry key="y">4</entry>
+<entry key="id">0</entry>
+</properties>
+<properties>
+<entry key="x">7</entry>
+<entry key="feldArt">Leere</entry>
+<entry key="spielerstart">0</entry>
+<entry key="ressource"/>
+<entry key="klasse">D_Feld</entry>
+<entry key="idKarte">0</entry>
+<entry key="y">5</entry>
+<entry key="id">0</entry>
+</properties>
+<properties>
+<entry key="x">7</entry>
+<entry key="feldArt">Leere</entry>
+<entry key="spielerstart">0</entry>
+<entry key="ressource"/>
+<entry key="klasse">D_Feld</entry>
+<entry key="idKarte">0</entry>
+<entry key="y">6</entry>
+<entry key="id">0</entry>
+</properties>
+<properties>
+<entry key="x">7</entry>
+<entry key="feldArt">Leere</entry>
+<entry key="spielerstart">0</entry>
+<entry key="ressource"/>
+<entry key="klasse">D_Feld</entry>
+<entry key="idKarte">0</entry>
+<entry key="y">7</entry>
+<entry key="id">0</entry>
+</properties>
+<properties>
+<entry key="x">7</entry>
+<entry key="feldArt">Leere</entry>
+<entry key="spielerstart">0</entry>
+<entry key="ressource"/>
+<entry key="klasse">D_Feld</entry>
+<entry key="idKarte">0</entry>
+<entry key="y">8</entry>
+<entry key="id">0</entry>
+</properties>
+<properties>
+<entry key="x">7</entry>
+<entry key="feldArt">Leere</entry>
+<entry key="spielerstart">0</entry>
+<entry key="ressource"/>
+<entry key="klasse">D_Feld</entry>
+<entry key="idKarte">0</entry>
+<entry key="y">9</entry>
+<entry key="id">0</entry>
+</properties>
+<properties>
+<entry key="x">7</entry>
+<entry key="feldArt">Leere</entry>
+<entry key="spielerstart">0</entry>
+<entry key="ressource"/>
+<entry key="klasse">D_Feld</entry>
+<entry key="idKarte">0</entry>
+<entry key="y">10</entry>
+<entry key="id">0</entry>
+</properties>
+<properties>
+<entry key="x">8</entry>
+<entry key="feldArt">Leere</entry>
+<entry key="spielerstart">0</entry>
+<entry key="ressource"/>
+<entry key="klasse">D_Feld</entry>
+<entry key="idKarte">0</entry>
+<entry key="y">1</entry>
+<entry key="id">0</entry>
+</properties>
+<properties>
+<entry key="x">8</entry>
+<entry key="feldArt">Leere</entry>
+<entry key="spielerstart">0</entry>
+<entry key="ressource"/>
+<entry key="klasse">D_Feld</entry>
+<entry key="idKarte">0</entry>
+<entry key="y">2</entry>
+<entry key="id">0</entry>
+</properties>
+<properties>
+<entry key="x">8</entry>
+<entry key="feldArt">Leere</entry>
+<entry key="spielerstart">0</entry>
+<entry key="ressource"/>
+<entry key="klasse">D_Feld</entry>
+<entry key="idKarte">0</entry>
+<entry key="y">3</entry>
+<entry key="id">0</entry>
+</properties>
+<properties>
+<entry key="x">8</entry>
+<entry key="feldArt">Leere</entry>
+<entry key="spielerstart">0</entry>
+<entry key="ressource"/>
+<entry key="klasse">D_Feld</entry>
+<entry key="idKarte">0</entry>
+<entry key="y">4</entry>
+<entry key="id">0</entry>
+</properties>
+<properties>
+<entry key="x">8</entry>
+<entry key="feldArt">Leere</entry>
+<entry key="spielerstart">0</entry>
+<entry key="ressource"/>
+<entry key="klasse">D_Feld</entry>
+<entry key="idKarte">0</entry>
+<entry key="y">5</entry>
+<entry key="id">0</entry>
+</properties>
+<properties>
+<entry key="x">8</entry>
+<entry key="feldArt">Leere</entry>
+<entry key="spielerstart">0</entry>
+<entry key="ressource"/>
+<entry key="klasse">D_Feld</entry>
+<entry key="idKarte">0</entry>
+<entry key="y">6</entry>
+<entry key="id">0</entry>
+</properties>
+<properties>
+<entry key="x">8</entry>
+<entry key="feldArt">Leere</entry>
+<entry key="spielerstart">0</entry>
+<entry key="ressource"/>
+<entry key="klasse">D_Feld</entry>
+<entry key="idKarte">0</entry>
+<entry key="y">7</entry>
+<entry key="id">0</entry>
+</properties>
+<properties>
+<entry key="x">8</entry>
+<entry key="feldArt">Leere</entry>
+<entry key="spielerstart">0</entry>
+<entry key="ressource"/>
+<entry key="klasse">D_Feld</entry>
+<entry key="idKarte">0</entry>
+<entry key="y">8</entry>
+<entry key="id">0</entry>
+</properties>
+<properties>
+<entry key="x">8</entry>
+<entry key="feldArt">Leere</entry>
+<entry key="spielerstart">0</entry>
+<entry key="ressource"/>
+<entry key="klasse">D_Feld</entry>
+<entry key="idKarte">0</entry>
+<entry key="y">9</entry>
+<entry key="id">0</entry>
+</properties>
+<properties>
+<entry key="x">8</entry>
+<entry key="feldArt">Leere</entry>
+<entry key="spielerstart">0</entry>
+<entry key="ressource"/>
+<entry key="klasse">D_Feld</entry>
+<entry key="idKarte">0</entry>
+<entry key="y">10</entry>
+<entry key="id">0</entry>
+</properties>
+<properties>
+<entry key="x">9</entry>
+<entry key="feldArt">Leere</entry>
+<entry key="spielerstart">0</entry>
+<entry key="ressource"/>
+<entry key="klasse">D_Feld</entry>
+<entry key="idKarte">0</entry>
+<entry key="y">1</entry>
+<entry key="id">0</entry>
+</properties>
+<properties>
+<entry key="x">9</entry>
+<entry key="feldArt">Leere</entry>
+<entry key="spielerstart">0</entry>
+<entry key="ressource"/>
+<entry key="klasse">D_Feld</entry>
+<entry key="idKarte">0</entry>
+<entry key="y">2</entry>
+<entry key="id">0</entry>
+</properties>
+<properties>
+<entry key="x">9</entry>
+<entry key="feldArt">Leere</entry>
+<entry key="spielerstart">0</entry>
+<entry key="ressource"/>
+<entry key="klasse">D_Feld</entry>
+<entry key="idKarte">0</entry>
+<entry key="y">3</entry>
+<entry key="id">0</entry>
+</properties>
+<properties>
+<entry key="x">9</entry>
+<entry key="feldArt">Leere</entry>
+<entry key="spielerstart">0</entry>
+<entry key="ressource"/>
+<entry key="klasse">D_Feld</entry>
+<entry key="idKarte">0</entry>
+<entry key="y">4</entry>
+<entry key="id">0</entry>
+</properties>
+<properties>
+<entry key="x">9</entry>
+<entry key="feldArt">Leere</entry>
+<entry key="spielerstart">0</entry>
+<entry key="ressource"/>
+<entry key="klasse">D_Feld</entry>
+<entry key="idKarte">0</entry>
+<entry key="y">5</entry>
+<entry key="id">0</entry>
+</properties>
+<properties>
+<entry key="x">9</entry>
+<entry key="feldArt">Leere</entry>
+<entry key="spielerstart">0</entry>
+<entry key="ressource"/>
+<entry key="klasse">D_Feld</entry>
+<entry key="idKarte">0</entry>
+<entry key="y">6</entry>
+<entry key="id">0</entry>
+</properties>
+<properties>
+<entry key="x">9</entry>
+<entry key="feldArt">Leere</entry>
+<entry key="spielerstart">0</entry>
+<entry key="ressource"/>
+<entry key="klasse">D_Feld</entry>
+<entry key="idKarte">0</entry>
+<entry key="y">7</entry>
+<entry key="id">0</entry>
+</properties>
+<properties>
+<entry key="x">9</entry>
+<entry key="feldArt">Leere</entry>
+<entry key="spielerstart">0</entry>
+<entry key="ressource"/>
+<entry key="klasse">D_Feld</entry>
+<entry key="idKarte">0</entry>
+<entry key="y">8</entry>
+<entry key="id">0</entry>
+</properties>
+<properties>
+<entry key="x">9</entry>
+<entry key="feldArt">Planet</entry>
+<entry key="spielerstart">0</entry>
+<entry key="ressource"/>
+<entry key="klasse">D_Feld</entry>
+<entry key="idKarte">0</entry>
+<entry key="y">9</entry>
+<entry key="id">0</entry>
+</properties>
+<properties>
+<entry key="x">9</entry>
+<entry key="feldArt">Leere</entry>
+<entry key="spielerstart">0</entry>
+<entry key="ressource"/>
+<entry key="klasse">D_Feld</entry>
+<entry key="idKarte">0</entry>
+<entry key="y">10</entry>
+<entry key="id">0</entry>
+</properties>
+<properties>
+<entry key="x">10</entry>
+<entry key="feldArt">Leere</entry>
+<entry key="spielerstart">0</entry>
+<entry key="ressource"/>
+<entry key="klasse">D_Feld</entry>
+<entry key="idKarte">0</entry>
+<entry key="y">1</entry>
+<entry key="id">0</entry>
+</properties>
+<properties>
+<entry key="x">10</entry>
+<entry key="feldArt">Leere</entry>
+<entry key="spielerstart">0</entry>
+<entry key="ressource"/>
+<entry key="klasse">D_Feld</entry>
+<entry key="idKarte">0</entry>
+<entry key="y">2</entry>
+<entry key="id">0</entry>
+</properties>
+<properties>
+<entry key="x">10</entry>
+<entry key="feldArt">Leere</entry>
+<entry key="spielerstart">0</entry>
+<entry key="ressource"/>
+<entry key="klasse">D_Feld</entry>
+<entry key="idKarte">0</entry>
+<entry key="y">3</entry>
+<entry key="id">0</entry>
+</properties>
+<properties>
+<entry key="x">10</entry>
+<entry key="feldArt">Leere</entry>
+<entry key="spielerstart">0</entry>
+<entry key="ressource"/>
+<entry key="klasse">D_Feld</entry>
+<entry key="idKarte">0</entry>
+<entry key="y">4</entry>
+<entry key="id">0</entry>
+</properties>
+<properties>
+<entry key="x">10</entry>
+<entry key="feldArt">Leere</entry>
+<entry key="spielerstart">0</entry>
+<entry key="ressource"/>
+<entry key="klasse">D_Feld</entry>
+<entry key="idKarte">0</entry>
+<entry key="y">5</entry>
+<entry key="id">0</entry>
+</properties>
+<properties>
+<entry key="x">10</entry>
+<entry key="feldArt">Leere</entry>
+<entry key="spielerstart">0</entry>
+<entry key="ressource"/>
+<entry key="klasse">D_Feld</entry>
+<entry key="idKarte">0</entry>
+<entry key="y">6</entry>
+<entry key="id">0</entry>
+</properties>
+<properties>
+<entry key="x">10</entry>
+<entry key="feldArt">Leere</entry>
+<entry key="spielerstart">0</entry>
+<entry key="ressource"/>
+<entry key="klasse">D_Feld</entry>
+<entry key="idKarte">0</entry>
+<entry key="y">7</entry>
+<entry key="id">0</entry>
+</properties>
+<properties>
+<entry key="x">10</entry>
+<entry key="feldArt">Leere</entry>
+<entry key="spielerstart">0</entry>
+<entry key="ressource"/>
+<entry key="klasse">D_Feld</entry>
+<entry key="idKarte">0</entry>
+<entry key="y">8</entry>
+<entry key="id">0</entry>
+</properties>
+<properties>
+<entry key="x">10</entry>
+<entry key="feldArt">Leere</entry>
+<entry key="spielerstart">0</entry>
+<entry key="ressource"/>
+<entry key="klasse">D_Feld</entry>
+<entry key="idKarte">0</entry>
+<entry key="y">9</entry>
+<entry key="id">0</entry>
+</properties>
+<properties>
+<entry key="x">10</entry>
+<entry key="feldArt">Leere</entry>
+<entry key="spielerstart">0</entry>
+<entry key="ressource"/>
+<entry key="klasse">D_Feld</entry>
+<entry key="idKarte">0</entry>
+<entry key="y">10</entry>
+<entry key="id">0</entry>
+</properties>
+</propertiesarray>
+
