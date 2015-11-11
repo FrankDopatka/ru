@@ -330,4 +330,17 @@ public class BackendSpiel extends ResourceConfig implements iBackendSpiel{
 			return Xml.verpacken(Xml.fromD(new D_Fehler(e.getMessage())));
 		}
 	}
+
+	@GET
+	@Path("getSpieldaten")
+	@Produces("application/xml")
+	@Override
+	public String getSpieldaten() {
+		try{
+			return Xml.verpacken(Xml.fromD(spiel.getDaten()));
+		} catch (Exception e) {
+			e.printStackTrace();
+			return Xml.verpacken(Xml.fromD(new D_Fehler(e.getMessage())));
+		}
+	}
 }

@@ -174,6 +174,16 @@ public class Spiel {
 		return d_Spiel;
 	}
 	
+	public int getNaechsteEinheitID(){
+		d_Spiel.incInt("counterEinheit");
+		return d_Spiel.getInt("counterEinheit");
+	}
+
+	public int getNaechsteStadtID(){
+		d_Spiel.incInt("counterStadt");
+		return d_Spiel.getInt("counterStadt");
+	}
+	
 	public Regelwerk getRegelwerk(){
 		return regelwerk;
 	}

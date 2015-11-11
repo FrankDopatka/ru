@@ -5,6 +5,7 @@
 <entry key="id">1</entry>
 <entry key="spielerAnzahl">2</entry>
 <entry key="aktuelleRunde">1</entry>
+<entry key="counterEinheit">2</entry>
 <entry key="kartenAnzahl">1</entry>
 <entry key="kartenMax">1</entry>
 <entry key="klasse">D_Spiel</entry>
@@ -223,7 +224,7 @@
 <entry key="x">2</entry>
 <entry key="bewegungMaximal">100</entry>
 <entry key="istWassereinheit">false</entry>
-<entry key="id">0</entry>
+<entry key="id">1</entry>
 <entry key="bewegungAktuell">100</entry>
 <entry key="istFernkampfeinheit">false</entry>
 <entry key="kostenProduktion">150</entry>
@@ -798,7 +799,7 @@
 <entry key="x">7</entry>
 <entry key="bewegungMaximal">100</entry>
 <entry key="istWassereinheit">false</entry>
-<entry key="id">0</entry>
+<entry key="id">2</entry>
 <entry key="bewegungAktuell">100</entry>
 <entry key="istFernkampfeinheit">false</entry>
 <entry key="kostenProduktion">150</entry>
@@ -1286,7 +1287,7 @@
 <entry key="x">2</entry>
 <entry key="bewegungMaximal">100</entry>
 <entry key="istWassereinheit">false</entry>
-<entry key="id">0</entry>
+<entry key="id">1</entry>
 <entry key="bewegungAktuell">100</entry>
 <entry key="istFernkampfeinheit">false</entry>
 <entry key="kostenProduktion">150</entry>
@@ -1299,10 +1300,10 @@
 <entry key="name">Siedler</entry>
 </properties>
 <properties>
-<entry key="name">James</entry>
-<entry key="nation">England</entry>
+<entry key="name">Worf</entry>
+<entry key="nation">null</entry>
 <entry key="wissenschaft">0</entry>
-<entry key="rasse">Mensch</entry>
+<entry key="rasse">Klingon</entry>
 <entry key="geld">0</entry>
 <entry key="klasse">D_Spieler</entry>
 <entry key="id">2</entry>
@@ -1318,7 +1319,7 @@
 <entry key="x">7</entry>
 <entry key="bewegungMaximal">100</entry>
 <entry key="istWassereinheit">false</entry>
-<entry key="id">0</entry>
+<entry key="id">2</entry>
 <entry key="bewegungAktuell">100</entry>
 <entry key="istFernkampfeinheit">false</entry>
 <entry key="kostenProduktion">150</entry>

@@ -23,5 +23,8 @@ public interface iBackendSpiel {
 	String getAngriffsRadius(int idSpieler,int idKarte,int x,int y);
 	String fernangriff(int idSpieler,int idKarte,int xAngreifer,int yAngreifer,int xVerteidiger,int yVerteidiger);
 	
+	// neu ab 11.11.2015
+	String getSpieldaten();
+	
 	// TODO getStadtproduktion
 }

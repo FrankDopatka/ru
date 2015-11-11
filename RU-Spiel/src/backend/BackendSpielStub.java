@@ -128,4 +128,9 @@ public class BackendSpielStub implements iBackendSpiel{
 	public String fernangriff(int idSpieler,int idKarte,int xAngreifer,int yAngreifer,int xVerteidiger,int yVerteidiger) {
 		return getXmlvonRest("fernangriff"+"/"+idSpieler+"/"+idKarte+"/"+xAngreifer+"/"+yAngreifer+"/"+xVerteidiger+"/"+yVerteidiger);
 	}
+
+	@Override
+	public String getSpieldaten() {
+		return getXmlvonRest("getSpieldaten");
+	}
 }

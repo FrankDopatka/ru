@@ -46,7 +46,7 @@ public class Spieler {
 		staedte=new ArrayList<Stadt>();
 	}
 	
-	public D_Spieler getDaten(){
+public D_Spieler getDaten(){
 		return d_Spieler;
 	}
 
@@ -56,6 +56,7 @@ public class Spieler {
 			Class<Einheit> c=(Class<Einheit>)Class.forName(Parameter.pfadKlassenEinheiten+typ); // Reflection
 			Einheit einheit=(Einheit)c.newInstance();
 			einheit.setSpieler(getId());
+			einheit.setId(spiel.getNaechsteEinheitID());
 			feld.setEinheit(einheit);
 			einheiten.add(einheit);
 			return einheit;

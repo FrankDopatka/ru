@@ -11,5 +11,6 @@ public class D_Spiel extends D{
 		addInt("kartenAnzahl",0);
 		addInt("aktuelleRunde",0);
 		addInt("spielerAmZug",0);
+		addInt("counterEinheit",0);
 	}
 }
