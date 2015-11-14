@@ -49,7 +49,7 @@ public class Updater extends Thread{
 				}
 			}
 			catch (Exception e){
-				e.printStackTrace();
+				System.err.println("Fehler im Updater: "+e.getMessage());
 			}
 		} while (!terminate);
 	}

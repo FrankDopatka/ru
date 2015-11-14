@@ -26,12 +26,14 @@ public class Updater{
 	}
 	
 	// Auslesen durch den Client
+	@SuppressWarnings("unchecked")
 	public ArrayList<D> get(int vonIdSpieler){
 		if (listen[vonIdSpieler]==null) return null;
 		if (listen[vonIdSpieler].size()==0) return null;
 		ArrayList<D> daten=new ArrayList<D>();
-		D datenwert;
-		while ((datenwert=(D)listen[vonIdSpieler].poll())!=null) daten.add(datenwert);
+//		D datenwert;
+//		while ((datenwert=(D)listen[vonIdSpieler].poll())!=null) daten.add(datenwert);
+		listen[vonIdSpieler].drainTo(daten);
 		return daten;
 	}
 	
